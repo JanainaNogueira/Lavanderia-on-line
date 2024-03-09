@@ -28,7 +28,7 @@ body {
 }
 
 .imagem, .formLogin {
-    height: 600px;
+    height: 700px;
     flex-direction: column;
 
 }
@@ -42,13 +42,14 @@ body {
 .formLogin, .campoForm {
     background-color: var(--branco);
     text-align: left;
+    margin-top: 5px;
     margin-bottom: 40px;
 }
 
 .botao, .campoForm{
     border-radius: 5px;
-    padding: 10px;
     width: 300px;
+    padding: 10px;
 }
 
 .botao {
@@ -56,6 +57,7 @@ body {
     background-color: var(--azulClaro);
     border: none;
     font-size: 20px;
+
 }
 
 .formLogin{
