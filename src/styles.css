@@ -1,1 +1,68 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+    --branco: #ffffff;
+    --azulEscuro: #1F283E;
+    --azulClaro: #5DC4D2; 
+    --cinza: #C0C0C0;
+    
+}
+
+a {
+    color: var(--azulClaro);
+    text-decoration: none;
+}
+
+body, .formLogin, .imagem {
+    display: flex;
+    font-family: "Inter", sans-serif;
+    justify-content: center;
+}
+
+body, .imagem {
+    text-align: center;
+    align-items: center;
+
+}
+
+body {
+  background-color: var(--azulEscuro); 
+}
+
+.imagem, .formLogin {
+    height: 600px;
+    flex-direction: column;
+
+}
+
+.imagem {
+    color: var(--branco);
+    width: 500px;
+    background-color: var(--azulEscuro);
+}
+
+.formLogin, .campoForm {
+    background-color: var(--branco);
+    text-align: left;
+    margin-bottom: 40px;
+}
+
+.botao, .campoForm{
+    border-radius: 5px;
+    padding: 10px;
+    width: 300px;
+}
+
+.botao {
+    color: var(--branco);
+    background-color: var(--azulClaro);
+    border: none;
+    font-size: 20px;
+}
+
+.formLogin{
+    width: 400px;
+    padding-left: 50px;
+
+}
+.campoForm {
+    border: 3px solid var(--cinza);
+    }
