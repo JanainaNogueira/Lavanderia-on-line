@@ -72,7 +72,9 @@ tbody tr:nth-child(even){
 tbody tr{
   cursor: pointer;
 }
-
+tbody tr > td:nth-child(1){
+  font-weight: bolder;
+}
 tbody tr:hover > td:nth-child(1){
   color: var(--azulClaro);
 }
