@@ -41,13 +41,13 @@ img{
   display: flex;
   flex-direction: column;
   height: 100vh;
-  width: 89vw;
-  left: 11%;
+  width: 95vw;
+  left: 5%;
   position: relative;
   border: 1px;
 }
 .header{
-    padding: 5%;
+  padding-left: 5%;
   border-bottom: 10px solid var(--azulEscuro);
 
 }
