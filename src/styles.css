@@ -12,7 +12,6 @@ a {
 }
 .layout{
     display: flex;
-    justify-content: start;
 }
 .formLogin, .imagem {
     display: flex;
