@@ -1,5 +1,5 @@
 :root {
-    --branco: #ffffff;
+    --branco: #E0E0E0;
     --azulEscuro: #1F283E;
     --azulClaro: #5DC4D2; 
     --cinza: #C0C0C0;
@@ -24,7 +24,7 @@ body, .imagem {
 }
 
 body {
-  background-color: var(--azulEscuro); 
+  background-color: var(--branco); 
 }
 
 .imagem, .formLogin {
@@ -34,9 +34,7 @@ body {
 }
 
 .imagem {
-    color: var(--branco);
     width: 500px;
-    background-color: var(--azulEscuro);
 }
 
 .formLogin, .campoForm {
