@@ -17,12 +17,6 @@ body, .formLogin, .imagem {
     justify-content: center;
 }
 
-body, .imagem {
-    text-align: center;
-    align-items: center;
-
-}
-
 body {
   background-color: var(--branco); 
 }
