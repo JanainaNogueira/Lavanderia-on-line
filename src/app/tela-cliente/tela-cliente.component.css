@@ -1,13 +1,13 @@
 .navigator{
   background-color: var(--azulEscuro);
-  width: 25vw;
+  width: 15vw;
   justify-content:  space-around;
   height: 100vh;
   display: flex;
   flex-direction: column;
   border-radius: 0 5% 5% 0;
   position: fixed;
-  left: -18vw;
+  left: -13vw;
   transition: .8s;
   padding-right: 2%;
   padding-left: 2%;
