@@ -10,15 +10,19 @@ a {
     color: var(--azulClaro);
     text-decoration: none;
 }
-
-body, .formLogin, .imagem {
+.layout{
+    display: flex;
+    justify-content: start;
+}
+.formLogin, .imagem {
     display: flex;
     font-family: "Inter", sans-serif;
     justify-content: center;
 }
 
 body {
-  background-color: var(--branco); 
+  background-color: var(--branco);
+  margin: 0; 
 }
 
 .imagem, .formLogin {

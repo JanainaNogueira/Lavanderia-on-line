@@ -1,0 +1,31 @@
+.navigator{
+  background-color: var(--azulEscuro);
+  width: 20vw;
+  justify-content:  space-around;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0 5% 5% 0;
+  position: absolute;
+  left: -15vw;
+  transition: .8s;
+}
+.navigator:hover{
+  left: 0;
+}
+.nav{
+  text-align: center;
+  display: inline-block;
+}
+
+a{
+  color: var(--azulEscuro);
+  cursor: pointer;
+  transition: .5s;
+}
+a:hover{
+  color: var(--branco);
+}
+img{
+  width: 35%;
+}
