@@ -11,60 +11,21 @@ a {
     text-decoration: none;
 }
 
-body, .formLogin, .imagem {
-    display: flex;
+.layout {
     font-family: "Inter", sans-serif;
+    display: flex;
     justify-content: center;
-}
-
-body, .imagem {
     text-align: center;
     align-items: center;
-
 }
 
 body {
   background-color: var(--azulEscuro); 
-}
-
-.imagem, .formLogin {
-    height: 700px;
-    flex-direction: column;
-
-}
-
-.imagem {
-    color: var(--branco);
-    width: 500px;
-    background-color: var(--azulEscuro);
-}
-
-.formLogin, .campoForm {
-    background-color: var(--branco);
-    text-align: left;
-    margin-top: 5px;
-    margin-bottom: 40px;
-}
-
-.botao, .campoForm{
-    border-radius: 5px;
-    width: 300px;
-    padding: 10px;
+  margin: 0;
 }
 
 .botao {
     color: var(--branco);
     background-color: var(--azulClaro);
     border: none;
-    font-size: 20px;
-
 }
-
-.formLogin{
-    width: 400px;
-    padding-left: 50px;
-
-}
-.campoForm {
-    border: 3px solid var(--cinza);
-    }
