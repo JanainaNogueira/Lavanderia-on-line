@@ -1,0 +1,40 @@
+.imagem {
+    text-align: center;
+    align-items: center;
+    color: var(--branco);
+    width: 50vw;
+    background-color: var(--azulEscuro);
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.formRegistro {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+    width: 45vw;
+    background-color: var(--branco);
+    text-align: left;
+    padding-left: 5vw;
+}
+
+.campoForm {
+    background-color: var(--branco);
+    text-align: left;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    border-radius: 5px;
+    width: 30vw;
+    padding: 1vw;
+    border: 0.2vw solid var(--cinza);
+}
+
+.botao {
+    font-size: 2vh;
+    border-radius: 5px;
+    width: 32.5vw;
+    padding: 1vh;
+}
