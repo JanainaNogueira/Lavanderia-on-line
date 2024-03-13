@@ -9,14 +9,14 @@
             <p>Não possui uma conta? <a routerLink="/registro">Registre-se</a></p>
             <label for="email">email</label><br><input type="email" id="email" name="email"  class="campoForm" placeholder="Email" formControlName="email"> <br>
             <small *ngIf="email.invalid && (email.dirty || email.touched)">
-                <div *ngIf="email.errors?.['required']">Por favor preencha o e-mail</div>
-                <div *ngIf="email.errors?.['email']">Por favor preencha um e-mail válido</div>
+                <div *ngIf="email.errors?.['required']" class="erro">Por favor preencha o e-mail</div>
+                <div *ngIf="email.errors?.['email']" class="erro">Por favor preencha um e-mail válido</div>
             </small>
             <label for="senha">senha</label><br><input type="password" id="senha" name="senha"  class="campoForm" placeholder="Senha" formControlName="senha"> <br> 
             <small *ngIf="senha.invalid && (senha.dirty || senha.touched)">
-                <div *ngIf="senha.errors?.['required']"> Por favor preencha a senha</div>
-                <div *ngIf="senha.errors?.['maxLength']"> Por favor preencha senha de 4 caracteres</div> 
-                <div *ngIf="senha.errors?.['pattern']"> Caracter inválido. Favor preencha senha numérica</div> 
+                <div *ngIf="senha.errors?.['required']" class="erro"> Por favor preencha a senha</div>
+                <div *ngIf="senha.errors?.['maxlength']" class="erro"> Por favor preencha senha de 4 caracteres</div> 
+                <div *ngIf="senha.errors?.['pattern']" class="erro"> Caracter inválido. Favor preencha senha numérica</div> 
             </small>
             <button type="submit" class="botao">Entrar</button>
         </form>

@@ -38,3 +38,8 @@
     width: 32.5vw;
     padding: 1vh;
 }
+
+.erro {
+    color: red;
+    font-weight: bold;
+}
