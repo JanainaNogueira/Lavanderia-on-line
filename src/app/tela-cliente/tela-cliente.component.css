@@ -42,8 +42,7 @@ img{
   display: flex;
   flex-direction: column;
   height: 100vh;
-  width: 95vw;
-  left: 5%;
+  width: 100vw;
   position: relative;
   border: 1px;
   background-color: var(--branco);
