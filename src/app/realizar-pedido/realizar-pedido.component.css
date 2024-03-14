@@ -1,5 +1,6 @@
 .container{
   display: flex;
+  flex-direction: column;
   padding: 2% 0;
   justify-content: center;
   align-items: center;
@@ -93,4 +94,24 @@ main{
   background-color: var(--azulClaro);
   border: 7px solid var(--azulClaro);
   cursor: pointer;
+}
+.buttonsActions{
+  display: flex;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  background-color: var(--branco);
+  border: 1px solid black;
+  height: 10%;
+  justify-content: space-evenly;
+  width: 100%;
+}
+.buttonClear,.buttonFinish{
+  background-color: var(--azulClaro);
+  border: none;
+  border-radius: 8px;
+  height: 60%;
+  width: 10%;
+  font-size: 120%;
+  color: var(--branco);
 }
