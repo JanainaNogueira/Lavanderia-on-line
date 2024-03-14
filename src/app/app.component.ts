@@ -9,6 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
+
 export class AppComponent {
   title = 'Lavanderia-on-line';
 }

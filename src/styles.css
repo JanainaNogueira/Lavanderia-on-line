@@ -1,9 +1,9 @@
 :root {
     --branco: #E0E0E0;
     --azulEscuro: #1F283E;
-    --azulClaro: #5DC4D2; 
+    --azulClaro: #5DC4D2;
     --cinza: #C0C0C0;
-    
+
 }
 
 a {
@@ -20,7 +20,7 @@ a {
 }
 
 body {
-  background-color: var(--azulEscuro); 
+  background-color: var(--azulEscuro);
   margin: 0;
 }
 
@@ -29,3 +29,5 @@ body {
     background-color: var(--azulClaro);
     border: none;
 }
+html, body { height: 100%; }
+body,ul,li { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
