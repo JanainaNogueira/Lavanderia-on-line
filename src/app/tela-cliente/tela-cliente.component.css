@@ -1,0 +1,81 @@
+.navigator{
+  background-color: var(--azulEscuro);
+  width: 15vw;
+  justify-content:  space-around;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0 5% 5% 0;
+  position: fixed;
+  left: -13vw;
+  transition: .8s;
+  padding-right: 2%;
+  padding-left: 2%;
+  z-index: 1;
+}
+.navigator:hover{
+  left: 0;
+}
+.nav{
+  text-align: end;
+  display: inline-block;
+}
+
+.navigator a{
+  color: var(--azulEscuro);
+  cursor: pointer;
+  transition: .5s;
+  display: flex;
+  justify-content: space-between;
+  font-size: 20px;
+  align-items: center;
+}
+.navigator a:hover{
+  color: var(--branco);
+}
+
+img{
+  width: 25%;
+}
+.content{
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 95vw;
+  left: 5%;
+  position: relative;
+  border: 1px;
+  background-color: var(--branco);
+}
+.header{
+  padding-left: 5%;
+  border-bottom: 10px solid var(--azulEscuro);
+
+}
+table{
+  text-align: center;
+  border-collapse: collapse;
+  width: 100%;
+}
+th{
+  font-size: 35px;
+  padding: 1%;
+  font-weight: lighter;
+}
+td{
+  width: 20%;
+  font-size: 25px;
+  padding: 2%;
+}
+tbody tr:nth-child(even){
+  background-color: var(--cinza);
+}
+tbody tr{
+  cursor: pointer;
+}
+tbody tr > td:nth-child(1){
+  font-weight: bolder;
+}
+tbody tr:hover > td:nth-child(1){
+  color: var(--azulClaro);
+}
