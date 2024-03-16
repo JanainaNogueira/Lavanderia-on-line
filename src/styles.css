@@ -1,5 +1,5 @@
 :root {
-    --branco: #E0E0E0;
+    --branco: #e9e9e9;
     --azulEscuro: #1F283E;
     --azulClaro: #5DC4D2;
     --cinza: #C0C0C0;
@@ -20,7 +20,7 @@ a {
 }
 
 body {
-  background-color: var(--azulEscuro);
+  background-color: var(--branco);
   margin: 0;
 }
 
