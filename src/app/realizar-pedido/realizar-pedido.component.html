@@ -22,9 +22,9 @@
   <main>
     <aside class="orderDetails">
       <p>Valor total:</p>
-      <P>R$30</P>
+      <P>{{valorTotalFormatado}}</P>
       <p>Tempo previsto</p>
-      <p>5 Dias</p>
+      <p>{{prazoDeEntrega}} Dias</p>
     </aside>
     <div class="listClothes">
       <div *ngFor="let item of listaPedido" class="boxCard">
@@ -64,7 +64,7 @@
     </div>
   </main>
   <div class="buttonsActions">
-    <button class="buttonClear">Limpar</button>
+    <button class="buttonClear" >Limpar</button>
     <button class="buttonFinish">Finalizar pedido</button>
   </div>
 </div>

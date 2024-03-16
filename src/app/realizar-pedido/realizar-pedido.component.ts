@@ -20,23 +20,39 @@ export class RealizarPedidoComponent {
     ["cueca",1, "Jeans","Moletom","Elastano"],
     ["meia",1, "Jeans","Moletom","Elastano"]
   ];
+  //lista de montagem parcial do pedido
   listaPedido:(string|number)[][]=[
-    ["camiseta",1, "Jeans","Moletom","Elastano"],
-    ["cueca",1, "Jeans","Moletom","Elastano"],
   ]
+  valorTotal:number=0;
+  valorTotalFormatado=this.valorTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+  prazoDeEntrega:number=0;
+  //pega a opção selecionada no input
   queryField = new FormControl();
-
+  //Busca o que foi escolhido na seleção e envia para listaPedido
   onSearch(){
     const termoBusca=this.queryField.value;
     const itemEncontrado=this.roupas.find(item=>item[0] === termoBusca);
     if(itemEncontrado){
       this.listaPedido.push(itemEncontrado)
-      console.log(itemEncontrado)
+      this.valorTotal=this.CalculaValor();
+      this.prazoDeEntrega=this.CalculaPrazo();
     }
     this.queryField.reset;
   }
+  CalculaValor():number{
+
+    return this.listaPedido.length*10;
+  }
+  CalculaPrazo():number{
+    let maiorTempo=0;
+    for(const item of this.listaPedido){
+      let tempoDoItem = Number(item[1]);
+      if(tempoDoItem>maiorTempo){
+        maiorTempo=tempoDoItem;
+      }
+    }
+    return maiorTempo;
+  }
 }
 
-function CalculaValor(){
 
-}
