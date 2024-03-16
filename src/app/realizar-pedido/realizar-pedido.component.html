@@ -1,6 +1,23 @@
 <div class="container">
   <div class="boxSearch">
-    <input class="inputSearch" type="search" placeholder="Digite a roupa que deseja adicionar..."/>
+    <select
+    class="inputSearch"
+      type="search"
+      [formControl] = "queryField"
+      placeholder="Digite a roupa que deseja adicionar..."
+    >
+      <option value="calca">Calça</option>
+      <option value="camisa">Camisa</option>
+      <option value="meia">Meia</option>
+      <option value="cueca">Cueca</option>
+      <option value="camiseta">Camiseta</option>
+    </select>
+
+    <button
+      class="buttonSearch"
+      (click)="onSearch()">
+      Adicionar
+    </button>
   </div>
   <main>
     <aside class="orderDetails">
@@ -10,23 +27,24 @@
       <p>5 Dias</p>
     </aside>
     <div class="listClothes">
+      <div *ngFor="let item of listaPedido" class="boxCard">
       <mat-card class="card">
-      <img mat-card-image src="../../assets/img/calca.png" class="cardImage">
+      <img mat-card-image [src]="'../../assets/img/' + item[0] + '.png'" class="cardImage">
       <mat-card-content mat-card-content class="description">
-        <p>Calça</p>
+        <p>{{item[0]}}</p>
         <p>Tecido: </p>
         <div class="listTissue">
           <label class="tissue">
             <input type="radio" value="Jeans"/>
-            <p>Jeans</p>
+            <p>{{item[2]}}</p>
           </label>
           <label class="tissue">
             <input type="radio" value="Jeans"/>
-            <p>Moletom</p>
+            <p>{{item[3]}}</p>
           </label>
           <label class="tissue">
             <input type="radio" value="Jeans"/>
-            <p>Elastano</p>
+            <p>{{item[4]}}</p>
           </label>
           <label class="tissue">
             <input type="radio" value="Jeans"/>
@@ -42,134 +60,7 @@
           </button>
         </mat-card-actions>
       </mat-card >
-      <mat-card class="card">
-      <img mat-card-image src="../../assets/img/camisa.png" class="cardImage">
-      <mat-card-content mat-card-content class="description">
-        <p>Calça</p>
-        <p>Tecido: </p>
-        <div class="listTissue">
-          <label class="tissue">
-            <input type="radio" value="Jeans"/>
-            <p>Jeans</p>
-          </label>
-          <label class="tissue">
-            <input type="radio" value="Jeans"/>
-            <p>Moletom</p>
-          </label>
-          <label class="tissue">
-            <input type="radio" value="Jeans"/>
-            <p>Elastano</p>
-          </label>
-          <label class="tissue">
-            <input type="radio" value="Jeans"/>
-            <p>Outro</p>
-          </label>
-        </div>
-      </mat-card-content >
-        <mat-card-actions class="sectionButton">
-          <button onclick="" class="addItem">
-          </button>
-          <p>0</p>
-          <button onclick="" class="removeItem">
-          </button>
-        </mat-card-actions>
-      </mat-card >
-      <mat-card class="card">
-      <img mat-card-image src="../../assets/img/meia.png" class="cardImage">
-      <mat-card-content mat-card-content class="description">
-        <p>Calça</p>
-        <p>Tecido: </p>
-        <div class="listTissue">
-          <label class="tissue">
-            <input type="radio" value="Jeans"/>
-            <p>Jeans</p>
-          </label>
-          <label class="tissue">
-            <input type="radio" value="Jeans"/>
-            <p>Moletom</p>
-          </label>
-          <label class="tissue">
-            <input type="radio" value="Jeans"/>
-            <p>Elastano</p>
-          </label>
-          <label class="tissue">
-            <input type="radio" value="Jeans"/>
-            <p>Outro</p>
-          </label>
-        </div>
-      </mat-card-content >
-        <mat-card-actions class="sectionButton">
-          <button onclick="" class="addItem">
-          </button>
-          <p>0</p>
-          <button onclick="" class="removeItem">
-          </button>
-        </mat-card-actions>
-      </mat-card >
-      <mat-card class="card">
-      <img mat-card-image src="../../assets/img/camiseta.png" class="cardImage">
-      <mat-card-content mat-card-content class="description">
-        <p>Calça</p>
-        <p>Tecido: </p>
-        <div class="listTissue">
-          <label class="tissue">
-            <input type="radio" value="Jeans"/>
-            <p>Jeans</p>
-          </label>
-          <label class="tissue">
-            <input type="radio" value="Jeans"/>
-            <p>Moletom</p>
-          </label>
-          <label class="tissue">
-            <input type="radio" value="Jeans"/>
-            <p>Elastano</p>
-          </label>
-          <label class="tissue">
-            <input type="radio" value="Jeans"/>
-            <p>Outro</p>
-          </label>
-        </div>
-      </mat-card-content >
-        <mat-card-actions class="sectionButton">
-          <button onclick="" class="addItem">
-          </button>
-          <p>0</p>
-          <button onclick="" class="removeItem">
-          </button>
-        </mat-card-actions>
-      </mat-card >
-      <mat-card class="card">
-        <img mat-card-image src="../../assets/img/cueca.jpg" class="cardImage">
-        <mat-card-content mat-card-content class="description">
-          <p>Calça</p>
-          <p>Tecido: </p>
-          <div class="listTissue">
-            <label class="tissue">
-              <input type="radio" value="Jeans"/>
-              <p>Jeans</p>
-            </label>
-            <label class="tissue">
-              <input type="radio" value="Jeans"/>
-              <p>Moletom</p>
-            </label>
-            <label class="tissue">
-              <input type="radio" value="Jeans"/>
-              <p>Elastano</p>
-            </label>
-            <label class="tissue">
-              <input type="radio" value="Jeans"/>
-              <p>Outro</p>
-            </label>
-          </div>
-        </mat-card-content >
-          <mat-card-actions class="sectionButton">
-            <button onclick="" class="addItem">
-            </button>
-            <p>0</p>
-            <button onclick="" class="removeItem">
-            </button>
-          </mat-card-actions>
-      </mat-card >
+    </div>
     </div>
   </main>
   <div class="buttonsActions">
