@@ -1,0 +1,90 @@
+<div class="layout">
+    <div class="navigator">
+      <div class="nav">
+        <a class="newOrder" href="/realizar-pedido"
+          ><p>Novo Pedido</p>
+          <img src="../../assets/img/cart.svg"
+        /></a>
+      </div>
+      <div class="nav">
+        <a class="searchOrder"
+          ><p>Procurar Pedido</p>
+          <img src="../../assets/img/search.svg"
+        /></a>
+      </div>
+      <div class="nav">
+        <a class="profile"
+          ><p>Cadastro</p>
+          <img src="../../assets/img/profile.svg" />
+        </a>
+      </div>
+      <div class="nav">
+        <a class="logout"
+          ><p>Sair</p>
+          <img src="../../assets/img/logout.svg"
+        /></a>
+      </div>
+    </div>
+    <div class="content">
+      <div class="header">
+        <h1 class="hello">Olá,</h1>
+        <h2 class="amountOpen">Você tem 3 pedidos em aberto</h2> <br>
+        <label for="consulta">Consulta de Pedido</label><br><input type="number" id="idPedido" name="idPedido"  class="campoForm" placeholder="Número do Pedido"> 
+        <button type="submit" class="botao">Procurar</button><br>
+
+      </div>
+      <div>
+        <table>
+          <tr>
+            <th>Pedido</th>
+            <th>Status</th>
+            <th>Data</th>
+            <th>Valor</th>
+            <th>Prazo</th>
+          </tr>
+          <tbody>
+            <tr>
+              <td>0001</td>
+              <td>Aguardando Pagamento</td>
+              <td>10/03/2024</td>
+              <td>R$ 70,00</td>
+              <td>20/03/2024</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="details">
+        <h2>Detalhes do Pedido</h2>
+        <!-- Deve ser disponibilizada uma tela em separado onde o cliente informa o 
+            número do pedido e são mostrados todos os dados deste: 
+            as roupas no pedido, preços, preço total, prazo do serviço e situação.-->
+            <table>
+                <tr>
+                    <th>Item</th>
+                    <th>Tecido</th>
+                    <th>Valor unitário</th>
+                    <th>Quantidade</th>
+                    <th>Subtotal</th>
+                </tr>
+                <tbody>
+                    <tr>
+                        <td>Camisa</td>
+                        <td>Jeans</td>
+                        <td>R$ 10,00</td>
+                        <td>5</td>
+                        <td>R$ 50,00</td>
+                    </tr>
+                    <tr>
+                        <td>Calça</td>
+                        <td>Jeans</td>
+                        <td>R$ 10,00</td>
+                        <td>2</td>
+                        <td>R$ 20,00</td>
+                    </tr>
+                </tbody>
+            </table>
+         
+        </div>
+    </div>
+  </div>
+  
