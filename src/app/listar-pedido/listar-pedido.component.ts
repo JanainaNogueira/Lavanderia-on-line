@@ -63,7 +63,7 @@ export class ListarPedidoComponent {
   }
 
   redirectPayment(num: string){
-    this.router.navigateByUrl(`/payment/:${num}`);
+    this.router.navigateByUrl(`/payment/${num}`);
   }
 }
   
