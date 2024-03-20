@@ -12,43 +12,36 @@
           <th>Status</th>
           <th>Data</th>
           <th>Valor</th>
+          <th>Ações</th>
         </tr>
         <tbody>
-          <tr>
-            <td>0001</td>
-            <td>Aguardando Pagamento</td>
-            <td>10/03/2024</td>
-            <td>150,00</td>
-          </tr>
-          <tr>
-            <td>0001</td>
-            <td>Aguardando Pagamento</td>
-            <td>10/03/2024</td>
-            <td>150,00</td>
-          </tr>
-          <tr>
-            <td>0001</td>
-            <td>Aguardando Pagamento</td>
-            <td>10/03/2024</td>
-            <td>150,00</td>
-          </tr>
-          <tr>
-            <td>0001</td>
-            <td>Aguardando Pagamento</td>
-            <td>10/03/2024</td>
-            <td>150,00</td>
-          </tr>
-          <tr>
-            <td>0001</td>
-            <td>Aguardando Pagamento</td>
-            <td>10/03/2024</td>
-            <td>150,00</td>
-          </tr>
-          <tr>
-            <td>0001</td>
-            <td>Aguardando Pagamento</td>
-            <td>10/03/2024</td>
-            <td>150,00</td>
+          <tr *ngFor="let pedido of pedidos">
+            <td>{{ pedido.numero }}</td>
+            <td>{{ pedido.status }}</td>
+            <td>{{ pedido.data }}</td>
+            <td>{{ pedido.hora }}</td>
+            <td>{{ pedido.valor }}</td>
+            <td>
+              <button
+                mat-raised-button
+                color="primary"
+                *ngIf="pedido.status === 'Aguardando Pagamento'"
+                (click)="
+                  pedido.status === 'Aguardando Pagamento'
+                    ? redirectPayment(pedido.numero)
+                    : null
+                "
+              >
+                Pagar
+              </button>
+              <button
+                mat-raised-button
+                color="primary"
+                *ngIf="pedido.status != 'Aguardando Pagamento'"
+              >
+                Visualizar
+              </button>
+            </td>
           </tr>
         </tbody>
       </table>

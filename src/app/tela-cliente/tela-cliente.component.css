@@ -20,21 +20,19 @@ table{
   width: 100%;
 }
 th{
-  font-size: clamp(15px, 5vh, 35px);
+  font-size: clamp(15px, 5vh, 30px);
   padding: 1%;
   font-weight: lighter;
 }
 td{
   width: 20%;
   font-size: clamp(10px, 4vh, 25px);
-  padding: 2%;
+  padding: 15px;
 }
 tbody tr:nth-child(even){
   background-color: var(--cinza);
 }
-tbody tr{
-  cursor: pointer;
-}
+
 tbody tr > td:nth-child(1){
   font-weight: bolder;
 }
