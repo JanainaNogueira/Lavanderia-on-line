@@ -58,3 +58,7 @@
 
   }
   
+  .cancel{
+    font-size: clamp(2px, 1vh, 25px);
+    
+  }
