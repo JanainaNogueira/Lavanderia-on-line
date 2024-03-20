@@ -6,7 +6,7 @@ import {MatInputModule} from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { MenuLateralComponent } from '../menu-lateral/menu-lateral.component';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-listar-pedido',
@@ -15,8 +15,9 @@ import { MenuLateralComponent } from '../menu-lateral/menu-lateral.component';
   templateUrl: './listar-pedido.component.html',
   styleUrl: './listar-pedido.component.css'
 })
-export class ListarPedidoComponent {
 
+export class ListarPedidoComponent {
+  constructor(private router: Router) { }
   ngOnInit() {
     this.ordenarDataHora();
   }
@@ -43,24 +44,28 @@ export class ListarPedidoComponent {
   }
 }
 
-ordenarDataHora() {
-  this.pedidosFiltrados.sort((a, b) => {
-    const dataHoraA = `${a.data} ${a.hora}`;
-    const dataHoraB = `${b.data} ${b.hora}`;
-    
-    return dataHoraB.localeCompare(dataHoraA);
-  });
-}
+  ordenarDataHora() {
+    this.pedidosFiltrados.sort((a, b) => {
+      const dataHoraA = `${a.data} ${a.hora}`;
+      const dataHoraB = `${b.data} ${b.hora}`;
+      
+      return dataHoraB.localeCompare(dataHoraA);
+    });
+  }
 
-  
-    pesquisarPorNumero(num: string) {
-      if (num.trim() === '') {
-        this.pedidosFiltrados = [...this.pedidos];
-      } else {
-        this.pedidosFiltrados = this.pedidos.filter(pedido => pedido.numero.includes(num));
-      }
+
+  pesquisarPorNumero(num: string) {
+    if (num.trim() === '') {
+      this.pedidosFiltrados = [...this.pedidos];
+    } else {
+      this.pedidosFiltrados = this.pedidos.filter(pedido => pedido.numero.includes(num));
     }
   }
+
+  redirectPayment(num: string){
+    this.router.navigateByUrl(`/payment/:${num}`);
+  }
+}
   
 
 

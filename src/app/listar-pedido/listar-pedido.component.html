@@ -97,6 +97,11 @@
                 mat-raised-button
                 color="primary"
                 *ngIf="pedido.status === 'Aguardando Pagamento'"
+                (click)="
+                  pedido.status === 'Aguardando Pagamento'
+                    ? redirectPayment(pedido.numero)
+                    : null
+                "
               >
                 Pagar
               </button>
