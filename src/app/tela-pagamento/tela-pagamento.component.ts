@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { MenuLateralComponent } from '../menu-lateral/menu-lateral.component'
+import { MatCommonModule } from '@angular/material/core';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-tela-pagamento',
   standalone: true,
-  imports: [MenuLateralComponent],
+  imports: [MenuLateralComponent,MatButtonModule, MatCommonModule],
   templateUrl: './tela-pagamento.component.html',
   styleUrl: './tela-pagamento.component.css'
 })
