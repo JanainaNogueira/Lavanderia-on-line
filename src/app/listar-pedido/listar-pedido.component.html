@@ -112,13 +112,9 @@
               >
                 Visualizar
               </button>
-              <button
-                mat-raised-button
-                color="accent"
-                (click)="openDialog(pedido.numero)"
-              >
-                Cancelar
-              </button>
+              <app-cancelDialog
+                *ngIf="pedido.status === 'Em Aberto'"
+              ></app-cancelDialog>
             </td>
           </tr>
         </tbody>
