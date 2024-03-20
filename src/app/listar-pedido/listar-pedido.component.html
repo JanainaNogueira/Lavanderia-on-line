@@ -1,74 +1,116 @@
-<div>   
-    <div class="layout">
-      <div class="navigator">
-        <div class="nav">
-          <a class="newOrder" href="/realizar-pedido"
-            ><p>Novo Pedido</p>
-            <img src="../../assets/img/cart.svg"
-          /></a>
-        </div>
-        <div class="nav">
-          <a class="searchOrder" href="/listar-pedido"
-            ><p>Procurar Pedido</p>
-            <img src="../../assets/img/search.svg"
-          /></a>
-        </div>
-        <div class="nav">
-          <a class="profile"
-            ><p>Cadastro</p>
-            <img src="../../assets/img/profile.svg" />
-          </a>
-        </div>
-        <div class="nav">
-          <a class="logout" href="/login"
-            ><p>Sair</p>
-            <img src="../../assets/img/logout.svg"
-          /></a>
-        </div>
-      </div>
-      <div class="content">
-        <div class="header">
-          <h1 class="hello">Histórico de pedidos</h1>
-          <form class="example-form">
-            <mat-form-field class="example-full-width">
-              <mat-label>Pesquisar Pedido</mat-label>
-              <input matInput placeholder="Ex.1234" name="num" [(ngModel)]="num">
-            </mat-form-field>
-            <button mat-fab color="primary" class="Pesquisar" (click)="pesquisarPorNumero(num)"><mat-icon>search</mat-icon></button>
-          </form>
-          <button mat-raised-button color="primary" class="Filtro" (click)="filtroStatus('Em Aberto')" >Em Aberto</button>
-          <button mat-raised-button color="primary" class="Filtro" (click)="filtroStatus('Rejeitado/Cancelado')" >Rejeitado/Cancelado</button>
-          <button mat-raised-button color="primary" class="Filtro" (click)="filtroStatus('Recolhido')">Recolhido</button>
-          <button mat-raised-button color="primary" class="Filtro" (click)="filtroStatus('Aguardando Pagamento')">Aguardado Pagamento</button>
-          <button mat-raised-button color="primary" class="Filtro" (click)="filtroStatus('Pago')">Pago</button>
-          <button mat-raised-button color="primary" class="Filtro" (click)="filtroStatus('Finalizado')">Finalizado</button>
-          <button mat-raised-button color="primary" class="Filtro" (click)="filtroStatus('Todos')">Todos</button>
-          <h2 class="amountOpen"></h2>
-        </div>
-        <div>
-          <table>
-            <tr>
-              <th>Pedido</th>
-              <th>Status</th>
-              <th>Data</th>
-              <th>Hora</th>
-              <th>Valor</th>
-              <th>Ações</th>
-            </tr>
-            <tbody>
-              <tr *ngFor="let pedido of pedidosFiltrados">
-                <td>{{ pedido.numero }}</td>
-                <td>{{ pedido.status }}</td>
-                <td>{{ pedido.data }}</td>
-                <td>{{ pedido.hora }}</td>
-                <td>{{ pedido.valor }}</td>
-                <td> 
-                <button mat-raised-button color="primary"  *ngIf="pedido.status === 'Aguardando Pagamento'">Pagar</button>
-                <button mat-raised-button color="primary"  *ngIf="pedido.status != 'Aguardando Pagamento'">Visulizar</button>
-                </td>
-            </tbody>
-          </table>
-        </div>
-      </div>
+<app-menu-lateral />
+<div class="layout">
+  <div class="content">
+    <div class="header">
+      <h1 class="hello">Histórico de pedidos</h1>
+      <form class="example-form">
+        <mat-form-field class="example-full-width">
+          <mat-label>Pesquisar Pedido</mat-label>
+          <input matInput placeholder="Ex.1234" name="num" [(ngModel)]="num" />
+        </mat-form-field>
+        <button
+          mat-fab
+          color="primary"
+          class="Pesquisar"
+          (click)="pesquisarPorNumero(num)"
+        >
+          <mat-icon>search</mat-icon>
+        </button>
+      </form>
+      <button
+        mat-raised-button
+        color="primary"
+        class="Filtro"
+        (click)="filtroStatus('Em Aberto')"
+      >
+        Em Aberto
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        class="Filtro"
+        (click)="filtroStatus('Rejeitado/Cancelado')"
+      >
+        Rejeitado/Cancelado
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        class="Filtro"
+        (click)="filtroStatus('Recolhido')"
+      >
+        Recolhido
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        class="Filtro"
+        (click)="filtroStatus('Aguardando Pagamento')"
+      >
+        Aguardado Pagamento
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        class="Filtro"
+        (click)="filtroStatus('Pago')"
+      >
+        Pago
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        class="Filtro"
+        (click)="filtroStatus('Finalizado')"
+      >
+        Finalizado
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        class="Filtro"
+        (click)="filtroStatus('Todos')"
+      >
+        Todos
+      </button>
+      <h2 class="amountOpen"></h2>
     </div>
-  
+    <div>
+      <table>
+        <tr>
+          <th>Pedido</th>
+          <th>Status</th>
+          <th>Data</th>
+          <th>Hora</th>
+          <th>Valor</th>
+          <th>Ações</th>
+        </tr>
+        <tbody>
+          <tr *ngFor="let pedido of pedidosFiltrados">
+            <td>{{ pedido.numero }}</td>
+            <td>{{ pedido.status }}</td>
+            <td>{{ pedido.data }}</td>
+            <td>{{ pedido.hora }}</td>
+            <td>{{ pedido.valor }}</td>
+            <td>
+              <button
+                mat-raised-button
+                color="primary"
+                *ngIf="pedido.status === 'Aguardando Pagamento'"
+              >
+                Pagar
+              </button>
+              <button
+                mat-raised-button
+                color="primary"
+                *ngIf="pedido.status != 'Aguardando Pagamento'"
+              >
+                Visulizar
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

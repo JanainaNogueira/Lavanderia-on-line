@@ -5,11 +5,13 @@ import { MatButtonModule } from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
+import { MenuLateralComponent } from '../menu-lateral/menu-lateral.component';
+
 
 @Component({
   selector: 'app-listar-pedido',
   standalone: true,
-  imports: [CommonModule,MatCommonModule,MatButtonModule,MatInputModule,MatIconModule,FormsModule],
+  imports: [CommonModule,MatCommonModule,MatButtonModule,MatInputModule,MatIconModule,FormsModule, MenuLateralComponent],
   templateUrl: './listar-pedido.component.html',
   styleUrl: './listar-pedido.component.css'
 })
