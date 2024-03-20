@@ -7,11 +7,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { MenuLateralComponent } from '../menu-lateral/menu-lateral.component';
 import { Router } from '@angular/router';
+import { CancelDialog } from '../cancel-dialog/cancel-dialog.component';
 
 @Component({
   selector: 'app-listar-pedido',
   standalone: true,
-  imports: [CommonModule,MatCommonModule,MatButtonModule,MatInputModule,MatIconModule,FormsModule, MenuLateralComponent],
+  imports: [CommonModule,MatCommonModule,MatButtonModule,MatInputModule,MatIconModule,FormsModule, MenuLateralComponent, CancelDialog],
   templateUrl: './listar-pedido.component.html',
   styleUrl: './listar-pedido.component.css'
 })
