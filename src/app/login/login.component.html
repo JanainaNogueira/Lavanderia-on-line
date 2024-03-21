@@ -18,7 +18,7 @@
                 <div *ngIf="senha.errors?.['maxlength']" class="erro"> Por favor preencha senha de 4 caracteres</div> 
                 <div *ngIf="senha.errors?.['pattern']" class="erro"> Caracter inválido. Favor preencha senha numérica</div> 
             </small>
-            <button type="submit" class="botao">Entrar</button>
+            <button type="submit" class="botao" routerLink="/home" >Entrar</button>
         </form>
     </div>
 </div>
