@@ -58,6 +58,7 @@ export class RealizarPedidoComponent {
   }
   LimparLista(){
     this.listaPedido=[];
+    this.prazoDeEntrega=0;
 }
 }
 
