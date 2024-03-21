@@ -14,11 +14,11 @@ import { CommonModule } from '@angular/common';
 
 export class RealizarPedidoComponent {
   roupas: (string | number) [][]= [
-    ["calca", 3, "Jeans","Moletom","Elastano"],
-    ["camisa",2, "Jeans","Moletom","Elastano"],
-    ["camiseta",1, "Jeans","Moletom","Elastano"],
-    ["cueca",1, "Jeans","Moletom","Elastano"],
-    ["meia",1, "Jeans","Moletom","Elastano"]
+    ["calca", 3, "Jeans","Moletom","Elastano",5],
+    ["camisa",2, "Jeans","Moletom","Elastano",6],
+    ["camiseta",1, "Jeans","Moletom","Elastano",5],
+    ["cueca",1, "Jeans","Moletom","Elastano",2],
+    ["meia",1, "Jeans","Moletom","Elastano",1]
   ];
   //lista de montagem parcial do pedido
   listaPedido:(string|number)[][]=[
@@ -53,6 +53,12 @@ export class RealizarPedidoComponent {
     }
     return maiorTempo;
   }
+  AddItem(){
+
+  }
+  LimparLista(){
+    this.listaPedido=[];
+}
 }
 
 
