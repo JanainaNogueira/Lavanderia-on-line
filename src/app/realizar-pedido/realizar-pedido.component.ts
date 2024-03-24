@@ -1,8 +1,10 @@
+import { PedidoService } from '../services/pedido.service';
 import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from  '@angular/material/icon';
 import { CommonModule } from '@angular/common';
+import { Roupa } from '../Pedido';
 
 @Component({
   selector: 'app-realizar-pedido',
@@ -12,16 +14,18 @@ import { CommonModule } from '@angular/common';
   styleUrl: './realizar-pedido.component.css'
 })
 
+
 export class RealizarPedidoComponent {
-  roupas: (string | number) [][]= [
-    ["calca", 3, "Jeans","Moletom","Elastano",5],
-    ["camisa",2, "Jeans","Moletom","Elastano",6],
-    ["camiseta",1, "Jeans","Moletom","Elastano",5],
-    ["cueca",1, "Jeans","Moletom","Elastano",2],
-    ["meia",1, "Jeans","Moletom","Elastano",1]
+  constructor(private pedidoService:PedidoService){}
+  roupas: Roupa []= [
+    {tipo:"calca", tecido:["Jeans","Moletom","Elastano"], tempo:5},
+    {tipo:"camisa", tecido:["Jeans","Moletom","Elastano"],tempo:6},
+    {tipo:"camiseta",tecido:["Jeans","Moletom","Elastano"],tempo: 5},
+    {tipo:"cueca",tecido:["Jeans","Moletom","Elastano"],tempo:2},
+    {tipo:"meia",tecido:["Jeans","Moletom","Elastano"],tempo:1}
   ];
   //lista de montagem parcial do pedido
-  listaPedido:(string|number)[][]=[
+  listaPedido:Roupa[]=[
   ]
   valorTotal:number=0;
   valorTotalFormatado=this.valorTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
@@ -31,13 +35,13 @@ export class RealizarPedidoComponent {
   //Busca o que foi escolhido na seleção e envia para listaPedido
   onSearch(){
     const termoBusca=this.queryField.value;
-    const itemEncontrado=this.roupas.find(item=>item[0] === termoBusca);
+    const itemEncontrado=this.roupas.find(item=>item.tipo.toLowerCase() === termoBusca.toLowerCase());
     if(itemEncontrado){
-      this.listaPedido.push(itemEncontrado)
+      this.listaPedido.push(itemEncontrado);
       this.valorTotal=this.CalculaValor();
       this.prazoDeEntrega=this.CalculaPrazo();
     }
-    this.queryField.reset;
+    this.queryField.reset();
   }
   CalculaValor():number{
 
@@ -46,15 +50,15 @@ export class RealizarPedidoComponent {
   CalculaPrazo():number{
     let maiorTempo=0;
     for(const item of this.listaPedido){
-      let tempoDoItem = Number(item[1]);
+      let tempoDoItem = Number(item.tempo);
       if(tempoDoItem>maiorTempo){
         maiorTempo=tempoDoItem;
       }
     }
     return maiorTempo;
   }
-  AddItem(){
-
+  ButtonAddItem(){
+    this.pedidoService.addItem(this.valorTotal,this.prazoDeEntrega,this.listaPedido)
   }
   LimparLista(){
     this.listaPedido=[];

@@ -29,22 +29,22 @@
     <div class="listClothes">
       <div *ngFor="let item of listaPedido" class="boxCard">
       <mat-card class="card">
-      <img mat-card-image [src]="'../../assets/img/' + item[0] + '.png'" class="cardImage">
+      <img mat-card-image [src]="'../../assets/img/' + 1 + '.png'" class="cardImage">
       <mat-card-content mat-card-content class="description">
-        <p>{{item[0]}}</p>
+        <p>{{item.tipo}}</p>
         <p>Tecido: </p>
         <div class="listTissue">
           <label class="tissue">
             <input type="radio" value="Jeans"/>
-            <p>{{item[2]}}</p>
+            <p>{{item.tecido[0]}}</p>
           </label>
           <label class="tissue">
             <input type="radio" value="Jeans"/>
-            <p>{{item[3]}}</p>
+            <p>{{item.tecido[1]}}</p>
           </label>
           <label class="tissue">
             <input type="radio" value="Jeans"/>
-            <p>{{item[4]}}</p>
+            <p>{{item.tecido[2]}}</p>
           </label>
           <label class="tissue">
             <input type="radio" value="Jeans"/>
@@ -65,6 +65,6 @@
   </main>
   <div class="buttonsActions">
     <button class="buttonClear"(click)="LimparLista()">Limpar</button>
-    <button class="buttonFinish">Finalizar pedido</button>
+    <button class="buttonFinish"(click)="ButtonAddItem()">Finalizar pedido</button>
   </div>
 </div>
