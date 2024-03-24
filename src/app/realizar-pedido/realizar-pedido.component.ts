@@ -1,6 +1,6 @@
 import { PedidoService } from '../services/pedido.service';
 import { Component } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule,FormsModule } from '@angular/forms';
 import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from  '@angular/material/icon';
 import { CommonModule } from '@angular/common';
@@ -9,27 +9,26 @@ import { Roupa } from '../Pedido';
 @Component({
   selector: 'app-realizar-pedido',
   standalone: true,
-  imports: [MatCardModule, MatIconModule, ReactiveFormsModule,CommonModule],
+  imports: [MatCardModule, MatIconModule, ReactiveFormsModule,CommonModule,FormsModule],
   templateUrl: './realizar-pedido.component.html',
   styleUrl: './realizar-pedido.component.css'
 })
 
-
 export class RealizarPedidoComponent {
   constructor(private pedidoService:PedidoService){}
   roupas: Roupa []= [
-    {tipo:"calca", tecido:["Jeans","Moletom","Elastano"], tempo:5},
-    {tipo:"camisa", tecido:["Jeans","Moletom","Elastano"],tempo:6},
-    {tipo:"camiseta",tecido:["Jeans","Moletom","Elastano"],tempo: 5},
-    {tipo:"cueca",tecido:["Jeans","Moletom","Elastano"],tempo:2},
-    {tipo:"meia",tecido:["Jeans","Moletom","Elastano"],tempo:1}
+    {tipo:"calca", tecido:["Jeans","Moletom","Elastano","Outro"], tempo:5,quantidade:1,},
+    {tipo:"camisa", tecido:["Jeans","Moletom","Elastano","Outro"],tempo:6,quantidade:1},
+    {tipo:"camiseta",tecido:["Jeans","Moletom","Elastano","Outro"],tempo: 5,quantidade:1},
+    {tipo:"cueca",tecido:["Jeans","Moletom","Elastano","Outro"],tempo:2,quantidade:1},
+    {tipo:"meia",tecido:["Jeans","Moletom","Elastano","Outro"],tempo:1,quantidade:1}
   ];
   //lista de montagem parcial do pedido
   listaPedido:Roupa[]=[
   ]
   valorTotal:number=0;
-  valorTotalFormatado=this.valorTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
   prazoDeEntrega:number=0;
+  tecidoSelecionado:string="";
   //pega a opção selecionada no input
   queryField = new FormControl();
   //Busca o que foi escolhido na seleção e envia para listaPedido
@@ -44,8 +43,8 @@ export class RealizarPedidoComponent {
     this.queryField.reset();
   }
   CalculaValor():number{
-
-    return this.listaPedido.length*10;
+    let total=this.listaPedido.length*10
+    return total;
   }
   CalculaPrazo():number{
     let maiorTempo=0;
@@ -58,12 +57,14 @@ export class RealizarPedidoComponent {
     return maiorTempo;
   }
   ButtonAddItem(){
+    if(this.listaPedido)
     this.pedidoService.addItem(this.valorTotal,this.prazoDeEntrega,this.listaPedido)
   }
   LimparLista(){
     this.listaPedido=[];
     this.prazoDeEntrega=0;
-}
+    this.valorTotal=0
+  }
 }
 
 

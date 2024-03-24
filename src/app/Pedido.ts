@@ -8,4 +8,5 @@ export interface Roupa{
   tipo:string
   tecido:string[]
   tempo:number
+  quantidade:number
 }

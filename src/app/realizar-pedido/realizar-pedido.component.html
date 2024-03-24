@@ -22,32 +22,32 @@
   <main>
     <aside class="orderDetails">
       <p>Valor total:</p>
-      <P>{{valorTotalFormatado}}</P>
+      <P>{{valorTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}}</P>
       <p>Tempo previsto</p>
       <p>{{prazoDeEntrega}} Dias</p>
     </aside>
     <div class="listClothes">
       <div *ngFor="let item of listaPedido" class="boxCard">
       <mat-card class="card">
-      <img mat-card-image [src]="'../../assets/img/' + 1 + '.png'" class="cardImage">
+      <img mat-card-image [src]="'../../assets/img/' + item.tipo+ '.png'" class="cardImage">
       <mat-card-content mat-card-content class="description">
         <p>{{item.tipo}}</p>
         <p>Tecido: </p>
         <div class="listTissue">
           <label class="tissue">
-            <input type="radio" value="Jeans"/>
+            <input type="radio" value="{{item.tecido[0]}}" [(ngModel)]="item.tecido[0]"/>
             <p>{{item.tecido[0]}}</p>
           </label>
           <label class="tissue">
-            <input type="radio" value="Jeans"/>
+            <input type="radio" value="{{item.tecido[1]}}" [(ngModel)]="item.tecido[1]"/>
             <p>{{item.tecido[1]}}</p>
           </label>
           <label class="tissue">
-            <input type="radio" value="Jeans"/>
+            <input type="radio" value="{{item.tecido[2]}}" [(ngModel)]="item.tecido[2]"/>
             <p>{{item.tecido[2]}}</p>
           </label>
           <label class="tissue">
-            <input type="radio" value="Jeans"/>
+            <input type="radio" value="{{item.tecido[3]}}" [(ngModel)]="item.tecido[3]"/>
             <p>Outro</p>
           </label>
         </div>

@@ -120,9 +120,7 @@ main{
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
 }
-.tissue input[type="radio"]:checked+p{
-  font-weight: bold;
-}
+
 .tissue:hover{
   background-color: var(--azulClaro);
   color: var(--branco);
