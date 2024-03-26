@@ -1,28 +1,53 @@
 <div class="container">
   <div class="boxSearch">
-    <input class="inputSearch" type="search" placeholder="Digite a roupa que deseja adicionar..."/>
+    <select
+    class="inputSearch"
+      type="search"
+      [formControl] = "queryField"
+      placeholder="Digite a roupa que deseja adicionar..."
+    >
+      <option value="calca">Calça</option>
+      <option value="camisa">Camisa</option>
+      <option value="meia">Meia</option>
+      <option value="cueca">Cueca</option>
+      <option value="camiseta">Camiseta</option>
+    </select>
+
+    <button
+      class="buttonSearch"
+      (click)="onSearch()">
+      Adicionar
+    </button>
   </div>
   <main>
-    <mat-card class="card">
-      <img mat-card-image src="../../assets/img/calca.png" class="cardImage">
+    <aside class="orderDetails">
+      <p>Valor total:</p>
+      <P>{{valorTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}}</P>
+      <p>Tempo previsto</p>
+      <p>{{prazoDeEntrega}} Dias</p>
+    </aside>
+    <div class="listClothes">
+      <div *ngFor="let item of listaPedido" class="boxCard">
+      <mat-card class="card">
+      <img mat-card-image [src]="'../../assets/img/' + item.tipo+ '.png'" class="cardImage">
       <mat-card-content mat-card-content class="description">
-        <p>Calça</p>
+        <p>{{item.tipo}}</p>
         <p>Tecido: </p>
         <div class="listTissue">
           <label class="tissue">
-            <input type="radio" value="Jeans"/>
-            <p>Jeans</p>
+            <input type="radio" value="{{item.tecido[0]}}" [(ngModel)]="item.tecido[0]"/>
+            <p>{{item.tecido[0]}}</p>
           </label>
           <label class="tissue">
-            <input type="radio" value="Jeans"/>
-            <p>Moletom</p>
+            <input type="radio" value="{{item.tecido[1]}}" [(ngModel)]="item.tecido[1]"/>
+            <p>{{item.tecido[1]}}</p>
           </label>
           <label class="tissue">
-            <input type="radio" value="Jeans"/>
-            <p>Elastano</p>
+            <input type="radio" value="{{item.tecido[2]}}" [(ngModel)]="item.tecido[2]"/>
+            <p>{{item.tecido[2]}}</p>
           </label>
           <label class="tissue">
-            <input type="radio" value="Jeans"/>
+            <input type="radio" value="{{item.tecido[3]}}" [(ngModel)]="item.tecido[3]"/>
             <p>Outro</p>
           </label>
         </div>
@@ -34,138 +59,12 @@
           <button onclick="" class="removeItem">
           </button>
         </mat-card-actions>
-    </mat-card >
-    <mat-card class="card">
-      <img mat-card-image src="../../assets/img/camisa.png" class="cardImage">
-      <mat-card-content mat-card-content class="description">
-        <p>Calça</p>
-        <p>Tecido: </p>
-        <div class="listTissue">
-          <label class="tissue">
-            <input type="radio" value="Jeans"/>
-            <p>Jeans</p>
-          </label>
-          <label class="tissue">
-            <input type="radio" value="Jeans"/>
-            <p>Moletom</p>
-          </label>
-          <label class="tissue">
-            <input type="radio" value="Jeans"/>
-            <p>Elastano</p>
-          </label>
-          <label class="tissue">
-            <input type="radio" value="Jeans"/>
-            <p>Outro</p>
-          </label>
-        </div>
-      </mat-card-content >
-        <mat-card-actions class="sectionButton">
-          <button onclick="" class="addItem">
-          </button>
-          <p>0</p>
-          <button onclick="" class="removeItem">
-          </button>
-        </mat-card-actions>
-    </mat-card >
-    <mat-card class="card">
-      <img mat-card-image src="../../assets/img/meia.png" class="cardImage">
-      <mat-card-content mat-card-content class="description">
-        <p>Calça</p>
-        <p>Tecido: </p>
-        <div class="listTissue">
-          <label class="tissue">
-            <input type="radio" value="Jeans"/>
-            <p>Jeans</p>
-          </label>
-          <label class="tissue">
-            <input type="radio" value="Jeans"/>
-            <p>Moletom</p>
-          </label>
-          <label class="tissue">
-            <input type="radio" value="Jeans"/>
-            <p>Elastano</p>
-          </label>
-          <label class="tissue">
-            <input type="radio" value="Jeans"/>
-            <p>Outro</p>
-          </label>
-        </div>
-      </mat-card-content >
-        <mat-card-actions class="sectionButton">
-          <button onclick="" class="addItem">
-          </button>
-          <p>0</p>
-          <button onclick="" class="removeItem">
-          </button>
-        </mat-card-actions>
-    </mat-card >
-    <mat-card class="card">
-      <img mat-card-image src="../../assets/img/camiseta.png" class="cardImage">
-      <mat-card-content mat-card-content class="description">
-        <p>Calça</p>
-        <p>Tecido: </p>
-        <div class="listTissue">
-          <label class="tissue">
-            <input type="radio" value="Jeans"/>
-            <p>Jeans</p>
-          </label>
-          <label class="tissue">
-            <input type="radio" value="Jeans"/>
-            <p>Moletom</p>
-          </label>
-          <label class="tissue">
-            <input type="radio" value="Jeans"/>
-            <p>Elastano</p>
-          </label>
-          <label class="tissue">
-            <input type="radio" value="Jeans"/>
-            <p>Outro</p>
-          </label>
-        </div>
-      </mat-card-content >
-        <mat-card-actions class="sectionButton">
-          <button onclick="" class="addItem">
-          </button>
-          <p>0</p>
-          <button onclick="" class="removeItem">
-          </button>
-        </mat-card-actions>
-    </mat-card >
-    <mat-card class="card">
-      <img mat-card-image src="../../assets/img/cueca.jpg" class="cardImage">
-      <mat-card-content mat-card-content class="description">
-        <p>Calça</p>
-        <p>Tecido: </p>
-        <div class="listTissue">
-          <label class="tissue">
-            <input type="radio" value="Jeans"/>
-            <p>Jeans</p>
-          </label>
-          <label class="tissue">
-            <input type="radio" value="Jeans"/>
-            <p>Moletom</p>
-          </label>
-          <label class="tissue">
-            <input type="radio" value="Jeans"/>
-            <p>Elastano</p>
-          </label>
-          <label class="tissue">
-            <input type="radio" value="Jeans"/>
-            <p>Outro</p>
-          </label>
-        </div>
-      </mat-card-content >
-        <mat-card-actions class="sectionButton">
-          <button onclick="" class="addItem">
-          </button>
-          <p>0</p>
-          <button onclick="" class="removeItem">
-          </button>
-        </mat-card-actions>
-    </mat-card >
+      </mat-card >
+    </div>
+    </div>
   </main>
   <div class="buttonsActions">
-    <button class="buttonClear">Limpar</button>
-    <button class="buttonFinish">Finalizar pedido</button>
+    <button class="buttonClear"(click)="LimparLista()">Limpar</button>
+    <button class="buttonFinish"(click)="ButtonAddItem()">Finalizar pedido</button>
   </div>
 </div>

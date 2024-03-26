@@ -1,0 +1,63 @@
+
+  img{
+    width: 25%;
+  }
+  
+  .content{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 85vw;
+    position: relative;
+    border: 1px;
+    background-color: var(--branco);
+  }
+  .header{
+    border-bottom: 5px solid var(--azulEscuro);
+
+  }
+  table{
+    text-align: center;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  th{
+    font-size: clamp(15px, 5vh, 20px);
+    padding: 1%;
+    font-weight: lighter;
+  }
+  td{
+    width: 20%;
+    font-size: clamp(15px, 4vh, 15px);
+    padding: 2%;
+  }
+  tbody tr:nth-child(even){
+    background-color: var(--cinza);
+  }
+  tbody tr{
+    cursor: pointer;
+  }
+  tbody tr > td:nth-child(1){
+    font-weight: bolder;
+  }
+  tbody tr:hover > td:nth-child(1){
+    color: var(--azulClaro);
+  }
+  .campoForm {
+    background-color: var(--branco);
+    text-align: left;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    border-radius: 5px;
+    width: 30vw;
+    padding: 1vw;
+    border: 0.2vw solid var(--cinza);
+}
+
+.botao {
+    font-size: clamp(10px, 2vh, 20px);
+    border-radius: 5px;
+    width: 10vw;
+    padding: 1vh;
+    margin-left: 5vw;
+}
