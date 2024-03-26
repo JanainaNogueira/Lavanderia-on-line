@@ -1,0 +1,52 @@
+<app-menu-lateral></app-menu-lateral>
+<div class="layout">
+  <div class="content">
+    <div class="header">
+      <h1 class="hello">Pedido {{ numero }}</h1>
+      <h2 class="amountOpen">Status: Aguardando Pagamento</h2>
+    </div>
+
+    <h2>Detalhes do Pedido</h2>
+    <table>
+      <tr>
+        <th>Item</th>
+        <th>Tecido</th>
+        <th>Quantidade</th>
+        <th>Valor unitário</th>
+        <th>Subtotal</th>
+      </tr>
+      <tbody>
+        <tr>
+          <td>Camisa</td>
+          <td>Jeans</td>
+          <td>5</td>
+          <td>R$ 10,00</td>
+          <td>R$ 50,00</td>
+        </tr>
+        <tr>
+          <td>Calça</td>
+          <td>Jeans</td>
+          <td>2</td>
+          <td>R$ 10,00</td>
+          <td>R$ 20,00</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>
+          <button mat-raised-button color="primary">Confirmar Pagamento</button>
+        </td>
+      </tfoot>
+      <tfoot>
+        <td></td>
+        <td>Numero Total de Items</td>
+        <td>7</td>
+        <td>Valor Total:</td>
+        <td>R$ 70,00</td>
+      </tfoot>
+    </table>
+  </div>
+</div>
