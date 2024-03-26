@@ -1,9 +1,8 @@
-<app-menu-lateral />
 <div class="layout">
   <div class="content">
     <div class="header">
       <h1 class="hello">Olá,</h1>
-      <h2 class="amountOpen">Você tem 3 pedidos em aberto</h2>
+      <h2 class="amountOpen">existem {{pedidos.length}} pedidos em aberto</h2>
     </div>
     <div>
       <table>
@@ -11,7 +10,7 @@
           <th>Pedido</th>
           <th>Status</th>
           <th>Data</th>
-          <th>Valor</th>
+          <th>Hora</th>
           <th>Ações</th>
         </tr>
         <tbody>
@@ -20,30 +19,13 @@
             <td>{{ pedido.status }}</td>
             <td>{{ pedido.data }}</td>
             <td>{{ pedido.hora }}</td>
-            <td>{{ pedido.valor }}</td>
             <td>
               <button
                 mat-raised-button
                 color="primary"
-                *ngIf="pedido.status === 'Aguardando Pagamento'"
-                (click)="
-                  pedido.status === 'Aguardando Pagamento'
-                    ? redirectPayment(pedido.numero)
-                    : null
-                "
-              >
-                Pagar
+                (click)="redirectPayment(pedido.numero) ">
+                Recolher
               </button>
-              <button
-                mat-raised-button
-                color="primary"
-                *ngIf="pedido.status != 'Aguardando Pagamento'"
-              >
-                Visualizar
-              </button>
-              <app-cancelDialog
-                *ngIf="pedido.status === 'Em Aberto'"
-              ></app-cancelDialog>
             </td>
           </tr>
         </tbody>
