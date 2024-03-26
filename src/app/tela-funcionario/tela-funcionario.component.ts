@@ -15,9 +15,7 @@ import { CancelDialog } from '../cancel-dialog/cancel-dialog.component';
 })
 export class TelaFuncionarioComponent {
   pedidos = [
-    { numero: '0001', status: 'Aguardando Pagamento', data: '01/03/2024', hora: '08:30', valor: '100,00' },
     { numero: '0002', status: 'Em Aberto', data: '09/03/2024', hora: '09:45', valor: '350,00' },
-    { numero: '0004', status: 'Recolhido', data: '10/03/2024', hora: '11:00', valor: '50,00' },
   ];
   redirectPayment(num: string){
     this.router.navigateByUrl(`/payment/${num}`);
