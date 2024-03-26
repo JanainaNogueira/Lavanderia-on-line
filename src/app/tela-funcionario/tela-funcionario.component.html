@@ -1,0 +1,53 @@
+<app-menu-lateral />
+<div class="layout">
+  <div class="content">
+    <div class="header">
+      <h1 class="hello">Olá,</h1>
+      <h2 class="amountOpen">Você tem 3 pedidos em aberto</h2>
+    </div>
+    <div>
+      <table>
+        <tr>
+          <th>Pedido</th>
+          <th>Status</th>
+          <th>Data</th>
+          <th>Valor</th>
+          <th>Ações</th>
+        </tr>
+        <tbody>
+          <tr *ngFor="let pedido of pedidos">
+            <td>{{ pedido.numero }}</td>
+            <td>{{ pedido.status }}</td>
+            <td>{{ pedido.data }}</td>
+            <td>{{ pedido.hora }}</td>
+            <td>{{ pedido.valor }}</td>
+            <td>
+              <button
+                mat-raised-button
+                color="primary"
+                *ngIf="pedido.status === 'Aguardando Pagamento'"
+                (click)="
+                  pedido.status === 'Aguardando Pagamento'
+                    ? redirectPayment(pedido.numero)
+                    : null
+                "
+              >
+                Pagar
+              </button>
+              <button
+                mat-raised-button
+                color="primary"
+                *ngIf="pedido.status != 'Aguardando Pagamento'"
+              >
+                Visualizar
+              </button>
+              <app-cancelDialog
+                *ngIf="pedido.status === 'Em Aberto'"
+              ></app-cancelDialog>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
