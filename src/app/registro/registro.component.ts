@@ -13,15 +13,16 @@ import { CommonModule } from '@angular/common';
   styleUrl: './registro.component.css'
 })
 export class RegistroComponent {
-  
   FormularioRegistro=this.fb.group({
     cpf: ['', [Validators.required, Validators.pattern(/^\d*$/), Validators.minLength(11),Validators.maxLength(11)]],
     nome: ['', [Validators.required, Validators.pattern(/^[a-zA-Z]+(?:\s[a-zA-Z]+)+$/)]],
     email: ['', [Validators.required, Validators.email]],
-    endereco: ['', [Validators.required, Validators.pattern(/^(?=.*[0-9])[a-zA-Z0-9\s,'-]*$/), Validators.minLength(7)]],
+    endereco: ['', [Validators.required, Validators.pattern(/^\d*$/), Validators.minLength(8)]],
+    numero:['', Validators.required, Validators.pattern(/^\d*$/)],
     telefone: ['', [Validators.required, Validators.pattern(/^\d*$/), Validators.minLength(11), Validators.maxLength(11)]],
  })
-
+  estado: string = ""
+  rua: string = ""
   constructor(private fb: FormBuilder){}
 
   get cpf () {
@@ -39,9 +40,16 @@ export class RegistroComponent {
   get endereco () {
     return this.FormularioRegistro.controls['endereco'];
   }
+  get numero () {
+    return this.FormularioRegistro.controls['numero'];
+  }
 
   get telefone () {
     return this.FormularioRegistro.controls['telefone'];
   }
-
+  
+  async validateCEP(){
+    let response = await fetch(`https://viacep.com.br/ws/${this.endereco.value}/json`)
+    response.json().then((r) => {this.estado = r.uf; this.rua = r.logradouro} ).catch((e) => {this.estado = "" ;this.rua = ""})
+  }
 }

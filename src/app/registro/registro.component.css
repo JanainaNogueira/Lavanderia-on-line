@@ -24,12 +24,21 @@
 .campoForm {
     background-color: var(--branco);
     text-align: left;
-    margin-top: 2vh;
-    margin-bottom: 2vh;
     border-radius: 5px;
     width: 30vw;
     padding: 1vw;
     border: 0.2vw solid var(--cinza);
+}
+.campoFormSmall {
+    background-color: var(--branco);
+    text-align: left;
+    border-radius: 5px;
+    padding: 1vw;
+    border: 0.2vw solid var(--cinza);
+}
+.addressDiv{
+    display: grid;
+    grid-template-columns:1fr 1.3fr;
 }
 
 .botao {
@@ -42,4 +51,9 @@
 .erro {
     color: red;
     font-weight: bold;
+}
+
+input:hover:enabled{
+    border-color: var(--azulEscuro);
+    transition: 0.5s;
 }

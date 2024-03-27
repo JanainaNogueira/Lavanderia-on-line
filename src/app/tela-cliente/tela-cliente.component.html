@@ -19,7 +19,6 @@
             <td>{{ pedido.numero }}</td>
             <td>{{ pedido.status }}</td>
             <td>{{ pedido.data }}</td>
-            <td>{{ pedido.hora }}</td>
             <td>{{ pedido.valor }}</td>
             <td>
               <button
@@ -29,8 +28,7 @@
                 (click)="
                   pedido.status === 'Aguardando Pagamento'
                     ? redirectPayment(pedido.numero)
-                    : null
-                "
+                    : null"
               >
                 Pagar
               </button>
