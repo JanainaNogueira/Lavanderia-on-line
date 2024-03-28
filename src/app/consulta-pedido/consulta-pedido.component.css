@@ -1,9 +1,4 @@
-
-  img{
-    width: 25%;
-  }
-  
-  .content{
+.content{
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -12,38 +7,38 @@
     border: 1px;
     background-color: var(--branco);
   }
-  .header{
+.header{
     border-bottom: 5px solid var(--azulEscuro);
 
   }
-  table{
+table{
     text-align: center;
     border-collapse: collapse;
     width: 100%;
   }
-  th{
+th{
     font-size: clamp(15px, 5vh, 20px);
     padding: 1%;
     font-weight: lighter;
   }
-  td{
+td{
     width: 20%;
     font-size: clamp(15px, 4vh, 15px);
     padding: 2%;
   }
-  tbody tr:nth-child(even){
+tbody tr:nth-child(even){
     background-color: var(--cinza);
   }
-  tbody tr{
+tbody tr{
     cursor: pointer;
   }
-  tbody tr > td:nth-child(1){
+tbody tr > td:nth-child(1){
     font-weight: bolder;
   }
-  tbody tr:hover > td:nth-child(1){
+tbody tr:hover > td:nth-child(1){
     color: var(--azulClaro);
   }
-  .campoForm {
+.campoForm {
     background-color: var(--branco);
     text-align: left;
     margin-top: 2vh;

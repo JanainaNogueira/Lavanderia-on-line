@@ -6,6 +6,7 @@ import { RealizarPedidoComponent } from './realizar-pedido/realizar-pedido.compo
 import { ListarPedidoComponent } from './listar-pedido/listar-pedido.component';
 import { TelaPagamentoComponent } from './tela-pagamento/tela-pagamento.component';
 import { ConsultaPedidoComponent } from './consulta-pedido/consulta-pedido.component';
+import { TelaFuncionarioComponent } from './tela-funcionario/tela-funcionario.component';
 
 export const routes: Routes = [{
     path:'login',
@@ -22,5 +23,6 @@ export const routes: Routes = [{
 {path: 'realizar-pedido', component: RealizarPedidoComponent},
 {path: 'listar-pedido', component: ListarPedidoComponent},
 {path: 'payment/:numero', component: TelaPagamentoComponent},
-{path: 'consulta-pedido', component: ConsultaPedidoComponent}
+{path: 'consulta-pedido', component: ConsultaPedidoComponent},
+{path: 'admin', component: TelaFuncionarioComponent}
 ];

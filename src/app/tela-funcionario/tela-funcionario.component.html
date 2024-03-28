@@ -1,0 +1,36 @@
+<div class="layout">
+  <div class="content">
+    <div class="header">
+      <h1 class="hello">Olá,</h1>
+      <h2 class="amountOpen">existem {{ pedidos.length }} pedidos em aberto</h2>
+    </div>
+    <div>
+      <table>
+        <tr>
+          <th>Pedido</th>
+          <th>Status</th>
+          <th>Data</th>
+          <th>Hora</th>
+          <th>Ações</th>
+        </tr>
+        <tbody>
+          <tr *ngFor="let pedido of pedidos">
+            <td>{{ pedido.id }}</td>
+            <td>{{ pedido.status }}</td>
+            <td>{{ pedido.data }}</td>
+            <td>{{ pedido.hora }}</td>
+            <td>
+              <button
+                mat-raised-button
+                color="primary"
+                (click)="redirectPayment(pedido.id)"
+              >
+                Recolher
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

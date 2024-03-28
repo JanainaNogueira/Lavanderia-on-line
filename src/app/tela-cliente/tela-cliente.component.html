@@ -16,10 +16,9 @@
         </tr>
         <tbody>
           <tr *ngFor="let pedido of pedidos">
-            <td>{{ pedido.numero }}</td>
+            <td>{{ pedido.id }}</td>
             <td>{{ pedido.status }}</td>
             <td>{{ pedido.data }}</td>
-            <td>{{ pedido.hora }}</td>
             <td>{{ pedido.valor }}</td>
             <td>
               <button
@@ -28,7 +27,7 @@
                 *ngIf="pedido.status === 'Aguardando Pagamento'"
                 (click)="
                   pedido.status === 'Aguardando Pagamento'
-                    ? redirectPayment(pedido.numero)
+                    ? redirectPayment(pedido.id)
                     : null
                 "
               >
