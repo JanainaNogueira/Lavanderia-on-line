@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MenuLateralComponent } from '../menu-lateral/menu-lateral.component';
+import { PedidoService } from '../services/pedido.service';
+import { Pedido } from '../Pedido';
 
 @Component({
   selector: 'app-consulta-pedido',
@@ -8,6 +10,16 @@ import { MenuLateralComponent } from '../menu-lateral/menu-lateral.component';
   templateUrl: './consulta-pedido.component.html',
   styleUrl: './consulta-pedido.component.css'
 })
-export class ConsultaPedidoComponent {
+export class ConsultaPedidoComponent implements OnInit {
+  pedidos: Pedido[] = [];
 
+  constructor(private pedidoService: PedidoService) { }
+
+  ngOnInit(): void {
+    this.pedidos = this.pedidoService.pedidos;
+  }
+
+  procurar(idPedido: number): void {
+    this.pedidos = this.pedidoService.pedidos.filter(pedido => pedido.id === idPedido);
+  }
 }

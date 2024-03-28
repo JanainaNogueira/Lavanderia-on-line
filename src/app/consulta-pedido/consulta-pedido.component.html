@@ -1,9 +1,12 @@
-<app-menu-lateral></app-menu-lateral>
+      <!-- Deve ser disponibilizada uma tela em separado onde o cliente informa o 
+            número do pedido e são mostrados todos os dados deste: 
+            as roupas no pedido, preços, preço total, prazo do serviço e situação.-->
+            <app-menu-lateral></app-menu-lateral>
 <div class="layout">
   <div class="content">
     <div class="header">
       <h1 class="hello">Olá,</h1>
-      <h2 class="amountOpen">Você tem 3 pedidos em aberto</h2>
+      <h2 class="amountOpen">Você tem {{ pedidos.length }} pedidos em aberto</h2>
       <br />
       <label for="consulta">Consulta de Pedido</label><br /><input
         type="number"
@@ -11,8 +14,9 @@
         name="idPedido"
         class="campoForm"
         placeholder="Número do Pedido"
+        #pedidoInput
       />
-      <button type="submit" class="botao">Procurar</button><br />
+      <button type="submit" class="botao" (click)="procurar(pedidoInput.valueAsNumber)">Procurar</button><br />
     </div>
     <div>
       <table>
@@ -25,45 +29,46 @@
         </tr>
         <tbody>
           <tr>
-            <td>0001</td>
-            <td>Aguardando Pagamento</td>
-            <td>10/03/2024</td>
-            <td>R$ 70,00</td>
-            <td>20/03/2024</td>
+            <td>{{ pedido.id }}</td>
+            <td>{{ pedido.status }}</td>
+            <td>{{ pedido.data }}</td>
+            <td>{{ pedido.valor }}</td>
+            <td>{{ pedido.prazo }}</td>
           </tr>
         </tbody>
       </table>
     </div>
-    <div class="details">
+    <div>
       <h2>Detalhes do Pedido</h2>
-      <!-- Deve ser disponibilizada uma tela em separado onde o cliente informa o 
-            número do pedido e são mostrados todos os dados deste: 
-            as roupas no pedido, preços, preço total, prazo do serviço e situação.-->
-      <table>
-        <tr>
-          <th>Item</th>
-          <th>Tecido</th>
-          <th>Valor unitário</th>
-          <th>Quantidade</th>
-          <th>Subtotal</th>
-        </tr>
-        <tbody>
-          <tr>
-            <td>Camisa</td>
-            <td>Jeans</td>
-            <td>R$ 10,00</td>
-            <td>5</td>
-            <td>R$ 50,00</td>
-          </tr>
-          <tr>
-            <td>Calça</td>
-            <td>Jeans</td>
-            <td>R$ 10,00</td>
-            <td>2</td>
-            <td>R$ 20,00</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
+
+            <table>
+              <tr>
+                <th>Item</th>
+                <th>Tecido</th>
+                <th>Valor unitário</th>
+                <th>Quantidade</th>
+                <th>Subtotal</th>
+              </tr>
+              <tbody>
+                <tr>
+                  <td>Camisa</td>
+                  <td>Jeans</td>
+                  <td>R$ 10,00</td>
+                  <td>5</td>
+                  <td>R$ 50,00</td>
+                </tr>
+                <tr>
+                  <td>Calça</td>
+                  <td>Jeans</td>
+                  <td>R$ 10,00</td>
+                  <td>2</td>
+                  <td>R$ 20,00</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+   
+      
+      
