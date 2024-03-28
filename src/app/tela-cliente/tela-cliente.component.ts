@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MenuLateralComponent } from '../menu-lateral/menu-lateral.component';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
@@ -6,6 +6,7 @@ import { MatCommonModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { CancelDialog } from '../cancel-dialog/cancel-dialog.component';
 import { PedidoService } from '../services/pedido.service';
+import { Pedido } from '../Pedido';
 
 @Component({
   selector: 'app-tela-cliente',
@@ -14,10 +15,15 @@ import { PedidoService } from '../services/pedido.service';
   templateUrl: './tela-cliente.component.html',
   styleUrl: './tela-cliente.component.css'
 })
-export class TelaClienteComponent {
-  pedidos = new PedidoService().pedidos
+export class TelaClienteComponent implements OnInit {
+  pedidos: Pedido[] = []
+  constructor(private pedidoService: PedidoService, private router: Router) { }
+
+
+  ngOnInit(): void {
+    this.pedidos = this.pedidoService.pedidos;
+  }
   redirectPayment(num: number){
     this.router.navigateByUrl(`/payment/${num}`);
   }
-  constructor(private router: Router) { }
 }
