@@ -1,38 +1,54 @@
 <app-menu-lateral></app-menu-lateral>
 <div class="layout">
-  <div class="content">
+ <div class="content">
     <div class="header">
-      <h1 class="hello">Olá,</h1>
-      <h2 class="amountOpen">Você tem {{ pedidos.length }} pedidos em aberto</h2>
-      <br />
-      <label for="consulta">Consulta de Pedido</label><br />
-      <input type="number" id="idPedido" name="idPedido" class="campoForm" placeholder="Número do Pedido" #pedidoInput />
-      <button type="submit" class="botao" (click)="procurar(pedidoInput.valueAsNumber)">Procurar</button><br />
-    </div>
+      <h1 class="hello">Detalhamento de pedidos</h1>
+     <form class="example-form">
+        <mat-form-field class="example-full-width">
+          <mat-label>Pesquisar Pedido</mat-label>
+          <input matInput placeholder="Ex.1234" type="number" name="idPedido" id="idPedido" #pedidoInput/>
+        </mat-form-field>
+        <button
+          mat-fab
+          color="primary"
+          class="Pesquisar"
+          (click)="procurar(pedidoInput.valueAsNumber)"
+        >
+          <mat-icon>search</mat-icon>
+        </button>
+      <br>
+    <a mat-raised-button color="primary" class="historico" href="/listar-pedido">Histórico de Pedidos</a>
+    
+      </form>
+   </div>
 
-    <div *ngIf="pedidos && pedidos.length > 0; else notFound">
+    <div *ngIf="mostrarDetalhesPedido">
       <table>
         <tr>
-          <th>Pedido</th>
+          <th>Nº do Pedido</th>
           <th>Status</th>
           <th>Data</th>
           <th>Valor</th>
           <th>Prazo</th>
         </tr>
         <tbody>
-          <tr *ngFor="let pedido of pedidos">
-            <td>{{ pedido.id }}</td>
-            <td>{{ pedido.status }}</td>
-            <td>{{ pedido.data }}</td>
-            <td>{{ pedido.valor | currency:'BRL':'symbol':'1.2-2' }}</td>
-            <td>{{ pedido.prazo }}</td>
+          <tr *ngIf="pedidoSelecionado">
+            <td>{{ pedidoSelecionado.id }}</td>
+            <td>{{ pedidoSelecionado.status }}</td>
+            <td>{{ pedidoSelecionado.data }}</td>
+            <td>{{ pedidoSelecionado.valor | currency:'BRL':'symbol':'1.2-2' }}</td>
+            <td>{{ pedidoSelecionado.prazo }}</td>
           </tr>
         </tbody>
       </table>
+
+      <div *ngIf="!pedidoSelecionado">
+        <p>Pedido não localizado</p>
+      </div>
     </div>
 
-    <div *ngIf="mostrarDetalhesPedido">
-      <h2>Detalhes do Pedido - {{ pedidoSelecionado?.id }}</h2>
+    <div *ngIf="mostrarDetalhesPedido && pedidoSelecionado">
+      <h2>Detalhes do Pedido</h2>
 
       <table>
         <tr>
@@ -43,7 +59,7 @@
           <th>Subtotal</th>
         </tr>
         <tbody>
-          <tr *ngFor="let item of pedidoSelecionado?.roupas">
+          <tr *ngFor="let item of pedidoSelecionado.roupas">
             <td>{{ item.tipo }}</td>
             <td>{{ item.tecido.join(', ') }}</td>
             <td>R$ 10,00</td>
@@ -53,12 +69,5 @@
         </tbody>
       </table>
     </div>
-
-    <ng-template #notFound>
-      <div *ngIf="!mostrarDetalhesPedido"> 
-        <p>Pedido não localizado</p>
-      </div>
-    </ng-template>
-
   </div>
 </div>
