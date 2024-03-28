@@ -6,7 +6,7 @@
       <form class="example-form">
         <mat-form-field class="example-full-width">
           <mat-label>Pesquisar Pedido</mat-label>
-          <input matInput placeholder="Ex.1234" name="num" [(ngModel)]="num" />
+          <input matInput placeholder="Ex.11" name="numero" [(ngModel)]="num" />
         </mat-form-field>
         <button
           mat-fab
@@ -86,8 +86,8 @@
           <th>Ações</th>
         </tr>
         <tbody>
-          <tr *ngFor="let pedido of pedidosFiltrados">
-            <td>{{ pedido.numero }}</td>
+          <tr *ngFor="let pedido of pedidos">
+            <td>{{ pedido.id }}</td>
             <td>{{ pedido.status }}</td>
             <td>{{ pedido.data }}</td>
             <td>{{ pedido.hora }}</td>
@@ -99,7 +99,7 @@
                 *ngIf="pedido.status === 'Aguardando Pagamento'"
                 (click)="
                   pedido.status === 'Aguardando Pagamento'
-                    ? redirectPayment(pedido.numero)
+                    ? redirectPayment(pedido.id.toString())
                     : null
                 "
               >
