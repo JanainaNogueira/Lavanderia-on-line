@@ -3,6 +3,9 @@ export interface Pedido{
   valor:number
   prazo:number
   roupas:Roupa[]
+  hora: string
+  status: string
+  data: string
 }
 export interface Roupa{
   tipo:string

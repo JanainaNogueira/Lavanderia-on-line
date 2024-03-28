@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { MatCommonModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { CancelDialog } from '../cancel-dialog/cancel-dialog.component';
+import { PedidoService } from '../services/pedido.service';
 
 @Component({
   selector: 'app-tela-funcionario',
@@ -14,10 +15,8 @@ import { CancelDialog } from '../cancel-dialog/cancel-dialog.component';
   styleUrl: './tela-funcionario.component.css'
 })
 export class TelaFuncionarioComponent {
-  pedidos = [
-    { numero: '0002', status: 'Em Aberto', data: '09/03/2024', hora: '09:45', valor: '350,00' },
-  ];
-  redirectPayment(num: string){
+  pedidos = new PedidoService().pedidos;
+  redirectPayment(num: number){
     this.router.navigateByUrl(`/payment/${num}`);
   }
   constructor(private router: Router) { }
