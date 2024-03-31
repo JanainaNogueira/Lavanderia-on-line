@@ -136,7 +136,7 @@ main{
   width: 25%;
   height: 2em;
   border-radius: 5px;
-  background-image: url("../../assets/img/plus.png");
+  background-image: url("../../../assets/img/plus.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -148,7 +148,7 @@ main{
   width: 25%;
   height: 2em;
   border-radius: 5px;
-  background-image: url("../../assets/img/minus-sign.png");
+  background-image: url("../../../assets/img/minus-sign.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuLateralComponent } from '../menu-lateral/menu-lateral.component';
-import { PedidoService } from '../services/pedido.service';
-import { Pedido } from '../Pedido';
+import { MenuLateralComponent } from '../../components/menu-lateral/menu-lateral.component';
+import { PedidoService } from '../../services/pedido.service';
+import { Pedido } from '../../Pedido';
 import { CommonModule } from '@angular/common';
 import { MatCommonModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
@@ -21,13 +21,13 @@ export class ConsultaPedidoComponent implements OnInit {
   pedidoSelecionado: Pedido | null = null;
   mostrarDetalhesPedido: boolean = false;
 
-  constructor(private pedidoService: PedidoService) { 
+  constructor(private pedidoService: PedidoService) {
     this.pedidos = this.pedidoService.pedidos;
   }
 
   ngOnInit(): void {
     this.pedidos = this.pedidoService.pedidos;
-  } 
+  }
 
   procurar(idPedido: number): void {
     this.pedidoSelecionado = this.pedidos.find(pedido => pedido.id === idPedido) || null;

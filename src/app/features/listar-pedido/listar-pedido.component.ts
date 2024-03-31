@@ -5,12 +5,12 @@ import { MatButtonModule } from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
-import { MenuLateralComponent } from '../menu-lateral/menu-lateral.component';
+import { MenuLateralComponent } from '../../components/menu-lateral/menu-lateral.component';
 import { Router } from '@angular/router';
-import { CancelDialog } from '../cancel-dialog/cancel-dialog.component';
-import { PedidoService } from '../services/pedido.service';
+import { CancelDialog } from '../../components/cancel-dialog/cancel-dialog.component';
+import { PedidoService } from '../../services/pedido.service';
 import { OnInit } from '@angular/core';
-import { Pedido } from '../Pedido';
+import { Pedido } from '../../Pedido';
 
 
 @Component({
@@ -28,7 +28,7 @@ export class ListarPedidoComponent implements OnInit {
 
   constructor(
     private pedidoService: PedidoService,
-    private router: Router 
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -56,13 +56,13 @@ export class ListarPedidoComponent implements OnInit {
       return dataB.getTime() - dataA.getTime();
     });
   }
- 
+
   criarData(dataString: string, horaString: string): Date {
     const [dia, mes, ano] = dataString.split('/');
     const [hora, minuto] = horaString.split(':');
     return new Date(parseInt(ano), parseInt(mes) - 1, parseInt(dia), parseInt(hora), parseInt(minuto));
   }
-  
+
 
   pesquisarPorNumero(num: any) {
     if (num === '' || num === null || num === undefined) {
@@ -75,7 +75,7 @@ export class ListarPedidoComponent implements OnInit {
       }
     }
   }
-  
+
   redirectPayment(num: string){
     this.router.navigateByUrl(`/payment/${num}`);
   }
@@ -83,6 +83,6 @@ export class ListarPedidoComponent implements OnInit {
 
   }
 }
-  
+
 
 

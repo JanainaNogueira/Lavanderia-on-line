@@ -1,10 +1,10 @@
-import { PedidoService } from '../services/pedido.service';
+import { PedidoService } from '../../services/pedido.service';
 import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule,FormsModule } from '@angular/forms';
 import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from  '@angular/material/icon';
 import { CommonModule } from '@angular/common';
-import { Roupa } from '../Pedido';
+import { Roupa } from '../../Pedido';
 
 @Component({
   selector: 'app-realizar-pedido',

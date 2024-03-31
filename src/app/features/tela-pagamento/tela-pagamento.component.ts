@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
-import { MenuLateralComponent } from '../menu-lateral/menu-lateral.component'
+import { MenuLateralComponent } from '../../components/menu-lateral/menu-lateral.component'
 import { MatCommonModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 
@@ -20,5 +20,5 @@ export class TelaPagamentoComponent implements OnInit{
   ngOnInit(): void {
       this.numero = this.route.snapshot.paramMap.get('numero') || "000"
   }
-  
+
 }

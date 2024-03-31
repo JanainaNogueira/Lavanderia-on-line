@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ConsultaPedidoComponent } from './consulta-pedido.component';
-import { PedidoService } from '../services/pedido.service';
+import { PedidoService } from '../../services/pedido.service';
 
 describe('ConsultaPedidoComponent', () => {
   let component: ConsultaPedidoComponent;
@@ -12,7 +12,7 @@ describe('ConsultaPedidoComponent', () => {
       providers: [ PedidoService ]
     })
     .compileComponents();
-    
+
     fixture = TestBed.createComponent(ConsultaPedidoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
