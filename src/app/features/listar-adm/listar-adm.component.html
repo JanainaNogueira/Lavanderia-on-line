@@ -1,4 +1,4 @@
-<app-menu-admin/>
+<app-menu-admin />
 <div class="layout">
   <div class="content">
     <div class="header">
@@ -6,24 +6,40 @@
       <form class="example-form">
         <mat-form-field>
           <mat-label>Pesquisar Pedido</mat-label>
-            <input matInput placeholder="Ex.11" [(ngModel)]="num" name="numero"/>
-            </mat-form-field> 
-            <button
-            mat-fab
-            color="primary"
-            class="Pesquisar"
-            (click)="pesquisarPorNumero(num)">
-            <mat-icon>search</mat-icon>
-            </button>
-            <mat-form-field>
-            <mat-date-range-input [rangePicker]="picker">
-            <input matStartDate placeholder="Início" name="inicio" [(ngModel)]="dataInicio" (ngModelChange)="mudaData()">
-            <input matEndDate placeholder="Fim" name="fim" [(ngModel)]="dataFim" (ngModelChange)="mudaData()">
-            </mat-date-range-input>
-             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-             <mat-date-range-picker #picker></mat-date-range-picker>
-            </mat-form-field>
-      </form>   
+          <input matInput placeholder="Ex.11" [(ngModel)]="num" name="numero" />
+        </mat-form-field>
+        <button
+          mat-fab
+          color="primary"
+          class="Pesquisar"
+          (click)="pesquisarPorNumero(num)"
+        >
+          <mat-icon>search</mat-icon>
+        </button>
+        <mat-form-field>
+          <mat-date-range-input [rangePicker]="picker">
+            <input
+              matStartDate
+              placeholder="Início"
+              name="inicio"
+              [(ngModel)]="dataInicio"
+              (ngModelChange)="mudaData()"
+            />
+            <input
+              matEndDate
+              placeholder="Fim"
+              name="fim"
+              [(ngModel)]="dataFim"
+              (ngModelChange)="mudaData()"
+            />
+          </mat-date-range-input>
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-date-range-picker #picker></mat-date-range-picker>
+        </mat-form-field>
+      </form>
       <button
         mat-raised-button
         color="primary"
@@ -101,35 +117,43 @@
           <th>Ações</th>
         </tr>
         <tbody>
-          <tr *ngFor="let pedido of pedidos" [ngStyle]="{'background-color': getCor(pedido.status)}">
+          <tr
+            *ngFor="let pedido of pedidos"
+            [ngStyle]="{ 'background-color': getCor(pedido.status) }"
+          >
             <td>{{ pedido.id }}</td>
             <td>{{ pedido.status }}</td>
             <td>{{ pedido.data }}</td>
             <td>{{ pedido.hora }}</td>
             <td>{{ pedido.valor }}</td>
             <td>
-              <button class="btnPedido"
+              <button
+                class="btnPedido"
                 mat-raised-button
                 color="accent"
                 *ngIf="pedido.status == 'Em Aberto'"
+                (click)="recolherPedido(pedido.id)"
               >
                 Confirmar Recolhimento
               </button>
-              <button class="btnPedido"
+              <button
+                class="btnPedido"
                 mat-raised-button
                 color="accent"
                 *ngIf="pedido.status == 'Recolhido'"
               >
                 Confirmar Lavagem
               </button>
-              <button class="btnPedido"
+              <button
+                class="btnPedido"
                 mat-raised-button
                 color="accent"
                 *ngIf="pedido.status == 'Pago'"
               >
                 Finalizar
               </button>
-              <button class="btnPedido"
+              <button
+                class="btnPedido"
                 mat-raised-button
                 color="primary"
                 *ngIf="pedido.status != ''"
@@ -142,7 +166,7 @@
       </table>
     </div>
     <ng-template #noPedidos>
-        <p>Nenhum pedido encontrado.</p>
-      </ng-template>
+      <p>Nenhum pedido encontrado.</p>
+    </ng-template>
   </div>
 </div>

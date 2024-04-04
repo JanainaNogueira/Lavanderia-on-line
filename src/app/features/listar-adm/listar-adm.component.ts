@@ -43,6 +43,14 @@
     this.ordenarDataHora();
   }
 
+  refetch(){
+    this.pedidos = this.pedidoService.getPedidosStatus("Em Aberto");
+  }
+  recolherPedido(id: number){
+    this.pedidoService.updatePedidoStatus(id, "Recolhido")
+    this.getPedidos();
+  }
+
   getPedidos() {
     this.pedidosOriginal = this.pedidoService.getPedidos();
     this.pedidos = [...this.pedidosOriginal];
