@@ -21,6 +21,19 @@ export class PedidoService {
       status: "Em Aberto"
     },
     {
+      id:88,
+      prazo:6,
+      roupas:[
+        {tipo: 'meia', tecido: Array(4), tempo: 1, quantidade: 1},
+        {tipo: 'camiseta', tecido: Array(4), tempo: 5, quantidade: 1},
+        {tipo: 'camisa', tecido: Array(4), tempo: 6, quantidade: 1}
+      ],
+      valor:70,
+      data: '04/04/2024',
+      hora: '10:45',
+      status: "Em Aberto"
+    },
+    {
       id:52,
       prazo:6,
       roupas:[
@@ -106,5 +119,10 @@ export class PedidoService {
 
   getPedidosID(numero: number): Pedido[] {
     return this.pedidos.filter(pedido => pedido.id === numero);
+  }
+  updatePedidoStatus(id: number, status: string): Pedido[]{
+    let index = this.pedidos.findIndex(pedido => pedido.id === id)
+    this.pedidos[index] = {...this.pedidos[index], status}
+    return this.pedidos
   }
 }
