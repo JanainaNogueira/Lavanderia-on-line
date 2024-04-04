@@ -55,6 +55,11 @@
     this.getPedidos();
   }
   
+  finalizarPedido(id: number){
+    this.pedidoService.updatePedidoStatus(id, "Finalizado")
+    this.getPedidos();
+  }
+
   getPedidos() {
     this.pedidosOriginal = this.pedidoService.getPedidos();
     this.pedidos = [...this.pedidosOriginal];
