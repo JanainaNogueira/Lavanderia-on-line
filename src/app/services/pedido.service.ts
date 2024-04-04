@@ -120,4 +120,9 @@ export class PedidoService {
   getPedidosID(numero: number): Pedido[] {
     return this.pedidos.filter(pedido => pedido.id === numero);
   }
+  updatePedidoStatus(id: number, status: string): Pedido[]{
+    let index = this.pedidos.findIndex(pedido => pedido.id === id)
+    this.pedidos[index] = {...this.pedidos[index], status}
+    return this.pedidos
+  }
 }
