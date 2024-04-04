@@ -5,11 +5,14 @@ import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from  '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { Roupa } from '../../Pedido';
+import { MenuAdminComponent } from '../../components/menu-admin/menu-admin.component';
+import { MenuLateralComponent } from '../../components/menu-lateral/menu-lateral.component';
 
 @Component({
   selector: 'app-realizar-pedido',
   standalone: true,
-  imports: [MatCardModule, MatIconModule, ReactiveFormsModule,CommonModule,FormsModule],
+  imports: [MatCardModule, MatIconModule, ReactiveFormsModule,
+    CommonModule,FormsModule, MenuLateralComponent],
   templateUrl: './realizar-pedido.component.html',
   styleUrl: './realizar-pedido.component.css'
 })

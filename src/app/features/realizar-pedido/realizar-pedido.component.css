@@ -1,7 +1,7 @@
 .container{
   display: flex;
   flex-direction: column;
-  padding: 6% 0;
+  padding: 0;
   justify-content: center;
   align-items: center;
   width: 100%;
@@ -48,7 +48,7 @@ main{
   height: 10%;
   background-color: #ffffff;
   border: none;
-  margin: 1% 0;
+  margin: 10% 5%;
   border-radius: 8px;
   box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
 }
