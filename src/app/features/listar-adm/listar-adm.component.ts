@@ -50,6 +50,15 @@
     this.pedidoService.updatePedidoStatus(id, "Recolhido")
     this.getPedidos();
   }
+  confirmarLavagem(id: number){
+    this.pedidoService.updatePedidoStatus(id, "Aguardando Pagamento")
+    this.getPedidos();
+  }
+  
+  finalizarPedido(id: number){
+    this.pedidoService.updatePedidoStatus(id, "Finalizado")
+    this.getPedidos();
+  }
 
   getPedidos() {
     this.pedidosOriginal = this.pedidoService.getPedidos();
