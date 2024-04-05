@@ -1,0 +1,172 @@
+<app-menu-admin />
+<div class="layout">
+  <div class="content">
+    <div class="header">
+      <h1 class="hello">Pedidos</h1>
+      <form class="example-form">
+        <mat-form-field>
+          <mat-label>Pesquisar Pedido</mat-label>
+          <input matInput placeholder="Ex.11" [(ngModel)]="num" name="numero" />
+        </mat-form-field>
+        <button
+          mat-fab
+          color="primary"
+          class="Pesquisar"
+          (click)="pesquisarPorNumero(num)"
+        >
+          <mat-icon>search</mat-icon>
+        </button>
+        <mat-form-field>
+          <mat-date-range-input [rangePicker]="picker">
+            <input
+              matStartDate
+              placeholder="Início"
+              name="inicio"
+              [(ngModel)]="dataInicio"
+              (ngModelChange)="mudaData()"
+            />
+            <input
+              matEndDate
+              placeholder="Fim"
+              name="fim"
+              [(ngModel)]="dataFim"
+              (ngModelChange)="mudaData()"
+            />
+          </mat-date-range-input>
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-date-range-picker #picker></mat-date-range-picker>
+        </mat-form-field>
+      </form>
+      <button
+        mat-raised-button
+        color="primary"
+        class="Filtro"
+        (click)="filtroStatus('Pedidos de Hoje')"
+      >
+        Pedidos de Hoje
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        class="Filtro"
+        (click)="filtroStatus('Em Aberto')"
+      >
+        Em Aberto
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        class="Filtro"
+        (click)="filtroStatus('Rejeitado/Cancelado')"
+      >
+        Rejeitado/Cancelado
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        class="Filtro"
+        (click)="filtroStatus('Recolhido')"
+      >
+        Recolhido
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        class="Filtro"
+        (click)="filtroStatus('Aguardando Pagamento')"
+      >
+        Aguardado Pagamento
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        class="Filtro"
+        (click)="filtroStatus('Pago')"
+      >
+        Pago
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        class="Filtro"
+        (click)="filtroStatus('Finalizado')"
+      >
+        Finalizado
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        class="Filtro"
+        (click)="filtroStatus('Todos')"
+      >
+        Todos
+      </button>
+      <h2 class="amountOpen"></h2>
+    </div>
+    <div *ngIf="pedidos.length > 0; else noPedidos">
+      <table>
+        <tr class="pedido">
+          <th>Pedido</th>
+          <th>Status</th>
+          <th>Data</th>
+          <th>Hora</th>
+          <th>Valor</th>
+          <th>Ações</th>
+        </tr>
+        <tbody>
+          <tr
+            *ngFor="let pedido of pedidos"
+            [ngStyle]="{ 'background-color': getCor(pedido.status) }"
+          >
+            <td>{{ pedido.id }}</td>
+            <td>{{ pedido.status }}</td>
+            <td>{{ pedido.data }}</td>
+            <td>{{ pedido.hora }}</td>
+            <td>{{ pedido.valor }}</td>
+            <td>
+              <button
+                class="btnPedido"
+                mat-raised-button
+                color="accent"
+                *ngIf="pedido.status == 'Em Aberto'"
+                (click)="recolherPedido(pedido.id)"
+              >
+                Confirmar Recolhimento
+              </button>
+              <button
+                class="btnPedido"
+                mat-raised-button
+                color="accent"
+                *ngIf="pedido.status == 'Recolhido'"
+              >
+                Confirmar Lavagem
+              </button>
+              <button
+                class="btnPedido"
+                mat-raised-button
+                color="accent"
+                *ngIf="pedido.status == 'Pago'"
+              >
+                Finalizar
+              </button>
+              <button
+                class="btnPedido"
+                mat-raised-button
+                color="primary"
+                *ngIf="pedido.status != ''"
+              >
+                Visualizar
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <ng-template #noPedidos>
+      <p>Nenhum pedido encontrado.</p>
+    </ng-template>
+  </div>
+</div>

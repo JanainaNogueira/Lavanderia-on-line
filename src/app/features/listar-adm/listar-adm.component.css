@@ -1,5 +1,5 @@
 
-  img{
+img{
     width: 25%;
   }
   
@@ -14,7 +14,7 @@
   }
 
   .header{
-    padding-left: 2%;
+    padding-left: 5%;
     border-bottom: 10px solid var(--azulEscuro);
   
   }
@@ -22,7 +22,7 @@
     text-align: center;
     margin-left:1%;
     border-collapse: collapse;
-    width: 100%;
+    width: 98%;
   }
   th{
     font-size: clamp(15px, 5vh, 30px);
@@ -50,16 +50,25 @@
     margin-left: 5px;
   }
   .Pesquisar {
-    margin-right: 10px;
+    margin-right:50px;
   }
   .hello{
-    margin-top: 20px;
+    margin-top: 30px;
     padding-right: 50px;
     font-size: clamp(10px, 4vh, 25px);
-
-  }
+   }
   
   .cancel{
     font-size: clamp(2px, 1vh, 25px);
     
   }
+  
+  .btnPedido{
+    margin-bottom: 5px;
+  }
+
+
+
+
+
+
