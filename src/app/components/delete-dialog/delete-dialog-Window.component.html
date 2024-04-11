@@ -1,0 +1,10 @@
+<h1 mat-dialog-title>Excluir Funcionario</h1>
+<mat-dialog-content
+  >Tem certeza que deseja excluir este funcionário?
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Não</button>
+  <button mat-button mat-dialog-close cdkFocusInitial (click)="onYesClick()">
+    Sim
+  </button>
+</mat-dialog-actions>
