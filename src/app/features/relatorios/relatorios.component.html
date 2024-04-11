@@ -1,0 +1,76 @@
+<app-menu-admin />
+<div class="layout">
+  <div class="content">
+    <div class="header">
+      <h1 class="hello">Relatórios</h1>
+    </div>
+    <div class="relat">
+      <form class="example-form">
+        <mat-form-field>
+          <mat-date-range-input [rangePicker]="picker">
+            <input
+              matStartDate
+              placeholder="Início"
+              name="inicio"
+              [(ngModel)]="dataInicio"
+              (ngModelChange)="mudaData()"
+            />
+            <input
+              matEndDate
+              placeholder="Fim"
+              name="fim"
+              [(ngModel)]="dataFim"
+              (ngModelChange)="mudaData()"
+            />
+          </mat-date-range-input>
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-date-range-picker #picker></mat-date-range-picker>
+        </mat-form-field>
+        <button
+        mat-raised-button
+        color="primary"
+        class="botao"
+        (click)="filtroStatus('Pedidos de Hoje')"
+      >
+        Gerar Relatório de Receitas
+      </button>
+        
+      </form>
+    </div>
+
+    <div class="relat">
+      <form class="example-form">
+        
+        <button
+        mat-raised-button
+        color="primary"
+        class="botao"
+        (click)="filtroStatus('Pedidos de Hoje')"
+      >
+        Gerar Relatório de Clientes
+      </button>
+        
+      </form>
+    </div>
+
+    <div class="relat">
+      <form class="example-form">
+        
+        <button
+        mat-raised-button
+        color="primary"
+        class="botao"
+        (click)="filtroStatus('Pedidos de Hoje')"
+      >
+        Gerar Relatório de Clientes Fiéis
+      </button>
+        
+      </form>
+    </div>
+
+    
+  </div>
+</div>
