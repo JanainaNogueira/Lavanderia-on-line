@@ -28,9 +28,6 @@ import { MatDateRangePicker } from '@angular/material/datepicker';
 })
 export class RelatoriosComponent {
 
-pedidos: Pedido[] = [];
-pedidosOriginal: Pedido[] = [];
-num: any;
 dataInicio: Date;
 dataFim: Date;
 
@@ -40,54 +37,7 @@ constructor(
 ) { }
 
 ngOnInit() {
-  this.getPedidos();
-  this.ordenarDataHora();
 }
-
-refetch(){
-  this.pedidos = this.pedidoService.getPedidosStatus("Em Aberto");
-}
-recolherPedido(id: number){
-  this.pedidoService.updatePedidoStatus(id, "Recolhido")
-  this.getPedidos();
-}
-confirmarLavagem(id: number){
-  this.pedidoService.updatePedidoStatus(id, "Aguardando Pagamento")
-  this.getPedidos();
-}
-
-finalizarPedido(id: number){
-  this.pedidoService.updatePedidoStatus(id, "Finalizado")
-  this.getPedidos();
-}
-
-getPedidos() {
-  this.pedidosOriginal = this.pedidoService.getPedidos();
-  this.pedidos = [...this.pedidosOriginal];
-}
-
-filtroStatus(status: string) {
-  if (status === 'Todos') {
-    this.pedidos = [...this.pedidosOriginal];
-  }else if (status === 'Pedidos de Hoje') {
-    const hoje = new Date(); 
-    const hojeFormatado = this.formataData(hoje); 
-    this.pedidos = this.pedidosOriginal.filter(pedido => pedido.data === hojeFormatado);
-  }
-  else {
-    this.pedidos = this.pedidoService.getPedidosStatus(status);
-  }
-  this.ordenarDataHora();
-}
-
-ordenarDataHora() {
-  this.pedidos.sort((a, b) => {
-    const dataA = this.criarData(a.data, a.hora);
-    const dataB = this.criarData(b.data, b.hora);
-    return dataB.getTime() - dataA.getTime();
-  });
-}
-
 
 criarData(dataString: string, horaString: string): Date {
   const [dia, mes, ano] = dataString.split('/');
@@ -95,42 +45,13 @@ criarData(dataString: string, horaString: string): Date {
   return new Date(parseInt(ano), parseInt(mes) - 1, parseInt(dia), parseInt(hora), parseInt(minuto));
 }
 
-pesquisarPorNumero(num: any) {
-  if (!num) {
-    this.pedidos = [...this.pedidosOriginal];
-  } else {
-    const pedidoId = parseInt(num, 10);
-    if (!isNaN(pedidoId)) {
-      this.pedidos = this.pedidoService.getPedidosID(pedidoId);
-      this.ordenarDataHora();
-    }
-  }
-}
-
-redirectPayment(num: string) {
-  this.router.navigateByUrl(`/payment/${num}`);
-}
 
 openDialog(num: string) {}
 
-getCor(status: string): string {
-  switch (status) {
-    case 'Em Aberto':
-      return '#feffa3';
-    case 'Rejeitado/Cancelado':
-      return '#ff8b94';
-    case 'Recolhido':
-      return '#dbdcff';
-    case 'Aguardando Pagamento':
-      return '#bae1ff';
-    case 'Pago':
-      return '#ffdfba';
-    case 'Finalizado':
-      return '#baffc9';
-    default:
-      return '';
-  }
-}
+relatorioReceitas(){}
+relatorioClientes(){}
+relatorioClientesFieis(){}
+
 
 filtroData() {
   console.log('filtroData() method called.');
@@ -140,31 +61,9 @@ filtroData() {
     console.log('Data Inicio:', this.dataInicio);
     console.log('Data Fim:', this.dataFim);
 
-    this.pedidos = this.pedidosOriginal.filter(pedido => {
-      const pedidoData = new Date(this.formataDataPedido(pedido.data));
-      const isWithinRange = pedidoData >= inicioFormatted && pedidoData <= fimFormatted;
-      console.log('Pedido:', pedido.id, 'Data:', pedido.data, 'Within Range:', isWithinRange);
-      return isWithinRange;
-    });
-    this.pedidos.sort((a, b) => {
-      const dataA = this.criarData(a.data, a.hora);
-      const dataB = this.criarData(b.data, b.hora);
-      return dataA.getTime() - dataB.getTime();
-    });
   }
 }
 
-formataData(date: Date): string {
-  const day = String(date.getDate()).padStart(2, '0');
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const year = date.getFullYear();
-  return `${day}/${month}/${year}`;
-}
-
-formataDataPedido(dateString: string): Date {
-  const [dia, mes, ano] = dateString.split('/');
-  return new Date(parseInt(ano), parseInt(mes) - 1, parseInt(dia));
-}
 
 mudaData() {
   this.filtroData();
