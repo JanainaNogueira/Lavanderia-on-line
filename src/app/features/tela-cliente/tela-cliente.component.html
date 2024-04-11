@@ -5,23 +5,23 @@
       <h1 class="hello">Olá,</h1>
       <h2 class="amountOpen">Você tem 3 pedidos em aberto</h2>
     </div>
-    <div>
+    <div class="tabelaPedido">
       <table>
-        <tr>
+        <tr class="titleTable">
           <th>Pedido</th>
           <th>Status</th>
           <th>Data</th>
           <th>Valor</th>
           <th>Ações</th>
         </tr>
-        <tbody>
+        <tbody class="pedidos">
           <tr *ngFor="let pedido of pedidos">
             <td>{{ pedido.id }}</td>
             <td>{{ pedido.status }}</td>
             <td>{{ pedido.data }}</td>
-            <td>{{ pedido.valor }}</td>
+            <td>{{ pedido.valor.toLocaleString('pt-BR',{style:'currency',currency:'BRL'}) }}</td>
             <td>
-              <button
+              <button class="actionButton"
                 mat-raised-button
                 color="primary"
                 *ngIf="pedido.status === 'Aguardando Pagamento'"
@@ -33,7 +33,7 @@
               >
                 Pagar
               </button>
-              <button
+              <button class="actionButton"
                 mat-raised-button
                 color="primary"
                 *ngIf="pedido.status != 'Aguardando Pagamento'"
