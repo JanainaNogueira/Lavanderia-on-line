@@ -114,7 +114,6 @@ createPDF<T extends {}>(data: T[], nomeArquivo: string){
   })
   table.appendChild(tableHeaders)
   table.appendChild(tBody)
-  let widthPage = doc.internal.pageSize.getWidth();
   table.setAttribute("style", `text-align: center; white-space: nowrap;`)
   doc.html(table).then(() => doc.save(nomeArquivo))
  
