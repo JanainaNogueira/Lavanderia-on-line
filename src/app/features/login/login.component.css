@@ -9,7 +9,13 @@
     flex-direction: column;
     height: 100vh;
 }
-
+.imagem h1{
+  font-size: x-large;
+  margin-bottom: 10%;
+}
+.imagem img{
+  width: 30vw;
+}
 .formLogin {
     display: flex;
     justify-content: center;
@@ -20,7 +26,13 @@
     text-align: left;
     padding-left: 5vw;
 }
+.formLogin p{
+  font-size:small;
+}
 
+.formLogin label{
+  font-size:medium;
+}
 .campoForm {
     background-color: var(--branco);
     text-align: left;
@@ -33,7 +45,7 @@
 }
 
 .botao {
-    font-size: clamp(10px, 2vh, 20px);
+    font-size: clamp(10px, 4vh, 20px);
     border-radius: 5px;
     width: 32.5vw;
     padding: 1vh;

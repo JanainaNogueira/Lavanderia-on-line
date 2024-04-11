@@ -1,26 +1,36 @@
-
-
+.layout{
+  overflow-y:hidden;
+}
 .content{
   display: flex;
   flex-direction: column;
+  align-items: center;
   height: 100vh;
   width: 100vw;
   position: relative;
-  border: 1px;
-  background-color: var(--branco);
 }
 .header{
   padding-left: 5%;
-  border-bottom: 10px solid var(--azulEscuro);
+  width: 80%;
+  border-bottom: 5px solid var(--azulEscuro);
 
+}
+.tabelaPedido{
+  width: 85%;
+  height: auto;
 }
 table{
   text-align: center;
   border-collapse: collapse;
   width: 100%;
+  height: auto;
+}
+.titleTable{
+  border-radius: 0 0 10px 10px;
+  box-shadow:0 0 10px 0 #0000008a;
 }
 th{
-  font-size: clamp(15px, 5vh, 30px);
+  font-size: clamp(10px, 5vh, 20px);
   padding: 1%;
   font-weight: lighter;
 }
@@ -28,6 +38,14 @@ td{
   width: 20%;
   font-size: clamp(10px, 4vh, 25px);
   padding: 15px;
+}
+.pedidos{
+  max-height: 100px;
+  overflow-y:scroll;
+}
+.pedidos td:nth-last-child(){
+  width: 60%;
+  min-height: 40%;
 }
 tbody tr:nth-child(even){
   background-color: var(--cinza);
@@ -38,4 +56,9 @@ tbody tr > td:nth-child(1){
 }
 tbody tr:hover > td:nth-child(1){
   color: var(--azulClaro);
+}
+.actionButton{
+  width: 60%;
+  min-height: 40%;
+  margin: 2%;
 }

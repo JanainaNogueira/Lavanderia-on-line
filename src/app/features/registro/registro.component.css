@@ -9,7 +9,13 @@
     flex-direction: column;
     height: 100vh;
 }
-
+.imagem h1{
+  font-size: x-large;
+  margin-bottom: 10%;
+}
+.imagem img{
+  width: 30vw;
+}
 .formRegistro {
     display: flex;
     justify-content: center;
@@ -20,13 +26,18 @@
     text-align: left;
     padding-left: 5vw;
 }
-
+form{
+  height: 100%;
+  overflow-y:scroll;
+  padding-bottom: 2%;
+}
 .campoForm {
     background-color: var(--branco);
     text-align: left;
     border-radius: 5px;
     width: 30vw;
     padding: 1vw;
+    margin: 1% 0;
     border: 0.2vw solid var(--cinza);
 }
 .campoFormSmall {
@@ -34,6 +45,7 @@
     text-align: left;
     border-radius: 5px;
     padding: 1vw;
+    margin: 1% 0;
     border: 0.2vw solid var(--cinza);
 }
 .addressDiv{
@@ -42,10 +54,11 @@
 }
 
 .botao {
-    font-size: clamp(10px, 2vh, 20px);
+    font-size: clamp(15px, 2vh, 20px);
     border-radius: 5px;
     width: 32.5vw;
-    padding: 1vh;
+    padding: 1.5vh;
+    margin: 1% 0;
 }
 
 .erro {
