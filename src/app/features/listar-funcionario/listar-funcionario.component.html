@@ -1,0 +1,50 @@
+<app-menu-admin />
+<div class="layout">
+  <div class="content">
+    <div class="header">
+      <h1 class="hello">Funcionários Ativos</h1>
+      <form class="example-form">
+        <mat-form-field class="example-full-width">
+          <mat-label>Pesquisar Funcionário</mat-label>
+          <input matInput placeholder="Ex.Joao" name="nome" [(ngModel)]="nome" />
+        </mat-form-field>
+        <button
+          mat-fab
+          color="primary"
+          class="Pesquisar"
+          (click)="pesquisarPorNome()"
+        >
+          <mat-icon>search</mat-icon>
+        </button>
+      </form>
+    <div>
+      <table>
+        <tr>
+          <th>Nome</th>
+          <th>Email</th>
+          <th>Data de Nascimento</th>
+          <th>Senha</th>
+          <th>Ações</th>
+        </tr>
+        <tbody>
+          <tr *ngFor="let funcionario of funcionario">
+            <td>{{ funcionario.nome }}</td>
+            <td>{{ funcionario.email }}</td>
+            <td>{{ funcionario.nascimento }}</td>
+            <td>{{ funcionario.senha }}</td>
+            <td>
+              <button
+                mat-raised-button
+                color="primary"
+                href="/editar-funcionario"
+              >
+                Editar
+              </button>
+              <app-delete-dialog></app-delete-dialog>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
