@@ -41,5 +41,7 @@ export class ClienteService {
   getClientes(): Cliente[] {
     return this.clientes;
   }
-
+  getClientebyId(id: number){
+    return this.clientes.find(c => c.id === id)
+  }
 }

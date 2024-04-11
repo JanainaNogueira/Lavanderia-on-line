@@ -125,4 +125,13 @@ export class PedidoService {
     this.pedidos[index] = {...this.pedidos[index], status}
     return this.pedidos
   }
+  
+  getPedidosbyInterval(start: Date, end: Date){
+    return this.pedidos.filter(p => this.processDateStringtoDate(p.data) >= start && this.processDateStringtoDate(p.data) <= end)
+  }
+
+  processDateStringtoDate(date:string){
+    var parts = date.split("/");
+    return new Date(+parts[2], +parts[1] - 1, +parts[0]);
+ }
 }

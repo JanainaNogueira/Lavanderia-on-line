@@ -51,7 +51,19 @@ criarData(dataString: string, horaString: string): Date {
 
 openDialog(num: string) {}
 
-relatorioReceitas(){}
+relatorioReceitas(){
+  if (this.dataInicio && this.dataFim) {
+  let pedidos = this.pedidoService.getPedidosbyInterval(this.dataInicio, this.dataFim)
+  console.log(pedidos)
+  let footerData:string[] = ["valor total:"]
+  let valorTotal = 0;
+  pedidos.forEach(p => {
+    valorTotal += p.valor;
+  })
+  footerData.push(String(valorTotal))
+  this.createPDF(pedidos, "Relatório financeiro", footerData)
+  }
+}
 relatorioClientes(){
   this.createPDF(this.clienteService.getClientes(), "Clientes")
 }
@@ -62,13 +74,9 @@ relatorioClientesFieis(){
 
 
 filtroData() {
-  console.log('filtroData() method called.');
   if (this.dataInicio && this.dataFim) {
     const inicioFormatted = this.dataInicio;
     const fimFormatted = this.dataFim;
-    console.log('Data Inicio:', this.dataInicio);
-    console.log('Data Fim:', this.dataFim);
-
   }
 }
 
@@ -77,7 +85,7 @@ mudaData() {
   this.filtroData();
 }
 
-createPDF<T extends {}>(data: T[], nomeArquivo: string){
+createPDF<T extends {}>(data: T[], nomeArquivo: string, footerData?: string[]){
   let colunms = Object.keys(data[0]);
   let dataString: string[][] = []
   data.forEach(e => {
@@ -94,7 +102,7 @@ createPDF<T extends {}>(data: T[], nomeArquivo: string){
   })
   const doc = new jspdf.jsPDF('l', 'px', 'a4')
   let table = document.createElement("table")
-  let tableHeaders = document.createElement("tr")
+  let tableHeaders = document.createElement("thead")
   colunms.forEach(c => {
     let th = document.createElement("th")
     th.innerHTML = c;
@@ -102,11 +110,11 @@ createPDF<T extends {}>(data: T[], nomeArquivo: string){
   })
   tableHeaders.setAttribute("style", "border-bottom: 1px solid black; font-weight: bold")
   let tBody = document.createElement("tbody")
-  dataString.forEach(data => {
+  dataString.forEach(dataS => {
     let tr = document.createElement("tr")
     for( let i = 0; i < colunms.length; i++){
       let td = document.createElement("td")
-      td.innerHTML = data[i]
+      td.innerHTML = dataS[i]
       td.setAttribute("style", "font-size: 14px")
       tr.appendChild(td)
     }
@@ -115,7 +123,17 @@ createPDF<T extends {}>(data: T[], nomeArquivo: string){
   table.appendChild(tableHeaders)
   table.appendChild(tBody)
   table.setAttribute("style", `text-align: center; white-space: nowrap;`)
+  if(footerData){
+    let tf = document.createElement("tfoot")
+    footerData.forEach((fd) => {
+      let td = document.createElement("td")
+      td.innerHTML = fd
+      td.setAttribute("style", "font-size: 14px")
+      tf.appendChild(td)
+    })
+    table.appendChild(tf)
+  }
+  console.log(dataString)
   doc.html(table).then(() => doc.save(nomeArquivo))
- 
 }
 }
