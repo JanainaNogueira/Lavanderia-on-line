@@ -9,6 +9,7 @@ import { ConsultaPedidoComponent } from './features/consulta-pedido/consulta-ped
 import { TelaFuncionarioComponent } from './features/tela-funcionario/tela-funcionario.component';
 import { ListarAdmComponent } from './features/listar-adm/listar-adm.component';
 import { RelatoriosComponent } from './features/relatorios/relatorios.component'
+import { ListarFuncionarioComponent } from './features/listar-funcionario/listar-funcionario.component';
 
 export const routes: Routes = [{
     path:'login',
@@ -28,5 +29,6 @@ export const routes: Routes = [{
 {path: 'consulta-pedido', component: ConsultaPedidoComponent},
 {path: 'admin', component: TelaFuncionarioComponent},
 {path: 'listar-adm', component: ListarAdmComponent},
-{path: 'relatorios', component: RelatoriosComponent},
+{path: 'relatorios', component: RelatoriosComponent},,
+{path: 'listar-funcionario',component: ListarFuncionarioComponent}
 ];
