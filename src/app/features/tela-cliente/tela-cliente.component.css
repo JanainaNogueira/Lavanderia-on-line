@@ -43,10 +43,6 @@ td{
   max-height: 100px;
   overflow-y:scroll;
 }
-.pedidos td:nth-last-child(){
-  width: 60%;
-  min-height: 40%;
-}
 tbody tr:nth-child(even){
   background-color: var(--cinza);
 }

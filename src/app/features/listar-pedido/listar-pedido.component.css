@@ -2,7 +2,9 @@
   img{
     width: 25%;
   }
-  
+  .layout{
+    overflow-y:hidden;
+  }
   .content{
     display: flex;
     flex-direction: column;
@@ -16,7 +18,7 @@
   .header{
     padding-left: 2%;
     border-bottom: 10px solid var(--azulEscuro);
-  
+
   }
   table{
     text-align: center;
@@ -58,8 +60,8 @@
     font-size: clamp(10px, 4vh, 25px);
 
   }
-  
+
   .cancel{
     font-size: clamp(2px, 1vh, 25px);
-    
+
   }

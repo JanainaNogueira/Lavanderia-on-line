@@ -69,7 +69,7 @@ relatorioClientes(){
 }
 relatorioClientesFieis(){
   this.createPDF(this.clienteService.getClientes(), "Clientes Fieis")
-  
+
 }
 
 
@@ -97,7 +97,7 @@ createPDF<T extends {}>(data: T[], nomeArquivo: string, footerData?: string[]){
       } else {
         return "N/A"
       }
-    } 
+    }
     ))
   })
   const doc = new jspdf.jsPDF('l', 'px', 'a4')
