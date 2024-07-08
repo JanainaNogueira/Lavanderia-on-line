@@ -28,13 +28,16 @@
       name="senha"
       class="campoForm"
       placeholder="Senha"
+      minlength="4"
+      maxlength="4"
+      [ngModel]="cliente.senha"
+      #senha="ngModel"
+      invalidNumeric
     />
     <br />
-    <small>
-      <div class="erro">Por favor preencha a senha</div>
-      <div class="erro">Por favor preencha senha de 4 caracteres</div>
-      <div class="erro">
-        Caracter inválido. Favor preencha com sua senha numérica
+    <small *ngIf="senha.errors && (senha.dirty || senha.touched)">
+      <div class="erro" [hidden]="!senha.errors?.['invalidNumeric']">
+        Senha inválida. Favor preencha com sua senha numérica.
       </div>
     </small>
     <button type="submit" class="botao" routerLink="/home">Entrar</button>
