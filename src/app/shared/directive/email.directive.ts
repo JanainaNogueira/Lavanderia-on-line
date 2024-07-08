@@ -19,8 +19,6 @@ export class EmailDirective implements Validator {
     let email: string = c.value;
     const emailRegex = new RegExp('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}', 'g');
     const valid = emailRegex.test(email);
-    console.log(valid)
-    console.log(email)
     if(email == (null || "") || !valid)
     {
       return {'EmailValid': true, 'requiredValue': 'Email'}
