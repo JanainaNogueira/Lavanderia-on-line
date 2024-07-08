@@ -29,6 +29,6 @@ export const routes: Routes = [{
 {path: 'consulta-pedido', component: ConsultaPedidoComponent},
 {path: 'admin', component: TelaFuncionarioComponent},
 {path: 'listar-adm', component: ListarAdmComponent},
-{path: 'relatorios', component: RelatoriosComponent},,
+{path: 'relatorios', component: RelatoriosComponent},
 {path: 'listar-funcionario',component: ListarFuncionarioComponent}
 ];
