@@ -14,20 +14,24 @@
                 <div *ngIf="cpf.errors?.['minlength']" class="erro">Por favor preencha um CPF válido</div>
                 <div *ngIf="cpf.errors?.['maxlength']" class="erro">Por favor preencha um CPF válido</div>
             </small>
-            <label for="nome">Nome completo</label><br><input type="text" id="nome" name="nome" required class="campoForm" placeholder="Digite seu nome" formControlName="nome"> <br>
+            <label for="nome">Nome completo</label><br><input type="text" id="nome" name="nome" required class="campoForm" placeholder="Digite seu nome" NomeValido formControlName="nome"> <br>
             <small *ngIf="nome.invalid && (nome.dirty || nome.touched)">
                 <div *ngIf="nome.errors?.['required']" class="erro">Por favor preencha o nome</div>
-                <div *ngIf="nome.errors?.['pattern']" class="erro">Por favor preencha o nome completo</div>
+                <div [hidden]="!nome.errors?.['NomeValido']" class="erro">
+                    Por favor preencha com nome e sobrenome
+                  </div>
             </small>
-            <label for="email">Email</label><br><input type="email" id="email" name="email" required class="campoForm" placeholder="Digite seu email" formControlName="email"> <br>
+            <label for="email">Email</label><br><input type="email" id="email" name="email" required class="campoForm" placeholder="Digite seu email" EmailValid formControlName="email"> <br>
             <small *ngIf="email.invalid && (email.dirty || email.touched)">
                 <div *ngIf="email.errors?.['required']" class="erro">Por favor preencha o e-mail</div>
-                <div *ngIf="email.errors?.['email']" class="erro">Por favor preencha um e-mail válido</div>
+                <div [hidden]="!email.errors?.['EmailValid']" class="erro">
+                    Por favor preencha com um e-mail válido
+                  </div>
             </small>
             <label for="endereco">CEP</label><br><input type="number" id="endereco" name="endereco" required class="campoForm" placeholder="Digite o Cep" formControlName="endereco" (mouseleave)="validateCEP()"> <br>
             <small *ngIf="endereco.invalid && (endereco.dirty || endereco.touched)">
                 <div *ngIf="endereco.errors?.['required']" class="erro">Por favor preencha o CEP</div>
-                <div *ngIf="endereco.errors?.['pattern'] || endereco.errors?.['minlength']" class="erro">Por favor preencha CEP Valido</div>
+                <div *ngIf="endereco.errors?.['pattern'] || endereco.errors?.['minlength']" class="erro">Por favor preencha CEP válido</div>
             </small>
             <div class="addressDiv">
                 <div class="addressForm">

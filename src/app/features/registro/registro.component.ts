@@ -1,22 +1,24 @@
 import { Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { EmailDirective } from '../../shared/directive/email.directive';
+import { NumericoDirective } from '../../shared/directive/numerico.directive';
+import { NomeDirective } from '../../shared/directive/nome.directive';
 
 @Component({
   selector: 'app-registro',
   standalone: true,
-  imports: [RouterModule,ReactiveFormsModule,CommonModule],
+  imports: [RouterModule,ReactiveFormsModule,CommonModule, EmailDirective, NumericoDirective, NomeDirective],
   templateUrl: './registro.component.html',
   styleUrl: './registro.component.css'
 })
 export class RegistroComponent {
   FormularioRegistro=this.fb.group({
     cpf: ['', [Validators.required, Validators.pattern(/^\d*$/), Validators.minLength(11),Validators.maxLength(11)]],
-    nome: ['', [Validators.required, Validators.pattern(/^[a-zA-Z]+(?:\s[a-zA-Z]+)+$/)]],
-    email: ['', [Validators.required, Validators.email]],
+    nome: null,
+    email: null,
     endereco: ['', [Validators.required, Validators.pattern(/^\d*$/), Validators.minLength(8)]],
     numero:['', Validators.required, Validators.pattern(/^\d*$/)],
     telefone: ['', [Validators.required, Validators.pattern(/^\d*$/), Validators.minLength(11), Validators.maxLength(11)]],
