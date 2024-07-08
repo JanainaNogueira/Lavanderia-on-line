@@ -16,7 +16,7 @@ import { NumericoDirective } from '../../shared/directive/numerico.directive';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  public cliente = {email: '', senha: -1};
+  public cliente = {email: null, senha: null};
   constructor () { 
 
   }

@@ -21,7 +21,7 @@ export class EmailDirective implements Validator {
     const valid = emailRegex.test(email);
     console.log(valid)
     console.log(email)
-    if(email == (null || ""))
+    if(email == (null || "") || !valid)
     {
       return {'EmailValid': true, 'requiredValue': 'Email'}
     } else return null
