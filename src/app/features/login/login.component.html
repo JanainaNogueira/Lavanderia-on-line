@@ -17,7 +17,7 @@
       #email="ngModel"
     />
     <br />
-    <small *ngIf="email.errors && (email.dirty || email.touched)">
+    <small *ngIf="email.dirty || email.touched">
       <div [hidden]="!email.errors?.['EmailValid']" class="erro">
         Por favor preencha com um e-mail válido
       </div>
@@ -35,7 +35,7 @@
       invalidNumeric
     />
     <br />
-    <small *ngIf="senha.errors && (senha.dirty || senha.touched)">
+    <small *ngIf="senha.dirty || senha.touched">
       <div class="erro" [hidden]="!senha.errors?.['invalidNumeric']">
         Senha inválida. Favor preencha com sua senha numérica.
       </div>
