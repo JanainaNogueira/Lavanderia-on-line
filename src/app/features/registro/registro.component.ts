@@ -18,12 +18,12 @@ import { length11Directive } from '../../shared/directive/length11.directive';
 })
 export class RegistroComponent {
   FormularioRegistro=this.fb.group({
-    cpf: ['', [Validators.pattern(/^\d*$/), Validators.minLength(11),Validators.maxLength(11)]],
+    cpf: null,
     nome: null,
     email: null,
     endereco: ['', [Validators.pattern(/^\d*$/), Validators.minLength(8)]],
     numero:['', [Validators.pattern(/^\d*$/)]],
-    telefone: ['', [Validators.pattern(/^\d*$/), Validators.minLength(11), Validators.maxLength(11)]],
+    telefone: null,
  })
   estado: string = ""
   rua: string = ""
