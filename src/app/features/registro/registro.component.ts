@@ -7,11 +7,12 @@ import { EmailDirective } from '../../shared/directive/email.directive';
 import { NumericoDirective } from '../../shared/directive/numerico.directive';
 import { NomeDirective } from '../../shared/directive/nome.directive';
 import { RequiredFieldDirective } from '../../shared/directive/required.directive';
+import { length11Directive } from '../../shared/directive/length11.directive';
 
 @Component({
   selector: 'app-registro',
   standalone: true,
-  imports: [RouterModule,ReactiveFormsModule,CommonModule, EmailDirective, NumericoDirective, NomeDirective, RequiredFieldDirective],
+  imports: [RouterModule,ReactiveFormsModule,CommonModule, EmailDirective, NumericoDirective, NomeDirective, RequiredFieldDirective, length11Directive],
   templateUrl: './registro.component.html',
   styleUrl: './registro.component.css'
 })
