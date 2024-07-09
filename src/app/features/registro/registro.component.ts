@@ -21,8 +21,8 @@ export class RegistroComponent {
     cpf: null,
     nome: null,
     email: null,
-    endereco: ['', [Validators.pattern(/^\d*$/), Validators.minLength(8)]],
-    numero:['', [Validators.pattern(/^\d*$/)]],
+    endereco: null,
+    numero:null,
     telefone: null,
  })
   estado: string = ""
