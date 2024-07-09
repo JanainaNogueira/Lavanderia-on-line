@@ -6,22 +6,23 @@ import { CommonModule } from '@angular/common';
 import { EmailDirective } from '../../shared/directive/email.directive';
 import { NumericoDirective } from '../../shared/directive/numerico.directive';
 import { NomeDirective } from '../../shared/directive/nome.directive';
+import { RequiredFieldDirective } from '../../shared/directive/required.directive';
 
 @Component({
   selector: 'app-registro',
   standalone: true,
-  imports: [RouterModule,ReactiveFormsModule,CommonModule, EmailDirective, NumericoDirective, NomeDirective],
+  imports: [RouterModule,ReactiveFormsModule,CommonModule, EmailDirective, NumericoDirective, NomeDirective, RequiredFieldDirective],
   templateUrl: './registro.component.html',
   styleUrl: './registro.component.css'
 })
 export class RegistroComponent {
   FormularioRegistro=this.fb.group({
-    cpf: ['', [Validators.required, Validators.pattern(/^\d*$/), Validators.minLength(11),Validators.maxLength(11)]],
+    cpf: ['', [Validators.pattern(/^\d*$/), Validators.minLength(11),Validators.maxLength(11)]],
     nome: null,
     email: null,
-    endereco: ['', [Validators.required, Validators.pattern(/^\d*$/), Validators.minLength(8)]],
-    numero:['', Validators.required, Validators.pattern(/^\d*$/)],
-    telefone: ['', [Validators.required, Validators.pattern(/^\d*$/), Validators.minLength(11), Validators.maxLength(11)]],
+    endereco: ['', [Validators.pattern(/^\d*$/), Validators.minLength(8)]],
+    numero:['', [Validators.pattern(/^\d*$/)]],
+    telefone: ['', [Validators.pattern(/^\d*$/), Validators.minLength(11), Validators.maxLength(11)]],
  })
   estado: string = ""
   rua: string = ""
