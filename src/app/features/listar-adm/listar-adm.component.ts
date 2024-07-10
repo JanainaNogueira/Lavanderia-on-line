@@ -66,17 +66,15 @@
   }
 
   filtroStatus(status: string) {
+    this.statusAtual = status;
     if (status === 'Todos') {
-      this.statusAtual = ""
       this.pedidos = [...this.pedidosOriginal];
     }else if (status === 'Pedidos de Hoje') {
-      this.statusAtual = status;
       const hoje = new Date(); 
       const hojeFormatado = this.formataData(hoje); 
       this.pedidos = this.pedidosOriginal.filter(pedido => pedido.data === hojeFormatado);
     }
     else {
-      this.statusAtual = status;
       this.pedidos = this.pedidoService.getPedidosStatus(status);
     }
     this.ordenarDataHora();
