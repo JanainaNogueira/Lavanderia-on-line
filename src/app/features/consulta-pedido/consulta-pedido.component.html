@@ -34,7 +34,7 @@
       </form>
     </div>
 
-    <div *ngIf="mostrarDetalhesPedido">
+    <div *ngIf="pedidoSelecionado">
       <table>
         <tr>
           <th>Nº do Pedido</th>
@@ -57,13 +57,11 @@
           </tr>
         </tbody>
       </table>
-
-      <div *ngIf="!pedidoSelecionado">
-        <p>Pedido não localizado</p>
-      </div>
     </div>
-
-    <div *ngIf="mostrarDetalhesPedido && pedidoSelecionado">
+    <div *ngIf="pedidoSelecionado === null">
+      <p>Pedido não localizado</p>
+    </div>
+    <div *ngIf="pedidoSelecionado">
       <h2>Detalhes do Pedido</h2>
       <table>
         <tr>

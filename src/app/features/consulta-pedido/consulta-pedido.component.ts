@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuLateralComponent } from '../../components/menu-lateral/menu-lateral.component';
+import { ActivatedRoute, Router } from '@angular/router'
 import { PedidoService } from '../../services/pedido.service';
 import { Pedido } from '../../Pedido';
 import { CommonModule } from '@angular/common';
@@ -16,22 +17,18 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './consulta-pedido.component.html',
   styleUrl: './consulta-pedido.component.css'
 })
-export class ConsultaPedidoComponent implements OnInit {
-  pedidos: Pedido[] = [];
+export class ConsultaPedidoComponent {
   pedidoSelecionado: Pedido | null = null;
-  mostrarDetalhesPedido: boolean = false;
 
-  constructor(private pedidoService: PedidoService) {
-    this.pedidos = this.pedidoService.pedidos;
+  constructor(private route: ActivatedRoute, private pedidoService: PedidoService, private router: Router) {
+    let numero = Number(this.route.snapshot.queryParamMap.get('numero')) || 0
+    this.pedidoSelecionado = this.pedidoService.getPedidosID(numero)[0] || null
   }
 
-  ngOnInit(): void {
-    this.pedidos = this.pedidoService.pedidos;
-  }
 
   procurar(idPedido: number): void {
-    this.pedidoSelecionado = this.pedidos.find(pedido => pedido.id === idPedido) || null;
-    this.mostrarDetalhesPedido = this.pedidoSelecionado !== null;
+    let pedido = this.pedidoService.getPedidosID(idPedido)[0] || null
+    this.pedidoSelecionado = pedido;
     }
 
 
