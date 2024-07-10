@@ -2,10 +2,10 @@
 <div class="layout">
   <div class="content">
     <div class="header">
-      <h1 class="hello">Funcionários Ativos</h1>
+      <h1 class="hello">Roupas do sistema</h1>
       <form class="example-form">
         <mat-form-field class="example-full-width">
-          <mat-label>Pesquisar Funcionário</mat-label>
+          <mat-label>Roupa</mat-label>
           <input matInput placeholder="Ex.Joao" name="nome" [(ngModel)]="nome" />
         </mat-form-field>
         <button
@@ -17,16 +17,15 @@
           <mat-icon>search</mat-icon>
         </button>
       </form>
-    <div>
+    <div class="list-table">
       <table>
-        <tr>
+        <tr class="titulo-list">
           <th>Tipo</th>
           <th>Tecido</th>
           <th>Tempo</th>
-          <th>Quantidad</th>
           <th>Ações</th>
         </tr>
-        <tbody>
+        <tbody class="table-body">
           <tr *ngFor="let roupa of roupas">
             <td>{{ roupa.tipo }}</td>
             <td>{{ roupa.tecido}}</td>

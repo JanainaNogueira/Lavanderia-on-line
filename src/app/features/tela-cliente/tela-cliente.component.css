@@ -19,6 +19,9 @@
   width: 85%;
   height: auto;
 }
+.list-table{
+  width: 87%;
+}
 table{
   text-align: center;
   border-collapse: collapse;

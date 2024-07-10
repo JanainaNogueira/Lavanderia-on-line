@@ -30,34 +30,34 @@
     <div class="listClothes">
       <div *ngFor="let item of listaPedido" class="boxCard">
       <mat-card class="card">
-      <img mat-card-image [src]="'../../assets/img/' + item.tipo+ '.png'" class="cardImage">
+      <img mat-card-image [src]="'../../assets/img/' + item.roupa.tipo+ '.png'" class="cardImage">
       <mat-card-content mat-card-content class="description">
-        <p>{{item.tipo}}</p>
+        <p>{{item.roupa.tipo}}</p>
         <p>Tecido: </p>
         <div class="listTissue">
           <label class="tissue">
-            <input type="radio" value="{{item.tecido[0]}}" [(ngModel)]="item.tecido[0]"/>
-            <p>{{item.tecido[0]}}</p>
+            <input type="radio" value="{{item.roupa.tecido[0]}}" [(ngModel)]="item.roupa.tecido[0]"/>
+            <p>{{item.roupa.tecido[0]}}</p>
           </label>
           <label class="tissue">
-            <input type="radio" value="{{item.tecido[1]}}" [(ngModel)]="item.tecido[1]"/>
-            <p>{{item.tecido[1]}}</p>
+            <input type="radio" value="{{item.roupa.tecido[1]}}" [(ngModel)]="item.roupa.tecido[1]"/>
+            <p>{{item.roupa.tecido[1]}}</p>
           </label>
           <label class="tissue">
-            <input type="radio" value="{{item.tecido[2]}}" [(ngModel)]="item.tecido[2]"/>
-            <p>{{item.tecido[2]}}</p>
+            <input type="radio" value="{{item.roupa.tecido[2]}}" [(ngModel)]="item.roupa.tecido[2]"/>
+            <p>{{item.roupa.tecido[2]}}</p>
           </label>
           <label class="tissue">
-            <input type="radio" value="{{item.tecido[3]}}" [(ngModel)]="item.tecido[3]"/>
+            <input type="radio" value="{{item.roupa.tecido[3]}}" [(ngModel)]="item.roupa.tecido[3]"/>
             <p>Outro</p>
           </label>
         </div>
       </mat-card-content >
         <mat-card-actions class="sectionButton">
-          <button (click)="addItem(item.tipo)" class="addItem">
+          <button (click)="addItem(item.roupa.tipo)" class="addItem">
           </button>
           <p>{{item.quantidade}}</p>
-          <button (click)="removeItem(item.tipo)" class="removeItem">
+          <button (click)="removeItem(item.roupa.tipo)" class="removeItem">
           </button>
         </mat-card-actions>
       </mat-card >

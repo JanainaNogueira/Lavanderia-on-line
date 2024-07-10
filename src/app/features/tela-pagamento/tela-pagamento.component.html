@@ -17,8 +17,8 @@
       </tr>
       <tbody>
         <tr *ngFor="let item of pedido.roupas">
-          <td>{{ item.tipo }}</td>
-          <td>{{ item.tecido.join("/") }}</td>
+          <td>{{ item.roupa.tipo }}</td>
+          <td>{{ item.roupa.tecido}}</td>
           <td>R$ 10,00</td>
           <td>{{ item.quantidade }}</td>
           <td>R$ {{ 10 * item.quantidade }}</td>
