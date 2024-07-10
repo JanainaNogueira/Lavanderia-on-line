@@ -59,7 +59,7 @@ export class RealizarPedidoComponent {
     }
     return maiorTempo;
   }
-  ButtonAddItem(){
+  FinalizarPedido(){
     if(this.listaPedido)
     this.pedidoService.addItem(this.valorTotal,this.prazoDeEntrega,this.listaPedido)
   }

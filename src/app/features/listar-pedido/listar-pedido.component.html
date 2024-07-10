@@ -73,9 +73,9 @@
       >
         Todos
       </button>
-      <h2 class="amountOpen"></h2>
+      <h2></h2>
     </div>
-    <div>
+    <div class="list-table">
       <table>
         <tr>
           <th>Pedido</th>
@@ -92,8 +92,9 @@
             <td>{{ pedido.data }}</td>
             <td>{{ pedido.hora }}</td>
             <td>{{ pedido.valor }}</td>
-            <td>
+            <td class="buttons">
               <button
+                class="actionButton"
                 mat-raised-button
                 color="primary"
                 *ngIf="pedido.status === 'Aguardando Pagamento'"
@@ -106,13 +107,14 @@
                 Pagar
               </button>
               <button
+                class="actionButton"
                 mat-raised-button
                 color="primary"
                 *ngIf="pedido.status != 'Aguardando Pagamento'"
               >
                 Visualizar
               </button>
-              <app-cancelDialog
+              <app-cancelDialog class="actionButton"
                 *ngIf="pedido.status === 'Em Aberto'"
               ></app-cancelDialog>
             </td>

@@ -20,11 +20,16 @@
     border-bottom: 10px solid var(--azulEscuro);
 
   }
+  .list-table{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+  }
   table{
     text-align: center;
     margin-left:1%;
     border-collapse: collapse;
-    width: 100%;
+    width: 90%;
   }
   th{
     font-size: clamp(15px, 5vh, 30px);
@@ -44,9 +49,18 @@
   }
   tbody tr > td:nth-child(1){
     font-weight: bolder;
+    width: 10%;
   }
   tbody tr:hover > td:nth-child(1){
     color: var(--azulClaro);
+  }
+  .buttons{
+    padding: 0;
+  }
+  .actionButton{
+    width: 80%;
+    min-height: 40%;
+    margin: 2%;
   }
   .Filtro{
     margin-left: 5px;

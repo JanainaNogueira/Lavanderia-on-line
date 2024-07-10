@@ -22,12 +22,12 @@
 .inputSearch{
   width: 50%;
   height: 55%;
-  border: 4px solid var(--azulClaro);
+  border: 4px solid var(--azulEscuro);
   border-radius: 20px 0 0 20px;
   padding-left: 1%;
 }
 .buttonSearch{
-  background-color: var(--azulClaro);
+  background-color: var(--azulEscuro);
   border: none;
   color: #ffffff;
   height: 55%;
@@ -61,7 +61,7 @@ main{
 }
 .listClothes{
   width: 70%;
-  margin-bottom:10% ;
+  margin:5% 0;
 }
 .boxCard{
   width: 100%;
@@ -103,7 +103,7 @@ main{
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 3px solid var(--azulClaro);
+  border: 3px solid var(--azulEscuro);
   border-radius: 10px;
   font-size: medium;
   margin: 2%;
@@ -122,7 +122,7 @@ main{
 }
 
 .tissue:hover{
-  background-color: var(--azulClaro);
+  background-color: var(--azulEscuro);
   color: var(--branco);
 }
 .sectionButton{
@@ -140,8 +140,8 @@ main{
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
-  background-color: var(--azulClaro);
-  border: 7px solid var(--azulClaro);
+  background-color: var(--azulEscuro);
+  border: 7px solid var(--azulEscuro);
   cursor: pointer;
 }
 .removeItem{
@@ -152,8 +152,8 @@ main{
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
-  background-color: var(--azulClaro);
-  border: 7px solid var(--azulClaro);
+  background-color: var(--azulEscuro);
+  border: 7px solid var(--azulEscuro);
   cursor: pointer;
 }
 .buttonsActions{
@@ -162,17 +162,18 @@ main{
   position: fixed;
   bottom: 0;
   background-color: var(--branco);
-  border-top: 5px solid var(--azulClaro);
+  border-top: 5px solid var(--azulEscuro);
   height: 10%;
   justify-content: space-evenly;
   width: 100%;
 }
 .buttonClear,.buttonFinish{
-  background-color: var(--azulClaro);
+  background-color: var(--azulEscuro);
   border: none;
   border-radius: 8px;
   height: 60%;
   width: 10%;
   font-size: 120%;
   color: var(--branco);
+  cursor: pointer;
 }
