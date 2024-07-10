@@ -1,12 +1,19 @@
 <app-menu-lateral></app-menu-lateral>
 <div class="layout">
- <div class="content">
+  <div class="content">
     <div class="header">
       <h1 class="hello">Detalhamento de pedidos</h1>
-     <form class="example-form">
+      <form class="example-form">
         <mat-form-field class="example-full-width">
           <mat-label>Pesquisar Pedido</mat-label>
-          <input matInput placeholder="Ex.1234" type="number" name="idPedido" id="idPedido" #pedidoInput/>
+          <input
+            matInput
+            placeholder="Ex.1234"
+            type="number"
+            name="idPedido"
+            id="idPedido"
+            #pedidoInput
+          />
         </mat-form-field>
         <button
           mat-fab
@@ -16,11 +23,16 @@
         >
           <mat-icon>search</mat-icon>
         </button>
-      <br>
-    <a mat-raised-button color="primary" class="historico" href="/listar-pedido">Histórico de Pedidos</a>
-    
+        <br />
+        <a
+          mat-raised-button
+          color="primary"
+          class="historico"
+          href="/listar-pedido"
+          >Histórico de Pedidos</a
+        >
       </form>
-   </div>
+    </div>
 
     <div *ngIf="mostrarDetalhesPedido">
       <table>
@@ -36,7 +48,11 @@
             <td>{{ pedidoSelecionado.id }}</td>
             <td>{{ pedidoSelecionado.status }}</td>
             <td>{{ pedidoSelecionado.data }}</td>
-            <td>{{ pedidoSelecionado.valor | currency:'BRL':'symbol':'1.2-2' }}</td>
+            <td>
+              {{
+                pedidoSelecionado.valor | currency : "BRL" : "symbol" : "1.2-2"
+              }}
+            </td>
             <td>{{ pedidoSelecionado.prazo }}</td>
           </tr>
         </tbody>
@@ -49,7 +65,6 @@
 
     <div *ngIf="mostrarDetalhesPedido && pedidoSelecionado">
       <h2>Detalhes do Pedido</h2>
-
       <table>
         <tr>
           <th>Item</th>
@@ -61,10 +76,10 @@
         <tbody>
           <tr *ngFor="let item of pedidoSelecionado.roupas">
             <td>{{ item.tipo }}</td>
-            <td>{{ item.tecido.join(', ') }}</td>
+            <td>{{ item.tecido.join("/") }}</td>
             <td>R$ 10,00</td>
             <td>{{ item.quantidade }}</td>
-            <td>R$ {{ 10 * item.quantidade | number:'1.2-2' }}</td>
+            <td>R$ {{ 10 * item.quantidade | number : "1.2-2" }}</td>
           </tr>
         </tbody>
       </table>
