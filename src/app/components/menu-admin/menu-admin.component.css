@@ -48,3 +48,7 @@ img{
   height: 50%;
   width: 17%;
 }
+.iconPedidosAbertos img, .iconRoupas img{
+  height: 23%;
+}
+
