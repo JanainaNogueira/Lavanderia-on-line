@@ -20,6 +20,7 @@ import { MenuLateralComponent } from '../../components/menu-lateral/menu-lateral
 export class RealizarPedidoComponent {
   constructor(private pedidoService:PedidoService,private roupasService: RoupasService){}
   tiposRoupas: Roupa []= [];
+  tiposTecido: string[] = ["Elastano","Moletom","Jeans","Outro"]
   //lista de montagem parcial do pedido
   listaPedido: { roupa: Roupa, quantidade: number }[] = [];
   valorTotal:number=0;
