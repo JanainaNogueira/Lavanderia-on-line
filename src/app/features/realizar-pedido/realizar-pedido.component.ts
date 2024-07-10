@@ -1,11 +1,11 @@
 import { PedidoService } from '../../services/pedido.service';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, ReactiveFormsModule,FormsModule } from '@angular/forms';
 import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from  '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { Roupa } from '../../Pedido';
-import { MenuAdminComponent } from '../../components/menu-admin/menu-admin.component';
+import { RoupasService } from '../../services/roupas.service';
 import { MenuLateralComponent } from '../../components/menu-lateral/menu-lateral.component';
 
 @Component({
@@ -18,41 +18,40 @@ import { MenuLateralComponent } from '../../components/menu-lateral/menu-lateral
 })
 
 export class RealizarPedidoComponent {
-  constructor(private pedidoService:PedidoService){}
-  roupas: Roupa []= [
-    {tipo:"calca", tecido:["Jeans","Moletom","Elastano","Outro"], tempo:5,quantidade:1,},
-    {tipo:"camisa", tecido:["Jeans","Moletom","Elastano","Outro"],tempo:6,quantidade:1},
-    {tipo:"camiseta",tecido:["Jeans","Moletom","Elastano","Outro"],tempo: 5,quantidade:1},
-    {tipo:"cueca",tecido:["Jeans","Moletom","Elastano","Outro"],tempo:2,quantidade:1},
-    {tipo:"meia",tecido:["Jeans","Moletom","Elastano","Outro"],tempo:1,quantidade:1}
-  ];
+  constructor(private pedidoService:PedidoService,private roupasService: RoupasService){}
+  tiposRoupas: Roupa []= [];
   //lista de montagem parcial do pedido
-  listaPedido:Roupa[]=[
-  ]
+  listaPedido: { roupa: Roupa, quantidade: number }[] = [];
   valorTotal:number=0;
   prazoDeEntrega:number=0;
   tecidoSelecionado:string="";
   //pega a opção selecionada no input
   queryField = new FormControl();
   //Busca o que foi escolhido na seleção e envia para listaPedido
+  ngOnInit() {
+    this.tiposRoupas = this.roupasService.getRoupas();
+  }
+
   onSearch(){
     const termoBusca=this.queryField.value;
-    const itemEncontrado=this.roupas.find(item=>item.tipo.toLowerCase() === termoBusca.toLowerCase());
+    const itemEncontrado=this.tiposRoupas.find(item=>item.tipo.toLowerCase() === termoBusca.toLowerCase());
     if(itemEncontrado){
-      this.listaPedido.push(itemEncontrado);
+      this.listaPedido.push({roupa: itemEncontrado, quantidade: 1});
       this.valorTotal=this.CalculaValor();
       this.prazoDeEntrega=this.CalculaPrazo();
     }
     this.queryField.reset();
   }
+
   CalculaValor():number{
     let total=this.listaPedido.length*10
     return total;
   }
+
   CalculaPrazo():number{
     let maiorTempo=0;
     for(const item of this.listaPedido){
-      let tempoDoItem = Number(item.tempo);
+      let tempoDoItem = item.roupa.tempo;
       if(tempoDoItem>maiorTempo){
         maiorTempo=tempoDoItem;
       }
@@ -60,7 +59,7 @@ export class RealizarPedidoComponent {
     return maiorTempo;
   }
   addItem(tipo:string){
-    const item =this.listaPedido.find(item=>item.tipo ===tipo);
+    const item =this.listaPedido.find(item=>item.roupa.tipo === tipo);
     if(item){
       item.quantidade++;
       this.valorTotal = this.CalculaValor();
@@ -68,11 +67,11 @@ export class RealizarPedidoComponent {
     }
   }
   removeItem(tipo:string){
-    const item = this.listaPedido.find(item => item.tipo === tipo);
+    const item = this.listaPedido.find(item => item.roupa.tipo=== tipo);
     if (item && item.quantidade > 0) {
       item.quantidade--;
       if (item.quantidade === 0) {
-        this.listaPedido = this.listaPedido.filter(i => i.tipo !== tipo);
+        this.listaPedido = this.listaPedido.filter(i => i.roupa.tipo !== tipo);
       }
       this.valorTotal = this.CalculaValor();
       this.prazoDeEntrega = this.CalculaPrazo();

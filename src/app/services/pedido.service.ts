@@ -10,10 +10,10 @@ export class PedidoService {
     {
       id:97,
       prazo:6,
-      roupas:[
-        {tipo: 'meia', tecido: Array(4), tempo: 1, quantidade: 1},
-        {tipo: 'camiseta', tecido: Array(4), tempo: 5, quantidade: 1},
-        {tipo: 'camisa', tecido: Array(4), tempo: 6, quantidade: 1}
+      roupas: [
+        { roupa: { tipo: 'meia', tecido: "Outro", tempo: 1 }, quantidade: 1 },
+        { roupa: { tipo: 'camiseta', tecido: "Moletom", tempo: 5 }, quantidade: 1 },
+        { roupa: { tipo: 'camisa', tecido: "Elastano", tempo: 6 }, quantidade: 1 }
       ],
       valor:30,
       data: '15/04/1997',
@@ -24,9 +24,9 @@ export class PedidoService {
       id:88,
       prazo:6,
       roupas:[
-        {tipo: 'meia', tecido: Array(4), tempo: 1, quantidade: 1},
-        {tipo: 'camiseta', tecido: Array(4), tempo: 5, quantidade: 1},
-        {tipo: 'camisa', tecido: Array(4), tempo: 6, quantidade: 1}
+        {roupa: {tipo: 'meia', tecido: "Outro", tempo: 1}, quantidade: 1},
+        {roupa: {tipo: 'camiseta', tecido: "Moletom", tempo: 5}, quantidade: 1},
+        {roupa: {tipo: 'camisa', tecido: "Elastano", tempo: 6}, quantidade: 1}
       ],
       valor:70,
       data: '04/04/2024',
@@ -37,9 +37,9 @@ export class PedidoService {
       id:52,
       prazo:6,
       roupas:[
-        {tipo: 'camisa', tecido: Array(4), tempo: 6, quantidade: 3},
-        {tipo: 'calça', tecido: Array(1), tempo: 3, quantidade: 1},
-        {tipo: 'camiseta', tecido: Array(3), tempo: 5, quantidade: 5}
+        {roupa: {tipo: 'camisa', tecido: "Elastano", tempo: 6}, quantidade: 3},
+        {roupa: {tipo: 'calça', tecido: "Jeans", tempo: 3}, quantidade: 1},
+        {roupa: {tipo: 'camiseta', tecido: "Moletom", tempo: 5}, quantidade: 5}
       ],
       valor:90,
       data: '01/03/2024',
@@ -50,7 +50,7 @@ export class PedidoService {
       id:5,
       prazo:5,
       roupas:[
-        {tipo: 'camiseta', tecido: Array(3), tempo: 5, quantidade: 5}
+        {roupa: {tipo: 'camiseta', tecido: "Moletom", tempo: 5}, quantidade: 5}
       ],
       valor:50,
       data: '01/03/2024',
@@ -61,7 +61,7 @@ export class PedidoService {
       id:59,
       prazo:5,
       roupas:[
-        {tipo: 'camiseta', tecido: Array(3), tempo: 5, quantidade: 5}
+        {roupa: {tipo: 'camiseta', tecido: "Outro", tempo: 5}, quantidade: 5}
       ],
       valor:50,
       data: '01/02/2024',
@@ -72,7 +72,7 @@ export class PedidoService {
       id:99,
       prazo:5,
       roupas:[
-        {tipo: 'camiseta', tecido: Array(3), tempo: 5, quantidade: 5}
+        {roupa: {tipo: 'camiseta', tecido: "Outro", tempo: 5}, quantidade: 5}
       ],
       valor:50,
       data: '10/03/2024',
@@ -83,7 +83,7 @@ export class PedidoService {
       id:45,
       prazo:5,
       roupas:[
-        {tipo: 'camiseta', tecido: Array(3), tempo: 5, quantidade: 5}
+        {roupa: {tipo: 'camiseta', tecido: "Elastano", tempo: 5}, quantidade: 5}
       ],
       valor:50,
       data: '30/01/2024',
@@ -92,7 +92,7 @@ export class PedidoService {
     }
 
   ];
-  addItem(valor:number,prazo:number,roupas:Roupa[]){
+  addItem(valor:number,prazo:number,roupas:{ roupa: Roupa; quantidade: number }[]){
     let d = new Date();
     let data = d.getDate()+'/'+d.getMonth()+'/'+d.getFullYear()
     let hora = String(d.getHours())+':'+String(d.getMinutes())
@@ -100,9 +100,9 @@ export class PedidoService {
       id:Math.floor(Math.random() * 100) + 1,
       valor:valor,
       prazo:prazo,
-      roupas:roupas,
-      data,
-      hora,
+      roupas: roupas,
+      data: data,
+      hora: hora,
       status: 'Em Aberto'
     }
     this.pedidos.push(novoPedido)
@@ -125,7 +125,7 @@ export class PedidoService {
     this.pedidos[index] = {...this.pedidos[index], status}
     return this.pedidos
   }
-  
+
   getPedidosbyInterval(start: Date, end: Date){
     return this.pedidos.filter(p => this.processDateStringtoDate(p.data) >= start && this.processDateStringtoDate(p.data) <= end)
   }

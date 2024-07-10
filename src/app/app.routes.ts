@@ -10,6 +10,7 @@ import { TelaFuncionarioComponent } from './features/tela-funcionario/tela-funci
 import { ListarAdmComponent } from './features/listar-adm/listar-adm.component';
 import { RelatoriosComponent } from './features/relatorios/relatorios.component'
 import { ListarFuncionarioComponent } from './features/listar-funcionario/listar-funcionario.component';
+import {ListarRoupasComponent} from './features/listar-roupas/listar-roupas.component'
 
 export const routes: Routes = [{
     path:'login',
@@ -30,5 +31,6 @@ export const routes: Routes = [{
 {path: 'admin', component: TelaFuncionarioComponent},
 {path: 'listar-adm', component: ListarAdmComponent},
 {path: 'relatorios', component: RelatoriosComponent},
-{path: 'listar-funcionario',component: ListarFuncionarioComponent}
+{path: 'listar-funcionario',component: ListarFuncionarioComponent},
+{path: 'listar-roupa', component: ListarRoupasComponent}
 ];

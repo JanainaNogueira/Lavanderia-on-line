@@ -18,7 +18,7 @@
         </button>
       <br>
     <a mat-raised-button color="primary" class="historico" href="/listar-pedido">Histórico de Pedidos</a>
-    
+
       </form>
    </div>
 
@@ -60,8 +60,8 @@
         </tr>
         <tbody>
           <tr *ngFor="let item of pedidoSelecionado.roupas">
-            <td>{{ item.tipo }}</td>
-            <td>{{ item.tecido.join(', ') }}</td>
+            <td>{{ item.roupa.tipo }}</td>
+            <td>{{ item.roupa.tecido}}</td>
             <td>R$ 10,00</td>
             <td>{{ item.quantidade }}</td>
             <td>R$ {{ 10 * item.quantidade | number:'1.2-2' }}</td>
