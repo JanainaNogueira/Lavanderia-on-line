@@ -113,6 +113,7 @@
                 Visualizar
               </button>
               <app-cancelDialog
+                [pedidoId]="pedido.id"
                 *ngIf="pedido.status === 'Em Aberto'"
               ></app-cancelDialog>
             </td>
