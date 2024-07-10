@@ -30,5 +30,6 @@ export class TelaFuncionarioComponent implements OnInit {
     this.pedidoService.updatePedidoStatus(id, "Recolhido")
     this.refetch()
   }
+
   constructor(private router: Router, private pedidoService: PedidoService) { }
 }

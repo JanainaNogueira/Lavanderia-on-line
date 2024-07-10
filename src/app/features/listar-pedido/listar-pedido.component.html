@@ -111,10 +111,12 @@
                 mat-raised-button
                 color="primary"
                 *ngIf="pedido.status != 'Aguardando Pagamento'"
+                (click)="visualizarPedido(pedido.id)"
               >
                 Visualizar
               </button>
               <app-cancelDialog class="actionButton"
+                [pedidoId]="pedido.id"
                 *ngIf="pedido.status === 'Em Aberto'"
               ></app-cancelDialog>
             </td>
