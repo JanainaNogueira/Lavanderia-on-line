@@ -59,6 +59,25 @@ export class RealizarPedidoComponent {
     }
     return maiorTempo;
   }
+  addItem(tipo:string){
+    const item =this.listaPedido.find(item=>item.tipo ===tipo);
+    if(item){
+      item.quantidade++;
+      this.valorTotal = this.CalculaValor();
+      this.prazoDeEntrega = this.CalculaPrazo();
+    }
+  }
+  removeItem(tipo:string){
+    const item = this.listaPedido.find(item => item.tipo === tipo);
+    if (item && item.quantidade > 0) {
+      item.quantidade--;
+      if (item.quantidade === 0) {
+        this.listaPedido = this.listaPedido.filter(i => i.tipo !== tipo);
+      }
+      this.valorTotal = this.CalculaValor();
+      this.prazoDeEntrega = this.CalculaPrazo();
+    }
+  }
   FinalizarPedido(){
     if(this.listaPedido)
     this.pedidoService.addItem(this.valorTotal,this.prazoDeEntrega,this.listaPedido)

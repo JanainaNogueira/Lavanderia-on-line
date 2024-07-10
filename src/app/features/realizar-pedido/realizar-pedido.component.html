@@ -54,10 +54,10 @@
         </div>
       </mat-card-content >
         <mat-card-actions class="sectionButton">
-          <button onclick="" class="addItem">
+          <button (click)="addItem(item.tipo)" class="addItem">
           </button>
-          <p>0</p>
-          <button onclick="" class="removeItem">
+          <p>{{item.quantidade}}</p>
+          <button (click)="removeItem(item.tipo)" class="removeItem">
           </button>
         </mat-card-actions>
       </mat-card >
