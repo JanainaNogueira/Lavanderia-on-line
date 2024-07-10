@@ -79,9 +79,10 @@ export class ListarPedidoComponent implements OnInit {
   redirectPayment(num: string){
     this.router.navigateByUrl(`/payment/${num}`);
   }
-  openDialog(num:string){
-
+  visualizarPedido(id:number){
+    this.router.navigate(['/consulta-pedido'], {queryParams: {numero: id}})
   }
+
 }
 
 

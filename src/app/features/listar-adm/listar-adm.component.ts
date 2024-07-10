@@ -32,7 +32,7 @@
   num: any;
   dataInicio: Date;
   dataFim: Date;
-
+  statusAtual: string = "Todos"
   constructor(
     private pedidoService: PedidoService,
     private router: Router
@@ -62,10 +62,11 @@
 
   getPedidos() {
     this.pedidosOriginal = this.pedidoService.getPedidos();
-    this.pedidos = [...this.pedidosOriginal];
+    this.filtroStatus(this.statusAtual)
   }
 
   filtroStatus(status: string) {
+    this.statusAtual = status;
     if (status === 'Todos') {
       this.pedidos = [...this.pedidosOriginal];
     }else if (status === 'Pedidos de Hoje') {

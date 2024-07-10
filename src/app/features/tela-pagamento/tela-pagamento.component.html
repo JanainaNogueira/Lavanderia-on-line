@@ -3,7 +3,7 @@
   <div class="content">
     <div class="header">
       <h1 class="hello">Pedido {{ numero }}</h1>
-      <h2 class="amountOpen">Status: Aguardando Pagamento</h2>
+      <h2 class="amountOpen">Status: {{ pedido.status }}</h2>
     </div>
 
     <h2>Detalhes do Pedido</h2>
@@ -16,19 +16,12 @@
         <th>Subtotal</th>
       </tr>
       <tbody>
-        <tr>
-          <td>Camisa</td>
-          <td>Jeans</td>
-          <td>5</td>
+        <tr *ngFor="let item of pedido.roupas">
+          <td>{{ item.tipo }}</td>
+          <td>{{ item.tecido.join("/") }}</td>
           <td>R$ 10,00</td>
-          <td>R$ 50,00</td>
-        </tr>
-        <tr>
-          <td>Calça</td>
-          <td>Jeans</td>
-          <td>2</td>
-          <td>R$ 10,00</td>
-          <td>R$ 20,00</td>
+          <td>{{ item.quantidade }}</td>
+          <td>R$ {{ 10 * item.quantidade }}</td>
         </tr>
       </tbody>
       <tfoot>
@@ -37,7 +30,13 @@
         <td></td>
         <td></td>
         <td>
-          <button mat-raised-button color="primary">Confirmar Pagamento</button>
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="confirmarPagamento()"
+          >
+            Confirmar Pagamento
+          </button>
         </td>
       </tfoot>
       <tfoot>

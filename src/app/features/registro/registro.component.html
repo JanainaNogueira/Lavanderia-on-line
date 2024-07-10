@@ -7,27 +7,31 @@
         <form>
             <h2>Registrar</h2>
             <p>Já possui uma conta? <a routerLink="/login">Entrar</a></p>
-            <label for="CPF">CPF</label><br><input type="text" id="CPF" name="CPF" required class="campoForm" placeholder="XXX.XXX.XXX-XX" formControlName="cpf"> <br>
+            <label for="CPF">CPF</label><br><input type="text" id="CPF" name="CPF" class="campoForm" placeholder="XXX.XXX.XXX-XX" length11 invalidNumeric RequiredField formControlName="cpf"> <br>
             <small *ngIf="cpf.invalid && (cpf.dirty || cpf.touched)">
-                <div *ngIf="cpf.errors?.['required']" class="erro">Por favor preencha o CPF</div>
-                <div *ngIf="cpf.errors?.['pattern']" class="erro">Por favor preencha apenas números</div>
-                <div *ngIf="cpf.errors?.['minlength']" class="erro">Por favor preencha um CPF válido</div>
-                <div *ngIf="cpf.errors?.['maxlength']" class="erro">Por favor preencha um CPF válido</div>
+                <div *ngIf="cpf.errors?.['RequiredField']" class="erro">Por favor preencha o CPF</div>
+                <div *ngIf="!cpf.errors?.['RequiredField'] && cpf.errors?.['invalidNumeric']" class="erro">Por favor preencha apenas números</div>
+                <div *ngIf="!cpf.errors?.['RequiredField'] && !cpf.errors?.['invalidNumeric'] && cpf.errors?.['length11']" class="erro">Por favor preencha um CPF válido</div>
             </small>
-            <label for="nome">Nome completo</label><br><input type="text" id="nome" name="nome" required class="campoForm" placeholder="Digite seu nome" formControlName="nome"> <br>
+            <label for="nome">Nome completo</label><br>
+            <input type="text" id="nome" name="nome" class="campoForm" placeholder="Digite seu nome" RequiredField NomeValido formControlName="nome"> <br>
             <small *ngIf="nome.invalid && (nome.dirty || nome.touched)">
-                <div *ngIf="nome.errors?.['required']" class="erro">Por favor preencha o nome</div>
-                <div *ngIf="nome.errors?.['pattern']" class="erro">Por favor preencha o nome completo</div>
+                <div *ngIf="nome.errors?.['RequiredField']" class="erro">Por favor preencha o nome</div>
+                <div *ngIf="!nome.errors?.['RequiredField'] && nome.errors?.['NomeValido']" class="erro">
+                    Por favor preencha com nome e sobrenome
+                  </div>
             </small>
-            <label for="email">Email</label><br><input type="email" id="email" name="email" required class="campoForm" placeholder="Digite seu email" formControlName="email"> <br>
+            <label for="email">Email</label><br><input type="email" id="email" name="email" class="campoForm" placeholder="Digite seu email" RequiredField EmailValid formControlName="email"> <br>
             <small *ngIf="email.invalid && (email.dirty || email.touched)">
-                <div *ngIf="email.errors?.['required']" class="erro">Por favor preencha o e-mail</div>
-                <div *ngIf="email.errors?.['email']" class="erro">Por favor preencha um e-mail válido</div>
+                <div *ngIf="email.errors?.['RequiredField']" class="erro">Por favor preencha o e-mail</div>
+                <div *ngIf="!nome.errors?.['RequiredField'] && email.errors?.['EmailValid']" class="erro">
+                    Por favor preencha com um e-mail válido
+                  </div>
             </small>
-            <label for="endereco">CEP</label><br><input type="number" id="endereco" name="endereco" required class="campoForm" placeholder="Digite o Cep" formControlName="endereco" (mouseleave)="validateCEP()"> <br>
+            <label for="endereco">CEP</label><br><input type="number" id="endereco" name="endereco" class="campoForm" placeholder="Digite o Cep" invalidNumeric RequiredField formControlName="endereco" (mouseleave)="validateCEP()"> <br>
             <small *ngIf="endereco.invalid && (endereco.dirty || endereco.touched)">
-                <div *ngIf="endereco.errors?.['required']" class="erro">Por favor preencha o CEP</div>
-                <div *ngIf="endereco.errors?.['pattern'] || endereco.errors?.['minlength']" class="erro">Por favor preencha CEP Valido</div>
+                <div *ngIf="endereco.errors?.['RequiredField']" class="erro">Por favor preencha o CEP</div>
+                <div *ngIf="!nome.errors?.['RequiredField'] && endereco.errors?.['invalidNumeric']" class="erro">Por favor preencha CEP válido</div>
             </small>
             <div class="addressDiv">
                 <div class="addressForm">
@@ -38,17 +42,17 @@
                 </div>
             </div>
             <div class="addressForm">
-                <label for="numero">Numero</label><br><input type="number" id="numero" name="numero" required class="campoFormSmall" placeholder="N°" formControlName="numero"> <br>
+                <label for="numero">Numero</label><br><input type="number" id="numero" name="numero" invalidNumeric RequiredField class="campoFormSmall" placeholder="N°" formControlName="numero"> <br>
             </div>
             <small *ngIf="numero.invalid && (numero.dirty || numero.touched)">
-                <div *ngIf="numero.errors?.['required']" class="erro">Por favor preencha o Numero</div>
-                <div *ngIf="numero.errors?.['pattern']" class="erro">Por favor preencha CEP Valido</div>
+                <div *ngIf="numero.errors?.['RequiredField']" class="erro">Por favor preencha o Numero</div>
+                <div *ngIf="!nome.errors?.['RequiredField'] && numero.errors?.['invalidNumeric']" class="erro">Por favor preencha CEP Valido</div>
             </small>
-            <label for="Telefone">Telefone</label><br><input type="text" id="telefone" name="telefone" required class="campoForm" placeholder="(xx)xxxx-xxxx" formControlName="telefone"> <br>
+            <label for="Telefone">Telefone</label><br><input type="text" id="telefone" name="telefone" length11 invalidNumeric  RequiredField class="campoForm" placeholder="(xx)xxxx-xxxx" formControlName="telefone"> <br>
             <small *ngIf="telefone.invalid && (telefone.dirty || telefone.touched)">
-                <div *ngIf="telefone.errors?.['required']" class="erro">Por favor preencha o número de telefone (com DDD)</div>
-                <div *ngIf="telefone.errors?.['pattern']" class="erro">Por favor preencha apenas com números</div>
-                <div *ngIf="telefone.errors?.['minlength']" class="erro">Por favor preencha um telefone completo (com DDD)</div>
+                <div *ngIf="telefone.errors?.['RequiredField']" class="erro">Por favor preencha o número de telefone (com DDD)</div>
+                <div *ngIf="!nome.errors?.['RequiredField'] && telefone.errors?.['invalidNumeric']" class="erro">Por favor preencha apenas com números</div>
+                <div *ngIf="!nome.errors?.['RequiredField'] && !telefone.errors?.['invalidNumeric'] && telefone.errors?.['length11']" class="erro">Por favor preencha um telefone completo (com DDD)</div>
             </small>
             <button type="submit" class="botao">Continue</button>
           </form>

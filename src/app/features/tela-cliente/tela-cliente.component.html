@@ -19,9 +19,17 @@
             <td>{{ pedido.id }}</td>
             <td>{{ pedido.status }}</td>
             <td>{{ pedido.data }}</td>
-            <td>{{ pedido.valor.toLocaleString('pt-BR',{style:'currency',currency:'BRL'}) }}</td>
             <td>
-              <button class="actionButton"
+              {{
+                pedido.valor.toLocaleString("pt-BR", {
+                  style: "currency",
+                  currency: "BRL"
+                })
+              }}
+            </td>
+            <td>
+              <button
+                class="actionButton"
                 mat-raised-button
                 color="primary"
                 *ngIf="pedido.status === 'Aguardando Pagamento'"
@@ -33,7 +41,8 @@
               >
                 Pagar
               </button>
-              <button class="actionButton"
+              <button
+                class="actionButton"
                 mat-raised-button
                 color="primary"
                 *ngIf="pedido.status != 'Aguardando Pagamento'"
@@ -41,6 +50,7 @@
                 Visualizar
               </button>
               <app-cancelDialog
+                [pedidoId]="pedido.id"
                 *ngIf="pedido.status === 'Em Aberto'"
               ></app-cancelDialog>
             </td>

@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, Inject, Input} from '@angular/core';
 import {
   MatDialog,
   MatDialogRef,
@@ -6,8 +6,10 @@ import {
   MatDialogClose,
   MatDialogTitle,
   MatDialogContent,
+  MAT_DIALOG_DATA
 } from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
+import { PedidoService } from '../../services/pedido.service';
 
 @Component({
   selector: 'app-cancelDialog',
@@ -18,12 +20,15 @@ import {MatButtonModule} from '@angular/material/button';
 })
 export class CancelDialog {
   constructor(public dialog: MatDialog) {}
-
-  openDialog(enterAnimationDuration: string, exitAnimationDuration: string,): void {
+  @Input() pedidoId: number;
+  openDialog(enterAnimationDuration: string, exitAnimationDuration: string, ): void {
     this.dialog.open(CancelDialogW, {
       width: '25vw',
       enterAnimationDuration,
       exitAnimationDuration,
+      data: {
+        pedidoId: this.pedidoId
+      }
     });
   }
 }
@@ -35,8 +40,10 @@ export class CancelDialog {
   imports: [MatButtonModule, MatDialogActions, MatDialogClose, MatDialogTitle, MatDialogContent],
 })
 export class CancelDialogW {
-  constructor(public dialogRef: MatDialogRef<CancelDialogW>) {}
-  onYesClick(){
-    alert('pedido cancelado')
+
+  constructor(@Inject(MAT_DIALOG_DATA) public data: {pedidoId: number}, public dialogRef: MatDialogRef<CancelDialogW>, private pedidoService: PedidoService) {
+  }
+  cancelarPedido(){
+    this.pedidoService.updatePedidoStatus(this.data.pedidoId, "Rejeitado/Cancelado");
   }
 }
