@@ -32,7 +32,7 @@
   num: any;
   dataInicio: Date;
   dataFim: Date;
-  statusAtual: string;
+  statusAtual: string = "Todos"
   constructor(
     private pedidoService: PedidoService,
     private router: Router
