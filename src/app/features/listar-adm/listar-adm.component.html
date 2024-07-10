@@ -141,7 +141,7 @@
                 mat-raised-button
                 color="accent"
                 *ngIf="pedido.status == 'Recolhido'"
-                (click)="recolherPedido(pedido.id)"
+                (click)="confirmarLavagem(pedido.id)"
               >
                 Confirmar Lavagem
               </button>
