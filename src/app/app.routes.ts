@@ -8,7 +8,9 @@ import { TelaPagamentoComponent } from './features/tela-pagamento/tela-pagamento
 import { ConsultaPedidoComponent } from './features/consulta-pedido/consulta-pedido.component';
 import { TelaFuncionarioComponent } from './features/tela-funcionario/tela-funcionario.component';
 import { ListarAdmComponent } from './features/listar-adm/listar-adm.component';
+import { InserirFuncionarioComponent } from './features/inserir-funcionario/inserir-funcionario.component';
 import { ListarFuncionarioComponent } from './features/listar-funcionario/listar-funcionario.component';
+import { EditarFuncionarioComponent } from './features/editar-funcionario/editar-funcionario.component';
 
 export const routes: Routes = [{
     path:'login',
@@ -28,5 +30,7 @@ export const routes: Routes = [{
 {path: 'consulta-pedido', component: ConsultaPedidoComponent},
 {path: 'admin', component: TelaFuncionarioComponent},
 {path: 'listar-adm', component: ListarAdmComponent},
-{path: 'listar-funcionario',component: ListarFuncionarioComponent}
+{path: 'listar-funcionario',component:ListarFuncionarioComponent},
+{path: 'inserir-funcionario',component:InserirFuncionarioComponent},
+{path: 'editar-funcionario/:email', component:EditarFuncionarioComponent }
 ];
