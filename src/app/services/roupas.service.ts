@@ -42,6 +42,7 @@ export class RoupasService {
     };
     this.roupas.push(novaRoupa);
   }
+
   getRoupaByTipo(tipo: string): Roupa | undefined {
     return this.roupas.find(roupa => roupa.tipo === tipo);
   }

@@ -1,0 +1,36 @@
+<app-menu-admin></app-menu-admin>
+<div class="layout">
+  <div class="content">
+    <div class="header">
+      <h1 class="hello">Novo tipo de roupa</h1>
+    </div>
+    <form [formGroup]="FormularioRegistroRoupa" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <mat-form-field appearance="fill">
+          <mat-label>Tipo</mat-label>
+          <input matInput formControlName="nome" required>
+          <mat-error *ngIf="FormularioRegistroRoupa.get('nome')?.invalid && FormularioRegistroRoupa.get('nome')?.touched">
+            <div *ngIf="FormularioRegistroRoupa.get('nome')?.errors?.['required']">Digite o tipo de roupa</div>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="form-group">
+        <mat-form-field appearance="fill">
+          <mat-label>Tempo</mat-label>
+          <input matInput formControlName="nome" required>
+          <mat-error *ngIf="FormularioRegistroRoupa.get('nome')?.invalid && FormularioRegistroRoupa.get('nome')?.touched">
+            <div *ngIf="FormularioRegistroRoupa.get('nome')?.errors?.['required']">Digite o tempo que roupa leva</div>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="form-group">
+        <button mat-raised-button color="primary" type="submit" (click)="onSubmit()">
+          <mat-icon>save</mat-icon> Salvar
+        </button>
+        <a mat-raised-button color="secondary" routerLink="/listar-funcionario">
+          <mat-icon>arrow_back</mat-icon> Voltar
+        </a>
+      </div>
+    </form>
+  </div>
+</div>

@@ -6,7 +6,7 @@
       <form class="example-form">
         <mat-form-field class="example-full-width">
           <mat-label>Roupa</mat-label>
-          <input matInput placeholder="Ex.Joao" name="nome" [(ngModel)]="nome" />
+          <input matInput placeholder="Ex.Camisa" name="nome" [(ngModel)]="nome" />
         </mat-form-field>
         <button
           mat-fab
@@ -15,6 +15,14 @@
           (click)="pesquisarPorNome()"
         >
           <mat-icon>search</mat-icon>
+        </button>
+        <button
+          mat-fab
+          routerLink="/inserir-roupa"
+          color="primary"
+          class="Adicionar"
+          >
+          <mat-icon>add</mat-icon>
         </button>
       </form>
     <div class="list-table">
