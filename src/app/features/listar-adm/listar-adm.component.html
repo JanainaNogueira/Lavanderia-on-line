@@ -159,6 +159,7 @@
                 mat-raised-button
                 color="primary"
                 *ngIf="pedido.status != ''"
+                (click)="visualizarPedido(pedido.id)"
               >
                 Visualizar
               </button>

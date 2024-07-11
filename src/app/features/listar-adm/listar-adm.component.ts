@@ -169,4 +169,8 @@
   mudaData() {
     this.filtroData();
   }
+
+  visualizarPedido(num:number){
+    this.router.navigateByUrl(`/payment/${num}`);
+  }
 }
