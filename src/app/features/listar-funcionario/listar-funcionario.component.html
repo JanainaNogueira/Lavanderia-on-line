@@ -16,6 +16,14 @@
         >
           <mat-icon>search</mat-icon>
         </button>
+        <button
+          mat-fab
+          routerLink="/inserir-funcionario"
+          color="primary"
+          class="Adicionar"
+          >
+          <mat-icon>add</mat-icon>
+        </button>
       </form>
     <div>
       <table>
@@ -33,14 +41,13 @@
             <td>{{ funcionario.nascimento }}</td>
             <td>{{ funcionario.senha }}</td>
             <td>
-              <button
-                mat-raised-button
-                color="primary"
-                href="/editar-funcionario"
-              >
+              <button mat-raised-button 
+              color="primary" [routerLink]="['/editar-funcionario', funcionario.email]">
                 Editar
               </button>
-              <app-delete-dialog></app-delete-dialog>
+              <button mat-raised-button color="warn" (click)="excluirFuncionario(funcionario)">
+                Excluir
+              </button>
             </td>
           </tr>
         </tbody>
