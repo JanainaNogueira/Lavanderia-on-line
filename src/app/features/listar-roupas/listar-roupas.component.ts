@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCommonModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
@@ -60,9 +60,16 @@ export class ListarRoupasComponent {
           roupa.tipo.toLowerCase().includes(pesquisaNome)
         );
       }
-    }
+  }
 
-    openDialog(num:string){
+  openDialog(num:string){
 
+  }
+  excluirRoupa(roupa:Roupa){
+    const confirmacao = confirm(`Tem certeza que deseja excluir a roupa ${roupa.tipo}?`);
+    if (confirmacao) {
+      this.roupas = this.roupas.filter(r => r !== roupa);
+      this.ordenarNome();
     }
+  }
 }

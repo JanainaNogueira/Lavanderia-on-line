@@ -45,6 +45,7 @@ td{
 }
 .titulo-list th{
   display: flex;
+  width: 20%;
 }
 .titulo-list th:nth-child(4){
   display: flex;
