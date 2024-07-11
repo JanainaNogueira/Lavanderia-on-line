@@ -34,11 +34,11 @@
               <button
                 mat-raised-button
                 color="primary"
-                href="/editar-roupa"
+                [routerLink]="['/editar-roupa', roupa.tipo]"
               >
                 Editar
               </button>
-              <app-delete-dialog (click)="excluirRoupa(roupa)"></app-delete-dialog>
+              <button mat-raised-button color="warn" (click)="excluirRoupa(roupa)">Excluir</button>
             </td>
           </tr>
         </tbody>

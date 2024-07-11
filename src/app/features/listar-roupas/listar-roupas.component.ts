@@ -6,7 +6,7 @@ import { MatInputModule} from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { MenuAdminComponent } from '../../components/menu-admin/menu-admin.component';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { RoupasService } from '../../services/roupas.service';
 import {Roupa} from '../../Pedido';
 import { DeleteDialog } from '../../components/delete-dialog/delete-dialog.component';
@@ -15,7 +15,7 @@ import { DeleteDialog } from '../../components/delete-dialog/delete-dialog.compo
   selector: 'app-listar-roupas',
   standalone: true,
   imports: [CommonModule,MatCommonModule,MatButtonModule,MatInputModule,
-    MatIconModule,FormsModule, MenuAdminComponent,DeleteDialog],
+    MatIconModule,FormsModule, MenuAdminComponent,DeleteDialog,RouterModule, DeleteDialog ],
   templateUrl: './listar-roupas.component.html',
   styleUrl: './listar-roupas.component.css'
 })

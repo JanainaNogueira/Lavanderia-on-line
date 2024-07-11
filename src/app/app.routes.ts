@@ -13,6 +13,7 @@ import { RelatoriosComponent } from './features/relatorios/relatorios.component'
 import { ListarFuncionarioComponent } from './features/listar-funcionario/listar-funcionario.component';
 import { EditarFuncionarioComponent } from './features/editar-funcionario/editar-funcionario.component';
 import {ListarRoupasComponent} from './features/listar-roupas/listar-roupas.component'
+import { EditarRoupasComponent } from './features/editar-roupas/editar-roupas.component';
 
 export const routes: Routes = [{
     path:'login',
@@ -36,5 +37,6 @@ export const routes: Routes = [{
 {path: 'listar-funcionario',component:ListarFuncionarioComponent},
 {path: 'listar-roupa', component: ListarRoupasComponent},
 {path: 'inserir-funcionario',component:InserirFuncionarioComponent},
-{path: 'editar-funcionario/:email', component:EditarFuncionarioComponent }
+{path: 'editar-funcionario/:email', component:EditarFuncionarioComponent },
+{path: 'editar-roupa/tipo', component:EditarRoupasComponent}
 ];
