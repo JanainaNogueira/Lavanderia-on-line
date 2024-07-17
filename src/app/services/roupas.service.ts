@@ -10,34 +10,28 @@ export class RoupasService {
   roupas:Roupa[]=[
     {
       tipo:"calca",
-      tecido:"Jeans",
       tempo:5,
     },
     {
       tipo:"camisa",
-      tecido:"Elastano",
       tempo:6,
     },
     {
       tipo:"camiseta",
-      tecido:"Moletom",
       tempo: 5,
     },
     {
       tipo:"cueca",
-      tecido:"Elastano",
       tempo:2,
     },
     {
       tipo:"meia",
-      tecido:"Outro",
       tempo:1,
     }
   ];
-  addRoupa(tipo:string,tecido:string,tempo:number){
+  addRoupa(tipo:string,tempo:number){
     const novaRoupa:Roupa={
       tipo,
-      tecido,
       tempo,
     };
     this.roupas.push(novaRoupa);

@@ -1,0 +1,65 @@
+
+img{
+  width: 25%;
+}
+
+.content{
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  border: 1px;
+  background-color: var(--branco);
+}
+
+.header{
+  padding-left: 2%;
+  border-bottom: 10px solid var(--azulEscuro);
+
+}
+table{
+  text-align: center;
+  margin-left:1%;
+  border-collapse: collapse;
+  width: 100%;
+}
+th{
+  font-size: clamp(15px, 5vh, 30px);
+  padding: 1%;
+  font-weight: lighter;
+}
+td{
+  width: 20%;
+  font-size: clamp(10px, 4vh, 25px);
+  padding: 15px;
+}
+tbody tr:nth-child(even){
+  background-color: var(--cinza);
+}
+tbody tr{
+  cursor: pointer;
+}
+tbody tr > td:nth-child(1){
+  font-weight: bolder;
+}
+tbody tr:hover > td:nth-child(1){
+  color: var(--azulClaro);
+}
+.Filtro{
+  margin-left: 5px;
+}
+.Pesquisar {
+  margin-right: 10px;
+}
+.hello{
+  margin-top: 20px;
+  padding-right: 50px;
+  font-size: clamp(10px, 4vh, 25px);
+
+}
+
+.cancel{
+  font-size: clamp(2px, 1vh, 25px);
+
+}

@@ -18,26 +18,31 @@ import { RoupasService } from '../../services/roupas.service';
     MatIconModule,FormsModule, MenuAdminComponent,
     DeleteDialog,RouterModule,ReactiveFormsModule,MatDatepickerModule,MatNativeDateModule],
   templateUrl: './inserir-roupa.component.html',
-  styleUrl: './inserir-roupa.component.css'
+  styleUrls: ['./inserir-roupa.component.css']
 })
 export class InserirRoupaComponent {
   FormularioRegistroRoupa = this.fb.group({
-    tipo: ['', [Validators.required, Validators.pattern(/^[a-zA-Z]+(?:\s[a-zA-Z]+)+$/)]],
-    tempo: ['', [Validators.required]],
+    tipo: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]*$/)]],
+    tempo: ['', [Validators.required, Validators.pattern(/^\d{1,2}$/)]]
   });
-  constructor(private fb: FormBuilder, private roupasService: RoupasService,
+  constructor(private fb: FormBuilder,
+    private roupasService: RoupasService,
     private router: Router) {}
 
   onSubmit() {
-    if (this.FormularioRegistroRoupa.valid) {
-      const tipo = this.FormularioRegistroRoupa.get('nome')?.value!;
-      const tempo = this.FormularioRegistroRoupa.get('nascimento')?.value!;
+    if(this.FormularioRegistroRoupa.valid){
+      const tipo = this.FormularioRegistroRoupa.value.tipo as string;
+      if(this.FormularioRegistroRoupa.value.tempo !=null){
+        const tempo = parseInt(this.FormularioRegistroRoupa.value.tempo, 10);
+        this.roupasService.addRoupa(
+          tipo,
+          tempo);
+        this.router.navigate(['./listar-roupa'])
+      }
 
-      //this.roupasService.addTipoRoupa(tipo, tempo);
-      this.router.navigate(['/listar-funcionarios']);
-    } else {
-      this.FormularioRegistroRoupa.markAllAsTouched();
-  }
+    }else{
+
+    }
 
 }
 }

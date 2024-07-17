@@ -9,6 +9,5 @@ export interface Pedido{
 }
 export interface Roupa{
   tipo:string
-  tecido:string
   tempo:number
 }

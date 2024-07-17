@@ -8,27 +8,25 @@
       <div class="form-group">
         <mat-form-field appearance="fill">
           <mat-label>Tipo</mat-label>
-          <input matInput formControlName="nome" required>
-          <mat-error *ngIf="FormularioRegistroRoupa.get('nome')?.invalid && FormularioRegistroRoupa.get('nome')?.touched">
-            <div *ngIf="FormularioRegistroRoupa.get('nome')?.errors?.['required']">Digite o tipo de roupa</div>
+          <input matInput formControlName="tipo" required>
+          <mat-error *ngIf="FormularioRegistroRoupa.get('tipo')?.invalid && FormularioRegistroRoupa.get('tipo')?.touched">
           </mat-error>
         </mat-form-field>
       </div>
       <div class="form-group">
         <mat-form-field appearance="fill">
           <mat-label>Tempo</mat-label>
-          <input matInput formControlName="nome" required>
-          <mat-error *ngIf="FormularioRegistroRoupa.get('nome')?.invalid && FormularioRegistroRoupa.get('nome')?.touched">
-            <div *ngIf="FormularioRegistroRoupa.get('nome')?.errors?.['required']">Digite o tempo que roupa leva</div>
+          <input matInput formControlName="tempo" required>
+          <mat-error *ngIf="FormularioRegistroRoupa.get('tempo')?.invalid && FormularioRegistroRoupa.get('tipo')?.touched">
           </mat-error>
         </mat-form-field>
       </div>
       <div class="form-group">
         <button mat-raised-button color="primary" type="submit" (click)="onSubmit()">
-          <mat-icon></mat-icon> Salvar
+          <mat-icon>save</mat-icon> Salvar
         </button>
         <a mat-raised-button color="secondary" routerLink="/listar-roupa">
-          <mat-icon></mat-icon> Voltar
+          <mat-icon>arrow_back</mat-icon> Voltar
         </a>
       </div>
     </form>
