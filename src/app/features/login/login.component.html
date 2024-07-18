@@ -7,42 +7,47 @@
     <h2>Entrar</h2>
     <p>Não possui uma conta? <a routerLink="/registro">Registre-se</a></p>
     <form (ngSubmit)="onSubmit()">
-    <label for="email">email</label><br /><input
-      type="email"
-      id="email"
-      name="email"
-      class="campoForm"
-      placeholder="Email"
-      EmailValid
-      [ngModel]="email"
-      #email="ngModel"
-    />
-    <br />
-    <small *ngIf="email.dirty || email.touched">
-      <div [hidden]="!email.errors?.['EmailValid']" class="erro">
-        Por favor preencha com um e-mail válido
-      </div>
-    </small>
-    <label for="senha">senha</label><br /><input
-      type="password"
-      id="senha"
-      name="senha"
-      class="campoForm"
-      placeholder="Senha"
-      minlength="4"
-      maxlength="4"
-      [ngModel]="senha"
-      #senha="ngModel"
-      invalidNumeric
-    />
-    <br />
-    <small *ngIf="senha.dirty || senha.touched">
-      <div class="erro" [hidden]="!senha.errors?.['invalidNumeric']">
-        Senha inválida. Favor preencha com sua senha numérica.
-      </div>
-    </small>
+      <label for="email">Email</label><br />
+      <input
+        type="email"
+        id="email"
+        name="email"
+        class="campoForm"
+        placeholder="Digite seu email"
+        [(ngModel)]="email"
+        #emailInput="ngModel"
+        EmailValid
+        
+      />
+      <br />
+      <small *ngIf="emailInput.dirty || emailInput.touched" class="erro">
+        <div [hidden]="!emailInput.errors?.['EmailValid']">
+          Por favor, preencha com um email válido.
+        </div>
+      </small>
 
-    <button type="submit" class="botao" routerLink="/home">Entrar</button>
-  </form>
+      <label for="senha">Senha</label><br />
+      <input
+        type="password"
+        id="senha"
+        name="senha"
+        class="campoForm"
+        placeholder="Digite sua senha"
+        minlength="4"
+        maxlength="4"
+        [(ngModel)]="senha"
+        #senhaInput="ngModel"
+        invalidNumeric
+      />
+      <br />
+      <small *ngIf="senhaInput.dirty || senhaInput.touched" class="erro">
+        <div [hidden]="!senhaInput.errors?.['invalidNumeric']">
+          Senha inválida. Preencha com sua senha numérica.
+        </div>
+        
+      </small>
+
+      <button type="submit" class="botao">Entrar</button>
+    </form>
   </div>
 </div>
