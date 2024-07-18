@@ -79,7 +79,16 @@ export class FuncionarioService {
     if (index !== -1) {
       this.funcionarios[index] = funcionario;
     }
-}
+  }
+
+  validateLogin(email: string, senha: string): boolean {
+    const funcionario = this.funcionarios.find(f => f.email === email && f.senha === senha);
+    return funcionario !== undefined;
+  }
+  
+  isFuncionario(email: string): boolean {
+    return this.funcionarios.some(f => f.email === email);
+  }
 }
 
 
