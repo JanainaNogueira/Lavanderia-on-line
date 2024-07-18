@@ -37,9 +37,10 @@ export class InserirFuncionarioComponent{
       const email = this.FormularioRegistroFunc.get('email')?.value!;
       const senha = this.FormularioRegistroFunc.get('senha')?.value!;
       this.funcionarioService.addFuncionario(email, nome, dataNascimento, senha);
-      this.router.navigate(['/listar-funcionarios']);
+      this.router.navigate(['./listar-funcionario']);
     } else {
       this.FormularioRegistroFunc.markAllAsTouched();
+      this.router.navigate(['./listar-funcionario']);
   }
  
 }

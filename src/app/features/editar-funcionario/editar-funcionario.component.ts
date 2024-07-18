@@ -67,7 +67,7 @@ export class EditarFuncionarioComponent implements OnInit {
       this.funcionario.email = this.FormularioRegistroFunc.value.email;
       this.funcionario.senha = this.FormularioRegistroFunc.value.senha;
       this.funcionarioService.editarFuncionario(this.funcionario);
-      this.router.navigate(['/listar-funcionarios']);
+      this.router.navigate(['./listar-funcionario']);
     }
   }
 }
