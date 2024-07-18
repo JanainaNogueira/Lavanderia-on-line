@@ -31,5 +31,12 @@ export class TelaPagamentoComponent implements OnInit{
     alert("pedido pago")
     this.router.navigate(["/home"]);
   }
+  getTotalItens(): number {
+    return this.pedido ? this.pedido.roupas.reduce((acc, item) => acc + item.quantidade, 0) : 0;
+  }
+
+  getTotalValor(): number {
+    return this.pedido ? this.pedido.roupas.reduce((acc, item) => acc + (10 * item.quantidade), 0) : 0;
+  }
 
 }

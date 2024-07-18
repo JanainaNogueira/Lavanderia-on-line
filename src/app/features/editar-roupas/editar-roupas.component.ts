@@ -40,11 +40,11 @@ export class EditarRoupasComponent {
       if (!this.roupa) {
         this.router.navigate(['/listar-roupas']);
       } else {
-        this.FormularioRegistroFunc.patchValue({
+        /*this.FormularioRegistroFunc.patchValue({
           tipo: this.roupa.tipo,
-          tecido: this.roupa.tecido,
+          tecido: this.tecido,
           tempo: this.roupa.tempo,
-        });
+        });*/
       }
     } else {
       this.router.navigate(['/listar-roupas']);
@@ -60,11 +60,11 @@ export class EditarRoupasComponent {
 
   onSubmit() {
     if (this.FormularioRegistroFunc.valid && this.roupa) {
-      this.roupa.tipo = this.FormularioRegistroFunc.value.nome;
-      this.roupa.tecido= this.FormularioRegistroFunc.value.nascimento;
+      /*this.roupa.tipo = this.FormularioRegistroFunc.value.nome;
+      this.tecido= this.FormularioRegistroFunc.value.nascimento;
       this.roupa.tempo = this.FormularioRegistroFunc.value.email;
       this.roupasService.editarRoupa(this.roupa);
-      this.router.navigate(['/listar-roupas']);
+      this.router.navigate(['/listar-roupas']);*/
     }
   }
 }

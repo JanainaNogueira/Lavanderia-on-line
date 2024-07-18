@@ -22,7 +22,7 @@ export class RealizarPedidoComponent {
   tiposRoupas: Roupa []= [];
   tiposTecido: string[] = ["Elastano","Moletom","Jeans","Outro"]
   //lista de montagem parcial do pedido
-  listaPedido: { roupa: Roupa, quantidade: number }[] = [];
+  listaPedido: { roupa: Roupa,tecido:string, quantidade: number }[] = [];
   valorTotal:number=0;
   prazoDeEntrega:number=0;
   tecidoSelecionado:string="";
@@ -37,9 +37,13 @@ export class RealizarPedidoComponent {
     const termoBusca=this.queryField.value;
     const itemEncontrado=this.tiposRoupas.find(item=>item.tipo.toLowerCase() === termoBusca.toLowerCase());
     if(itemEncontrado){
-      this.listaPedido.push({roupa: itemEncontrado, quantidade: 1});
-      this.valorTotal=this.CalculaValor();
-      this.prazoDeEntrega=this.CalculaPrazo();
+      const tecidoSelecionado = this.tiposTecido.find(tecido => tecido === this.tecidoSelecionado);
+      if(tecidoSelecionado){
+        this.listaPedido.push({roupa: itemEncontrado, tecido:tecidoSelecionado, quantidade: 1});
+        this.valorTotal=this.CalculaValor();
+        this.prazoDeEntrega=this.CalculaPrazo();
+      }
+
     }
     this.queryField.reset();
   }
@@ -80,7 +84,7 @@ export class RealizarPedidoComponent {
   }
   FinalizarPedido(){
     if(this.listaPedido)
-    this.pedidoService.addItem(this.valorTotal,this.prazoDeEntrega,this.listaPedido)
+    this.pedidoService.addItem(this.valorTotal,this.prazoDeEntrega,this.listaPedido,)
   }
   LimparLista(){
     this.listaPedido=[];

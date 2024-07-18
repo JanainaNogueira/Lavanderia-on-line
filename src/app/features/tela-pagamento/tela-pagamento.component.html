@@ -18,9 +18,9 @@
       <tbody>
         <tr *ngFor="let item of pedido.roupas">
           <td>{{ item.roupa.tipo }}</td>
-          <td>{{ item.roupa.tecido}}</td>
-          <td>R$ 10,00</td>
+          <td>{{ item.tecido}}</td>
           <td>{{ item.quantidade }}</td>
+          <td>R$ 10,00</td>
           <td>R$ {{ 10 * item.quantidade }}</td>
         </tr>
       </tbody>
@@ -42,9 +42,9 @@
       <tfoot>
         <td></td>
         <td>Numero Total de Items</td>
-        <td>7</td>
+        <td>{{getTotalItens()}}</td>
         <td>Valor Total:</td>
-        <td>R$ 70,00</td>
+        <td>R$ {{getTotalValor()}}</td>
       </tfoot>
     </table>
   </div>
