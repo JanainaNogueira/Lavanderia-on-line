@@ -26,4 +26,8 @@ export class TelaClienteComponent implements OnInit {
   redirectPayment(num: number){
     this.router.navigateByUrl(`/payment/${num}`);
   }
+  visualizarPedido(id:number){
+    this.router.navigate(['/consulta-pedido'], {queryParams: {numero: id}})
+  }
+
 }
