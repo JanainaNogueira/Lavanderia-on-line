@@ -26,21 +26,15 @@ export class LoginComponent {
   ) { }
 
   onSubmit() {
-    if (this.clienteService.isCliente(this.email)) {
-      if (this.clienteService.validateLogin(this.email, this.senha)) {
-        this.router.navigate(['/home']);
-      } else {
-        alert('Email ou senha inválidos para cliente');
-      }
-    } else if (this.funcionarioService.isFuncionario(this.email)) {
-      if (this.funcionarioService.validateLogin(this.email, this.senha)) {
-        this.router.navigate(['/admin']);
-      } else {
-        alert('Email ou senha inválidos para funcionário');
-      }
-    } else {
-      alert('Email não encontrado');
-    }
+    
+        if (this.clienteService.validateLogin(this.email, this.senha)) {
+          this.router.navigate(['/home']);
+        } else  if (this.funcionarioService.validateLogin(this.email, this.senha)) {
+          this.router.navigate(['/admin']);
+        } else {
+          alert("Email ou senha invalidos");
+        }
+      
   }
 
 

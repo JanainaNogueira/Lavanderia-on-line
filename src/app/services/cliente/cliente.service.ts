@@ -53,7 +53,4 @@ export class ClienteService {
     return cliente !== undefined;
   }
   
-  isCliente(email: string): boolean {
-    return this.clientes.some(c => c.email === email);
-  }
 }

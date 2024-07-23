@@ -86,9 +86,6 @@ export class FuncionarioService {
     return funcionario !== undefined;
   }
   
-  isFuncionario(email: string): boolean {
-    return this.funcionarios.some(f => f.email === email);
-  }
 }
 
 
