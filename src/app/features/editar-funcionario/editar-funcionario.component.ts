@@ -15,6 +15,7 @@ import { EmailDirective } from '../../shared/directive/email.directive';
 import { NumericoDirective } from '../../shared/directive/numerico.directive';
 import { NomeDirective } from '../../shared/directive/nome.directive';
 import { RequiredFieldDirective } from '../../shared/directive/required.directive';
+import { length4Directive } from '../../shared/directive/length4.directive';
 
 
 @Component({
@@ -22,7 +23,7 @@ import { RequiredFieldDirective } from '../../shared/directive/required.directiv
   standalone: true,
   imports: [CommonModule, MatCommonModule,MatButtonModule,MatInputModule,
     MatIconModule,FormsModule, MenuAdminComponent, 
-    DeleteDialog,RouterModule,ReactiveFormsModule,MatDatepickerModule,MatNativeDateModule, EmailDirective, NumericoDirective, NomeDirective, RequiredFieldDirective],
+    DeleteDialog,RouterModule,ReactiveFormsModule,MatDatepickerModule,MatNativeDateModule, EmailDirective, NumericoDirective, NomeDirective, RequiredFieldDirective, length4Directive],
   templateUrl: './editar-funcionario.component.html',
   styleUrl: './editar-funcionario.component.css'
 })

@@ -42,10 +42,11 @@
       <div class="form-group">
         <mat-form-field appearance="fill">
           <mat-label>Senha</mat-label>
-          <input matInput type="password" formControlName="senha" RequiredField invalidNumeric >
+          <input matInput type="password" formControlName="senha" RequiredField invalidNumeric length4>
           <small *ngIf="FormularioRegistroFunc.get('senha')?.invalid && FormularioRegistroFunc.get('senha')?.touched">
             <div *ngIf="FormularioRegistroFunc.get('senha')?.errors?.['RequiredField']">Digite a senha.</div>
-            <div *ngIf="FormularioRegistroFunc.get('senha')?.errors?.['minlength']">A senha deve conter ao menos 4 caracteres.</div>
+            <div *ngIf="!FormularioRegistroFunc.get('senha')?.errors?.['RequiredField'] && FormularioRegistroFunc.get('senha')?.errors?.['invalidNumeric']">A senha deve ser numérica.</div>
+            <div *ngIf="!FormularioRegistroFunc.get('senha')?.errors?.['RequiredField'] && !FormularioRegistroFunc.get('senha')?.errors?.['invalidNumeric'] && FormularioRegistroFunc.get('senha')?.errors?.['length4']">A senha deve conter 4 caracteres.</div>
           </small>
         </mat-form-field>
       </div>
