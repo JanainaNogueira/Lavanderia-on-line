@@ -11,13 +11,18 @@ import { MatIconModule } from '@angular/material/icon';
 import { MenuAdminComponent } from '../../components/menu-admin/menu-admin.component';
 import { DeleteDialog } from '../../components/delete-dialog/delete-dialog.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { EmailDirective } from '../../shared/directive/email.directive';
+import { NumericoDirective } from '../../shared/directive/numerico.directive';
+import { NomeDirective } from '../../shared/directive/nome.directive';
+import { RequiredFieldDirective } from '../../shared/directive/required.directive';
+
 
 @Component({
   selector: 'app-editar-funcionario',
   standalone: true,
   imports: [CommonModule, MatCommonModule,MatButtonModule,MatInputModule,
-    MatIconModule,FormsModule, MenuAdminComponent,
-    DeleteDialog,RouterModule,ReactiveFormsModule,MatDatepickerModule,MatNativeDateModule],
+    MatIconModule,FormsModule, MenuAdminComponent, 
+    DeleteDialog,RouterModule,ReactiveFormsModule,MatDatepickerModule,MatNativeDateModule, EmailDirective, NumericoDirective, NomeDirective, RequiredFieldDirective],
   templateUrl: './editar-funcionario.component.html',
   styleUrl: './editar-funcionario.component.css'
 })
@@ -53,10 +58,10 @@ export class EditarFuncionarioComponent implements OnInit {
 }
   createForm() {
     this.FormularioRegistroFunc = this.formBuilder.group({
-      nome: ['', [Validators.required, Validators.pattern('^[A-Za-zÀ-ú ]+[ ]+[A-Za-zÀ-ú ]+$')]],
-      nascimento: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      senha: ['', [Validators.required, Validators.minLength(4)]]
+      nome: null,
+      nascimento: null,
+      email: null,
+      senha: null
     });
   }
 
