@@ -10,20 +10,22 @@ import { DeleteDialog } from '../../components/delete-dialog/delete-dialog.compo
 import { Router, RouterModule } from '@angular/router';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { RoupasService } from '../../services/roupas.service';
+import { NumericoDirective } from '../../shared/directive/numerico.directive';
+import { RequiredFieldDirective } from '../../shared/directive/required.directive';
 
 @Component({
   selector: 'app-inserir-roupa',
   standalone: true,
   imports: [CommonModule, MatCommonModule,MatButtonModule,MatInputModule,
     MatIconModule,FormsModule, MenuAdminComponent,
-    DeleteDialog,RouterModule,ReactiveFormsModule,MatDatepickerModule,MatNativeDateModule],
+    DeleteDialog,RouterModule,ReactiveFormsModule,MatDatepickerModule,MatNativeDateModule, NumericoDirective, RequiredFieldDirective],
   templateUrl: './inserir-roupa.component.html',
   styleUrls: ['./inserir-roupa.component.css']
 })
 export class InserirRoupaComponent {
   FormularioRegistroRoupa = this.fb.group({
-    tipo: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]*$/)]],
-    tempo: ['', [Validators.required, Validators.pattern(/^\d{1,2}$/)]]
+    tipo: null,
+    tempo: null
   });
   constructor(private fb: FormBuilder,
     private roupasService: RoupasService,
@@ -31,7 +33,7 @@ export class InserirRoupaComponent {
 
   onSubmit() {
     if(this.FormularioRegistroRoupa.valid){
-      const tipo = this.FormularioRegistroRoupa.value.tipo as string;
+      const tipo = this.FormularioRegistroRoupa.get('tipo')?.value!;
       if(this.FormularioRegistroRoupa.value.tempo !=null){
         const tempo = parseInt(this.FormularioRegistroRoupa.value.tempo, 10);
         this.roupasService.addRoupa(
