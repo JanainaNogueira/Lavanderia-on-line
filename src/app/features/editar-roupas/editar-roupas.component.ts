@@ -11,13 +11,15 @@ import { DeleteDialog } from '../../components/delete-dialog/delete-dialog.compo
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { Roupa } from '../../Pedido';
 import { RoupasService } from '../../services/roupas.service';
+import { NumericoDirective } from '../../shared/directive/numerico.directive';
+import { RequiredFieldDirective } from '../../shared/directive/required.directive';
 
 @Component({
   selector: 'app-editar-roupas',
   standalone: true,
   imports: [CommonModule, MatCommonModule,MatButtonModule,MatInputModule,
     MatIconModule,FormsModule, MenuAdminComponent,
-    DeleteDialog,RouterModule,ReactiveFormsModule,MatDatepickerModule,MatNativeDateModule],
+    DeleteDialog,RouterModule,ReactiveFormsModule,MatDatepickerModule,MatNativeDateModule, NumericoDirective, RequiredFieldDirective],
   templateUrl: './editar-roupas.component.html',
   styleUrl: './editar-roupas.component.css'
 })
@@ -51,8 +53,8 @@ export class EditarRoupasComponent implements OnInit {
 }
   createForm() {
     this.FormularioEditarRoupa = this.formBuilder.group({
-      tipo: ['', [Validators.required, Validators.pattern('^[A-Za-zÀ-ú ]+$')]],
-      tempo: ['', [Validators.required, Validators.pattern(/^\d{1,2}$/)]]
+      tipo: null,
+      tempo: null
     });
   }
 

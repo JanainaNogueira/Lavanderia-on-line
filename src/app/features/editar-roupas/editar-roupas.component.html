@@ -8,17 +8,20 @@
       <div class="form-group">
         <mat-form-field appearance="fill">
           <mat-label>Tipo</mat-label>
-          <input matInput formControlName="tipo" required>
-          <mat-error *ngIf="FormularioEditarRoupa.get('tipo')?.invalid && FormularioEditarRoupa.get('tipo')?.touched">
-          </mat-error>
+          <input matInput formControlName="tipo" RequiredField>
+          <small *ngIf="FormularioEditarRoupa.get('tipo')?.invalid && FormularioEditarRoupa.get('tipo')?.touched">
+            <div *ngIf="FormularioEditarRoupa.get('tipo')?.errors?.['RequiredField']">Por favor, preencha o tipo de roupa.</div>
+          </small>
         </mat-form-field>
       </div>
       <div class="form-group">
         <mat-form-field appearance="fill">
-          <mat-label>Tempo</mat-label>
-          <input matInput formControlName="tempo" required>
-          <mat-error *ngIf="FormularioEditarRoupa.get('tempo')?.invalid && FormularioEditarRoupa.get('tipo')?.touched">
-          </mat-error>
+          <mat-label>Tempo (dias)</mat-label>
+          <input matInput formControlName="tempo" RequiredField invalidNumeric>
+          <small *ngIf="FormularioEditarRoupa.get('tempo')?.invalid && FormularioEditarRoupa.get('tempo')?.touched">
+            <div *ngIf="FormularioEditarRoupa.get('tempo')?.errors?.['RequiredField']">Por favor, preencha o tempo de lavagem.</div>
+            <div *ngIf="FormularioEditarRoupa.get('tempo')?.errors?.['invalidNumeric']">Tempo deve ser numérico</div>
+          </small>
         </mat-form-field>
       </div>
       <div class="form-group">
