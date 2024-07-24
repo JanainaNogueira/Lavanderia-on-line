@@ -44,13 +44,17 @@ export class ClienteService {
   getClientes(): Cliente[] {
     return this.clientes;
   }
-  getClientebyId(id: number){
+  getClientebyId(id: number): Cliente | undefined{
     return this.clientes.find(c => c.id === id)
   }
 
   validateLogin(email: string, senha: string): boolean {
     const cliente = this.clientes.find(c => c.email === email && c.senha === senha);
-    return cliente !== undefined;
+  
+    if(cliente){
+      sessionStorage.setItem("clienteId", String(cliente.id))
+    }
+    return cliente !== undefined
   }
   
 }

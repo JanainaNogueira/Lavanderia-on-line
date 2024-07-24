@@ -26,7 +26,8 @@ export class LoginComponent {
   ) { }
 
   onSubmit() {
-    
+        sessionStorage.removeItem("clienteId")
+        sessionStorage.removeItem("adminId")    
         if (this.clienteService.validateLogin(this.email, this.senha)) {
           this.router.navigate(['/home']);
         } else  if (this.funcionarioService.validateLogin(this.email, this.senha)) {
@@ -34,7 +35,6 @@ export class LoginComponent {
         } else {
           alert("Email ou senha invalidos");
         }
-      
   }
 
 

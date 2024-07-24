@@ -12,29 +12,30 @@ export class FuncionarioService {
       email:'mario.lol@email.com',
       nome:'Mario da Silva',
       nascimento:'02/07/2001',
-      senha:'1234'
-
+      senha:'1234',
+      id: 13
     },
     {
       email:'maria.lol@email.com',
       nome:'Maria Joaquina Pereira',
       nascimento:'07/12/2001',
-      senha:'1234'
+      senha:'1234',
+      id: 14
 
     },
     {
       email:'thor.lol@email.com',
       nome:'Thor Ferreira',
       nascimento:'23/04/2003',
-      senha:'1234'
-
+      senha:'1234',
+      id: 15
     },
     {
       email:'fabricio.lol@email.com',
       nome:'Fabricio Fritz Alt',
       nascimento:'21/05/1981',
-      senha:'1234'
-
+      senha:'1234',
+      id: 16
     },
 
   ];
@@ -45,6 +46,7 @@ export class FuncionarioService {
       nome:nome,
       nascimento:nascimento,
       senha:senha,
+      id: Math.round(Math.random()*1000000)
     }
     const exists = this.funcionarios.some(funcionario => funcionario.email === email);
 
@@ -83,6 +85,9 @@ export class FuncionarioService {
 
   validateLogin(email: string, senha: string): boolean {
     const funcionario = this.funcionarios.find(f => f.email === email && f.senha === senha);
+    if(funcionario){
+      sessionStorage.setItem("adminId", String(funcionario.id))
+    }
     return funcionario !== undefined;
   }
   
