@@ -16,7 +16,6 @@ export class NumericoDirective implements Validator{
   constructor() { }
   validate(c: FormControl): ValidationErrors | null {
     let value = Number(c.value)
-    console.log(value)
     if(isNaN(value))
     {
       return {'invalidNumeric': true}
