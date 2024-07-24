@@ -39,15 +39,15 @@ export class ListarRoupasComponent {
 
   ordenarNome() {
     this.roupas.sort((a, b) => {
-      const tipoA = a.tipo.toUpperCase();
-      const tipoB = b.tipo.toUpperCase();
-      if (tipoA < tipoB) {
-        return -1;
-      }
-      if (tipoA > tipoB) {
-        return 1;
-      }
-      return 0;
+      const tipoA = a.tipo ? a.tipo.toUpperCase() : '';
+    const tipoB = b.tipo ? b.tipo.toUpperCase() : '';
+    if (tipoA < tipoB) {
+      return -1;
+    }
+    if (tipoA > tipoB) {
+      return 1;
+    }
+    return 0;
     });
   }
 

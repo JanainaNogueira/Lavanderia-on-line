@@ -39,6 +39,6 @@ export const routes: Routes = [{
 {path: 'listar-roupa', component: ListarRoupasComponent},
 {path: 'inserir-funcionario',component:InserirFuncionarioComponent},
 {path: 'editar-funcionario/:email', component:EditarFuncionarioComponent },
-{path: 'editar-roupa/tipo', component:EditarRoupasComponent},
+{path: 'editar-roupa/:tipo', component:EditarRoupasComponent},
 {path:'inserir-roupa',component:InserirRoupaComponent}
 ];
