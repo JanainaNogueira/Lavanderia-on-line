@@ -1,8 +1,8 @@
-import { Length11Directive } from './length11.directive';
+import { length11Directive } from './length11.directive';
 
-describe('Length11Directive', () => {
+describe('length11Directive', () => {
   it('should create an instance', () => {
-    const directive = new Length11Directive();
+    const directive = new length11Directive();
     expect(directive).toBeTruthy();
   });
 });

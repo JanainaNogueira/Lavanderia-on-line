@@ -2,7 +2,7 @@ export interface Pedido{
   id:number
   valor:number
   prazo:number
-  roupas:{ roupa: Roupa; quantidade: number; tecido:String }[]
+  roupas:{ roupa: Roupa; quantidade: number;}[]
   hora: string
   status: string
   data: string
