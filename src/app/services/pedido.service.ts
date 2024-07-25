@@ -92,7 +92,7 @@ export class PedidoService {
     }
 
   ];
-  addItem(valor:number,prazo:number,roupas:{ roupa: Roupa;quantidade: number }[]){
+  addItem(valor:number,prazo:number,roupas:{ roupa: Roupa;quantidade: number }[],status:string){
     let d = new Date();
     let data = d.getDate()+'/'+d.getMonth()+'/'+d.getFullYear()
     let hora = String(d.getHours())+':'+String(d.getMinutes())
@@ -103,7 +103,7 @@ export class PedidoService {
       roupas: roupas,
       data: data,
       hora: hora,
-      status: 'Em Aberto'
+      status: status
     }
     this.pedidos.push(novoPedido)
     console.log(this.pedidos)
