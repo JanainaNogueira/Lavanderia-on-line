@@ -20,9 +20,9 @@ import { MenuLateralComponent } from '../../components/menu-lateral/menu-lateral
 export class RealizarPedidoComponent {
   constructor(private pedidoService:PedidoService,private roupasService: RoupasService){}
   tiposRoupas: Roupa []= [];
-  tiposTecido: string[] = ["Elastano","Moletom","Jeans","Outro"]
   //lista de montagem parcial do pedido
-  listaPedido: { roupa: Roupa,tecido:string, quantidade: number }[] = [];
+  listaPedido: { roupa: Roupa, quantidade: number }[] = [];
+  itemTemp:{roupa:Roupa, quantidade:number}[]=[];
   valorTotal:number=0;
   prazoDeEntrega:number=0;
   tecidoSelecionado:string="";
@@ -36,32 +36,23 @@ export class RealizarPedidoComponent {
   onSearch(){
     const termoBusca=this.queryField.value;
     const itemEncontrado=this.tiposRoupas.find(item=>item.tipo.toLowerCase() === termoBusca.toLowerCase());
+    console.log(itemEncontrado);
+
     if(itemEncontrado){
-      const tecidoSelecionado = this.tiposTecido.find(tecido => tecido === this.tecidoSelecionado);
-      if(tecidoSelecionado){
-        this.listaPedido.push({roupa: itemEncontrado, tecido:tecidoSelecionado, quantidade: 1});
+        this.listaPedido.push({roupa: itemEncontrado,quantidade: 1});
         this.valorTotal=this.CalculaValor();
         this.prazoDeEntrega=this.CalculaPrazo();
-      }
 
     }
     this.queryField.reset();
   }
 
   CalculaValor():number{
-    let total=this.listaPedido.length*10
-    return total;
+    return this.listaPedido.reduce((total, item) => total + item.quantidade * 10, 0);
   }
 
   CalculaPrazo():number{
-    let maiorTempo=0;
-    for(const item of this.listaPedido){
-      let tempoDoItem = item.roupa.tempo;
-      if(tempoDoItem>maiorTempo){
-        maiorTempo=tempoDoItem;
-      }
-    }
-    return maiorTempo;
+    return this.listaPedido.reduce((max, item) => Math.max(max, item.roupa.tempo), 0);
   }
   addItem(tipo:string){
     const item =this.listaPedido.find(item=>item.roupa.tipo === tipo);
@@ -84,7 +75,7 @@ export class RealizarPedidoComponent {
   }
   FinalizarPedido(){
     if(this.listaPedido)
-    this.pedidoService.addItem(this.valorTotal,this.prazoDeEntrega,this.listaPedido,)
+    this.pedidoService.addItem(this.valorTotal,this.prazoDeEntrega,this.listaPedido)
   }
   LimparLista(){
     this.listaPedido=[];

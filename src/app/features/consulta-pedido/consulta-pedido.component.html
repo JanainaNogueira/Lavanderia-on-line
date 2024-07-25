@@ -74,7 +74,6 @@
         <tbody>
           <tr *ngFor="let item of pedidoSelecionado.roupas">
             <td>{{ item.roupa.tipo }}</td>
-            <td>{{ item.tecido}}</td>
             <td>R$ 10,00</td>
             <td>{{ item.quantidade }}</td>
             <td>R$ {{ 10 * item.quantidade | number : "1.2-2" }}</td>
