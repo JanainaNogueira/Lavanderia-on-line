@@ -21,8 +21,8 @@ import { RoupasService } from '../../services/roupas.service';
   templateUrl: './editar-roupas.component.html',
   styleUrl: './editar-roupas.component.css'
 })
-export class EditarRoupasComponent {
-  FormularioRegistroFunc: FormGroup;
+export class EditarRoupasComponent implements OnInit {
+  FormularioEditarRoupa: FormGroup;
   roupa: Roupa | undefined;
 
   constructor(
@@ -38,33 +38,30 @@ export class EditarRoupasComponent {
     if (tipo) {
       this.roupa = this.roupasService.getRoupaByTipo(tipo);
       if (!this.roupa) {
-        this.router.navigate(['/listar-roupas']);
+        this.router.navigate(['/listar-roupa']);
       } else {
-        /*this.FormularioRegistroFunc.patchValue({
+        this.FormularioEditarRoupa.patchValue({
           tipo: this.roupa.tipo,
-          tecido: this.tecido,
           tempo: this.roupa.tempo,
-        });*/
+        });
       }
     } else {
-      this.router.navigate(['/listar-roupas']);
+      this.router.navigate(['/listar-roupa']);
   }
 }
   createForm() {
-    this.FormularioRegistroFunc = this.formBuilder.group({
+    this.FormularioEditarRoupa = this.formBuilder.group({
       tipo: ['', [Validators.required, Validators.pattern('^[A-Za-zÀ-ú ]+$')]],
-      tecido: ['', Validators.required],
-      tempo: ['', [Validators.required, Validators.email]],
+      tempo: ['', [Validators.required, Validators.pattern(/^\d{1,2}$/)]]
     });
   }
 
   onSubmit() {
-    if (this.FormularioRegistroFunc.valid && this.roupa) {
-      /*this.roupa.tipo = this.FormularioRegistroFunc.value.nome;
-      this.tecido= this.FormularioRegistroFunc.value.nascimento;
-      this.roupa.tempo = this.FormularioRegistroFunc.value.email;
+    if (this.FormularioEditarRoupa.valid && this.roupa) {
+      this.roupa.tipo = this.FormularioEditarRoupa.value.tipo;
+      this.roupa.tempo = this.FormularioEditarRoupa.value.tempo;
       this.roupasService.editarRoupa(this.roupa);
-      this.router.navigate(['/listar-roupas']);*/
+      this.router.navigate(['/listar-roupa']);
     }
   }
 }

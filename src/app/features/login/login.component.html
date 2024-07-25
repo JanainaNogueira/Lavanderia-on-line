@@ -5,7 +5,7 @@
   </div>
   <div class="formLogin">
     <h2>Entrar</h2>
-    <p>Não possui uma conta? <a routerLink="/registro">Registre-se</a></p>
+    <p>Não possui uma conta? <a href="/registro">Registre-se</a></p>
     <form (ngSubmit)="onSubmit()">
       <label for="email">Email</label><br />
       <input
@@ -17,7 +17,6 @@
         [(ngModel)]="email"
         #emailInput="ngModel"
         EmailValid
-        
       />
       <br />
       <small *ngIf="emailInput.dirty || emailInput.touched" class="erro">
@@ -44,7 +43,6 @@
         <div [hidden]="!senhaInput.errors?.['invalidNumeric']">
           Senha inválida. Preencha com sua senha numérica.
         </div>
-        
       </small>
 
       <button type="submit" class="botao">Entrar</button>
