@@ -33,25 +33,6 @@
       <img mat-card-image [src]="'../../assets/img/' + item.roupa.tipo+ '.png'" class="cardImage">
       <mat-card-content mat-card-content class="description">
         <p>{{item.roupa.tipo}}</p>
-        <p>Tecido: </p>
-        <div class="listTissue">
-          <label class="tissue">
-            <input type="radio" value="{{tiposTecido[0]}}" [(ngModel)]="tiposTecido[0]"/>
-            <p>{{tiposTecido[0]}}</p>
-          </label>
-          <label class="tissue">
-            <input type="radio" value="{{tiposTecido[1]}}" [(ngModel)]="tiposTecido[1]"/>
-            <p>{{tiposTecido[1]}}</p>
-          </label>
-          <label class="tissue">
-            <input type="radio" value="{{tiposTecido[2]}}" [(ngModel)]="tiposTecido[2]"/>
-            <p>{{tiposTecido[2]}}</p>
-          </label>
-          <label class="tissue">
-            <input type="radio" value="{{tiposTecido[3]}}" [(ngModel)]="tiposTecido[3]"/>
-            <p>{{tiposTecido[3]}}</p>
-          </label>
-        </div>
       </mat-card-content >
         <mat-card-actions class="sectionButton">
           <button (click)="addItem(item.roupa.tipo)" class="addItem">
