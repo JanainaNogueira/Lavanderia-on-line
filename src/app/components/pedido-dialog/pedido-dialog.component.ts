@@ -1,26 +1,21 @@
-import { CommonModule } from '@angular/common';
 import { Component, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
-import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Pedido } from '../../Pedido';
+import { CommonModule, NgFor, NgIf } from '@angular/common';
+
+
 @Component({
   selector: 'app-pedido-dialog',
   standalone: true,
-  imports: [MatButtonModule, CommonModule, MatDialogModule],
+  imports: [NgIf,NgFor,CommonModule],
   templateUrl: './pedido-dialog.component.html',
-  styleUrls: ['./pedido-dialog.component.css']
+  styleUrl: './pedido-dialog.component.css'
 })
 export class PedidoDialogComponent {
-  constructor(
-    public dialogRef: MatDialogRef<PedidoDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { valorTotal: number; prazoDeEntrega: number }
-  ) {}
+  constructor(@Inject(MAT_DIALOG_DATA) public data: Pedido,
+  private dialogRef: MatDialogRef<PedidoDialogComponent> ) {}
 
-  onConfirm(): void {
-    this.dialogRef.close(true);
-  }
-
-  onCancel(): void {
-    this.dialogRef.close(false);
+  closeDialog() {
+    this.dialogRef.close();
   }
 }

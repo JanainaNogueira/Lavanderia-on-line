@@ -16,6 +16,7 @@ import {ListarRoupasComponent} from './features/listar-roupas/listar-roupas.comp
 import { EditarRoupasComponent } from './features/editar-roupas/editar-roupas.component';
 import { InserirRoupaComponent } from './features/inserir-roupa/inserir-roupa.component';
 import { AuthGuard } from '../AuthGuard';
+import { BuscaPedidoComponent } from './features/busca-pedido/busca-pedido.component';
 export const routes: Routes = [{
     path:'login',
     component: LoginComponent
@@ -40,5 +41,6 @@ export const routes: Routes = [{
 {path: 'inserir-funcionario',component:InserirFuncionarioComponent, canActivate:[AuthGuard]},
 {path: 'editar-funcionario/:email', component:EditarFuncionarioComponent, canActivate:[AuthGuard] },
 {path: 'editar-roupa/:tipo', component:EditarRoupasComponent, canActivate:[AuthGuard]},
-{path:'inserir-roupa',component:InserirRoupaComponent, canActivate:[AuthGuard]}
+{path:'inserir-roupa',component:InserirRoupaComponent, canActivate:[AuthGuard]},
+{path:'busca-pedido',component:BuscaPedidoComponent, canActivate:[AuthGuard]}
 ];
