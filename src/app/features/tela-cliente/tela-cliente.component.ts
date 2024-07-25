@@ -21,9 +21,13 @@ export class TelaClienteComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.pedidos = this.pedidoService.pedidos;
+    this.pedidos = this.pedidoService.getPedidos().filter( p => p.status === "Em Aberto");
   }
   redirectPayment(num: number){
     this.router.navigateByUrl(`/payment/${num}`);
   }
+  visualizarPedido(id:number){
+    this.router.navigate(['/consulta-pedido'], {queryParams: {numero: id}})
+  }
+
 }

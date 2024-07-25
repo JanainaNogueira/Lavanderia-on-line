@@ -18,7 +18,8 @@ export class PedidoService {
       valor:30,
       data: '15/04/1997',
       hora: '08:03',
-      status: "Em Aberto"
+      status: "Em Aberto",
+      clienteId: 1
     },
     {
       id:88,
@@ -31,7 +32,8 @@ export class PedidoService {
       valor:70,
       data: '04/04/2024',
       hora: '10:45',
-      status: "Em Aberto"
+      status: "Em Aberto",
+      clienteId: 4
     },
     {
       id:52,
@@ -44,7 +46,8 @@ export class PedidoService {
       valor:90,
       data: '01/03/2024',
       hora: '08:03',
-      status: "Aguardando Pagamento"
+      status: "Aguardando Pagamento",
+      clienteId: 1
     },
     {
       id:5,
@@ -55,7 +58,8 @@ export class PedidoService {
       valor:50,
       data: '01/03/2024',
       hora: '08:03',
-      status: "Recolhido"
+      status: "Recolhido",
+      clienteId: 1
     },
     {
       id:59,
@@ -66,7 +70,8 @@ export class PedidoService {
       valor:50,
       data: '01/02/2024',
       hora: '20:30',
-      status: "Pago"
+      status: "Pago",
+      clienteId: 2
     },
     {
       id:99,
@@ -77,7 +82,8 @@ export class PedidoService {
       valor:50,
       data: '10/03/2024',
       hora: '10:03',
-      status: "Rejeitado/Cancelado"
+      status: "Rejeitado/Cancelado",
+      clienteId: 4
     },
     {
       id:45,
@@ -88,29 +94,44 @@ export class PedidoService {
       valor:50,
       data: '30/01/2024',
       hora: '09:00',
-      status: "Finalizado"
+      status: "Finalizado",
+      clienteId: 4
     }
 
   ];
   addItem(valor:number,prazo:number,roupas:{ roupa: Roupa;quantidade: number }[],status:string){
     let d = new Date();
+    let clienteId = sessionStorage.getItem("clienteId");
     let data = d.getDate()+'/'+d.getMonth()+'/'+d.getFullYear()
     let hora = String(d.getHours())+':'+String(d.getMinutes())
-    const novoPedido:Pedido={
-      id:Math.floor(Math.random() * 100) + 1,
-      valor:valor,
-      prazo:prazo,
-      roupas: roupas,
-      data: data,
-      hora: hora,
-      status: status
+    let tecido="";
+    if(clienteId){
+      const novoPedido:Pedido={
+        id:Math.floor(Math.random() * 100) + 1,
+        valor:valor,
+        prazo:prazo,
+        roupas: roupas,
+        data: data,
+        hora: hora,
+        status: status,
+        clienteId: Number(clienteId)
+      }
+      this.pedidos.push(novoPedido)
+    } else{
+      alert("Erro ao cadastrar pedido. Atualize a página e tente novamente");
     }
-    this.pedidos.push(novoPedido)
-    console.log(this.pedidos)
   }
 
   getPedidos(): Pedido[] {
-    return this.pedidos;
+    let clientId = sessionStorage.getItem("clienteId")
+    let adminId = sessionStorage.getItem("clienteId")
+    if(clientId){
+      return this.pedidos.filter(p => p.clienteId == Number(clientId));
+    } else if(adminId){
+      return this.pedidos
+    } else {
+      return []
+    }
   }
 
   getPedidosStatus(status: string): Pedido[] {

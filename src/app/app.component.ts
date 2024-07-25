@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
@@ -12,4 +12,5 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 export class AppComponent {
   title = 'Lavanderia-on-line';
+  
 }

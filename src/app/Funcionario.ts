@@ -3,4 +3,5 @@ export interface Funcionario{
     nome:string
     nascimento:string
     senha:string
+    id: number
   }

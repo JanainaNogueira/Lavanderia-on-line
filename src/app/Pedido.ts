@@ -6,6 +6,7 @@ export interface Pedido{
   hora: string
   status: string
   data: string
+  clienteId: number
 }
 export interface Roupa{
   tipo:string
