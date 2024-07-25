@@ -15,7 +15,7 @@ import { EditarFuncionarioComponent } from './features/editar-funcionario/editar
 import {ListarRoupasComponent} from './features/listar-roupas/listar-roupas.component'
 import { EditarRoupasComponent } from './features/editar-roupas/editar-roupas.component';
 import { InserirRoupaComponent } from './features/inserir-roupa/inserir-roupa.component';
-
+import { AuthGuard } from '../AuthGuard';
 export const routes: Routes = [{
     path:'login',
     component: LoginComponent
@@ -27,18 +27,18 @@ export const routes: Routes = [{
 {
     path: '', redirectTo:'login', pathMatch:'full'
 },
-{path: 'home', component: TelaClienteComponent},
-{path: 'realizar-pedido', component: RealizarPedidoComponent},
-{path: 'listar-pedido', component: ListarPedidoComponent},
-{path: 'payment/:numero', component: TelaPagamentoComponent},
-{path: 'consulta-pedido', component: ConsultaPedidoComponent},
-{path: 'admin', component: TelaFuncionarioComponent},
-{path: 'listar-adm', component: ListarAdmComponent},
-{path: 'relatorios', component: RelatoriosComponent},
-{path: 'listar-funcionario',component:ListarFuncionarioComponent},
-{path: 'listar-roupa', component: ListarRoupasComponent},
-{path: 'inserir-funcionario',component:InserirFuncionarioComponent},
-{path: 'editar-funcionario/:email', component:EditarFuncionarioComponent },
-{path: 'editar-roupa/:tipo', component:EditarRoupasComponent},
-{path:'inserir-roupa',component:InserirRoupaComponent}
+{path: 'home', component: TelaClienteComponent, canActivate:[AuthGuard]},
+{path: 'realizar-pedido', component: RealizarPedidoComponent, canActivate:[AuthGuard]},
+{path: 'listar-pedido', component: ListarPedidoComponent, canActivate:[AuthGuard]},
+{path: 'payment/:numero', component: TelaPagamentoComponent, canActivate:[AuthGuard]},
+{path: 'consulta-pedido', component: ConsultaPedidoComponent, canActivate:[AuthGuard]},
+{path: 'admin', component: TelaFuncionarioComponent, canActivate:[AuthGuard]},
+{path: 'listar-adm', component: ListarAdmComponent, canActivate:[AuthGuard]},
+{path: 'relatorios', component: RelatoriosComponent, canActivate:[AuthGuard]},
+{path: 'listar-funcionario',component:ListarFuncionarioComponent, canActivate:[AuthGuard]},
+{path: 'listar-roupa', component: ListarRoupasComponent, canActivate:[AuthGuard]},
+{path: 'inserir-funcionario',component:InserirFuncionarioComponent, canActivate:[AuthGuard]},
+{path: 'editar-funcionario/:email', component:EditarFuncionarioComponent, canActivate:[AuthGuard] },
+{path: 'editar-roupa/:tipo', component:EditarRoupasComponent, canActivate:[AuthGuard]},
+{path:'inserir-roupa',component:InserirRoupaComponent, canActivate:[AuthGuard]}
 ];
