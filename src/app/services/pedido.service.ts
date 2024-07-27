@@ -99,6 +99,7 @@ export class PedidoService {
     }
 
   ];
+
   addItem(valor:number,prazo:number,roupas:{ roupa: Roupa;quantidade: number }[],status:string){
     let d = new Date();
     let clienteId = sessionStorage.getItem("clienteId");
@@ -123,7 +124,7 @@ export class PedidoService {
 
   getPedidos(): Pedido[] {
     let clientId = sessionStorage.getItem("clienteId")
-    let adminId = sessionStorage.getItem("clienteId")
+    let adminId = sessionStorage.getItem("adminId")
     if(clientId){
       return this.pedidos.filter(p => p.clienteId == Number(clientId));
     } else if(adminId){
