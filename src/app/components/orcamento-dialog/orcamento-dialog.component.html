@@ -1,0 +1,12 @@
+<div class="box">
+  <h1 mat-dialog-title>Detalhes do Pedido</h1>
+  <div mat-dialog-content>
+    <p><strong>Prazo:</strong> {{data.prazoDeEntrega}} dias</p>
+    <p><strong>Preço Total:</strong> {{data.valorTotal| currency:'BRL'}}</p>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="rejeitaOrcamento()">Rejeitar orçamento</button>
+    <button mat-button (click)="aceitaOrcamento()">Aprovar orçamento</button>
+  </div>
+</div>
+

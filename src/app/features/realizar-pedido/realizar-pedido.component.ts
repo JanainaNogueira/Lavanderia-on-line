@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
 import { Roupa } from '../../Pedido';
 import { RoupasService } from '../../services/roupas.service';
 import { MenuLateralComponent } from '../../components/menu-lateral/menu-lateral.component';
-import { PedidoDialogComponent } from '../../components/pedido-dialog/pedido-dialog.component';
+import { OrcamentoDialogComponent } from '../../components/orcamento-dialog/orcamento-dialog.component';
 
 @Component({
   selector: 'app-realizar-pedido',
@@ -38,7 +38,6 @@ export class RealizarPedidoComponent {
   onSearch(){
     const termoBusca=this.queryField.value;
     const itemEncontrado=this.tiposRoupas.find(item=>item.tipo.toLowerCase() === termoBusca.toLowerCase());
-    console.log(itemEncontrado);
 
     if(itemEncontrado){
         this.listaPedido.push({roupa: itemEncontrado,quantidade: 1});
@@ -76,7 +75,7 @@ export class RealizarPedidoComponent {
     }
   }
   FinalizarPedido(){
-    const dialogRef = this.dialog.open(PedidoDialogComponent, {
+    const dialogRef = this.dialog.open(OrcamentoDialogComponent, {
       width: '450px',
       data: { valorTotal: this.valorTotal, prazoDeEntrega: this.prazoDeEntrega }
     });

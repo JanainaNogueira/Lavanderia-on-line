@@ -1,0 +1,23 @@
+.box{
+  padding: 5%;
+}
+button{
+  margin: 2%;
+  width: 20%;
+  border: none;
+  cursor: pointer;
+}
+button:nth-child(1):hover{
+ background-color: rgb(158, 68, 68);
+
+}
+button:nth-child(1){
+ background-color: rgb(250, 129, 129);
+}
+button:nth-child(2):hover{
+  background-color: rgb(93, 156, 87);
+ }
+button:nth-child(2){
+  width: 20%;
+  background-color: rgb(175, 238, 169);
+}
