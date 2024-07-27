@@ -1,5 +1,6 @@
 import { PedidoService } from '../../services/pedido.service';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { FormControl, ReactiveFormsModule,FormsModule } from '@angular/forms';
 import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from  '@angular/material/icon';
@@ -7,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { Roupa } from '../../Pedido';
 import { RoupasService } from '../../services/roupas.service';
 import { MenuLateralComponent } from '../../components/menu-lateral/menu-lateral.component';
+import { PedidoDialogComponent } from '../../components/pedido-dialog/pedido-dialog.component';
 
 @Component({
   selector: 'app-realizar-pedido',
@@ -18,7 +20,7 @@ import { MenuLateralComponent } from '../../components/menu-lateral/menu-lateral
 })
 
 export class RealizarPedidoComponent {
-  constructor(private pedidoService:PedidoService,private roupasService: RoupasService){}
+  constructor(private pedidoService:PedidoService,private roupasService: RoupasService, private dialog: MatDialog ){}
   tiposRoupas: Roupa []= [];
   //lista de montagem parcial do pedido
   listaPedido: { roupa: Roupa, quantidade: number }[] = [];
@@ -74,8 +76,20 @@ export class RealizarPedidoComponent {
     }
   }
   FinalizarPedido(){
-    if(this.listaPedido)
-    this.pedidoService.addItem(this.valorTotal,this.prazoDeEntrega,this.listaPedido)
+    const dialogRef = this.dialog.open(PedidoDialogComponent, {
+      width: '450px',
+      data: { valorTotal: this.valorTotal, prazoDeEntrega: this.prazoDeEntrega }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.pedidoService.addItem(this.valorTotal, this.prazoDeEntrega, this.listaPedido,'Em Aberto');
+        this.LimparLista();
+      }else{
+        this.pedidoService.addItem(this.valorTotal, this.prazoDeEntrega, this.listaPedido,'Rejeitado');
+        this.pedidoService.updatePedidoStatus
+      }
+    });
   }
   LimparLista(){
     this.listaPedido=[];

@@ -99,13 +99,12 @@ export class PedidoService {
     }
 
   ];
-  addItem(valor:number,prazo:number,roupas:{ roupa: Roupa;quantidade: number }[]){
+  addItem(valor:number,prazo:number,roupas:{ roupa: Roupa;quantidade: number }[],status:string){
     let d = new Date();
     let clienteId = sessionStorage.getItem("clienteId");
     let data = d.getDate()+'/'+d.getMonth()+'/'+d.getFullYear()
     let hora = String(d.getHours())+':'+String(d.getMinutes())
     if(clienteId){
-
       const novoPedido:Pedido={
         id:Math.floor(Math.random() * 100) + 1,
         valor:valor,
@@ -113,7 +112,7 @@ export class PedidoService {
         roupas: roupas,
         data: data,
         hora: hora,
-        status: 'Em Aberto',
+        status: status,
         clienteId: Number(clienteId)
       }
       this.pedidos.push(novoPedido)
