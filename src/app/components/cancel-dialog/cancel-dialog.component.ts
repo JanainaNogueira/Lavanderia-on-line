@@ -44,6 +44,9 @@ export class CancelDialogW {
   constructor(@Inject(MAT_DIALOG_DATA) public data: {pedidoId: number}, public dialogRef: MatDialogRef<CancelDialogW>, private pedidoService: PedidoService) {
   }
   cancelarPedido(){
-    this.pedidoService.updatePedidoStatus(this.data.pedidoId, "Rejeitado/Cancelado");
+    this.pedidoService.updatePedidoStatus(this.data.pedidoId, "Cancelado");
+
   }
+
+
 }
