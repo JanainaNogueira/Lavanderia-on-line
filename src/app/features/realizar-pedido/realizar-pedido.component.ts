@@ -86,7 +86,7 @@ export class RealizarPedidoComponent {
         this.LimparLista();
       }else{
         this.pedidoService.addItem(this.valorTotal, this.prazoDeEntrega, this.listaPedido,'Rejeitado');
-        this.pedidoService.updatePedidoStatus
+        this.LimparLista();
       }
     });
   }
