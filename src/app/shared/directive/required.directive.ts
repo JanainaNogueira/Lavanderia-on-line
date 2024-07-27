@@ -16,7 +16,9 @@ export class RequiredFieldDirective implements Validator {
 
   validate(c: FormControl): ValidationErrors | null {
     const value: string = c.value;
-    if (value == null || value.trim() === "") {
+    if (typeof value === 'string' && value.trim() === "") {
+      return { 'RequiredField': true, 'requiredValue': 'Field is required' };
+    } else if (value == null || value === "") {
       return { 'RequiredField': true, 'requiredValue': 'Field is required' };
     } else {
       return null;

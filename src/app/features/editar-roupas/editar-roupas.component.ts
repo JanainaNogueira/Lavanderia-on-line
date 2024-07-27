@@ -21,7 +21,7 @@ import { RequiredFieldDirective } from '../../shared/directive/required.directiv
     MatIconModule,FormsModule, MenuAdminComponent,
     DeleteDialog,RouterModule,ReactiveFormsModule,MatDatepickerModule,MatNativeDateModule, NumericoDirective, RequiredFieldDirective],
   templateUrl: './editar-roupas.component.html',
-  styleUrl: './editar-roupas.component.css'
+  styleUrls: ['./editar-roupas.component.css']
 })
 export class EditarRoupasComponent implements OnInit {
   FormularioEditarRoupa: FormGroup;
