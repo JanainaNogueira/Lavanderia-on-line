@@ -8,6 +8,7 @@ import { PedidoService } from '../../services/pedido.service';
 import { CommonModule } from '@angular/common';
 
 
+
 @Component({
   selector: 'app-tela-pagamento',
   standalone: true,
@@ -18,6 +19,7 @@ import { CommonModule } from '@angular/common';
 export class TelaPagamentoComponent implements OnInit{
   numero: number
   pedido: Pedido
+  isCliente: boolean = false;
   constructor(private route: ActivatedRoute, private pedidoService: PedidoService, private router: Router){
   }
 
@@ -37,6 +39,11 @@ export class TelaPagamentoComponent implements OnInit{
 
   getTotalValor(): number {
     return this.pedido ? this.pedido.roupas.reduce((acc, item) => acc + (10 * item.quantidade), 0) : 0;
+  }
+
+  verificarUsuario() {
+    const clienteId = sessionStorage.getItem("clienteId");
+    this.isCliente = clienteId !== null;
   }
 
 }
