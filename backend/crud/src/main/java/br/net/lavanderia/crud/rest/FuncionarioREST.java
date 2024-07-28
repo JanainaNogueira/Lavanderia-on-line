@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.net.lavanderia.crud.model.Funcionario;
-
+import br.net.lavanderia.crud.model.Login;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -91,6 +91,19 @@ public class FuncionarioREST {
     return ResponseEntity.status(HttpStatus.NOT_FOUND)
     .build();
     }
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<Funcionario> login(@RequestBody Login login) {
+    Funcionario funcionario = listaFuncionarios.stream().
+    filter(usu -> usu.getEmail().equals(login.getEmail()) &&
+    usu.getSenha().equals(login.getSenha())).
+    findAny().orElse(null);
+    if (funcionario==null)
+    return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+    .build();
+    else
+    return ResponseEntity.ok(funcionario);
     }
     
 
