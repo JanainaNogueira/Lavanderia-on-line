@@ -20,11 +20,11 @@
       <div class="form-group">
         <mat-form-field appearance="fill">
           <mat-label>Data de Nascimento</mat-label>
-          <input matInput [matDatepicker]="picker" formControlName="nascimento" RequiredField>
+          <input matInput [matDatepicker]="picker" formControlName="nascimento">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
           <small *ngIf="FormularioRegistroFunc.get('nascimento')?.invalid && FormularioRegistroFunc.get('nascimento')?.touched">
-            <div *ngIf="FormularioRegistroFunc.get('nascimento')?.errors?.['RequiredField']">Digite a data de nascimento.</div>
+            <div *ngIf="FormularioRegistroFunc.get('nascimento')?.errors?.['required']">Digite a data de nascimento.</div>
           </small>
         </mat-form-field>
       </div>

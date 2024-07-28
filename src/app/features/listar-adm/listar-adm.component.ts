@@ -27,12 +27,13 @@
   })
  
   export class ListarAdmComponent {
-    pedidos: Pedido[] = [];
+  pedidos: Pedido[] = [];
   pedidosOriginal: Pedido[] = [];
   num: any;
   dataInicio: Date;
   dataFim: Date;
   statusAtual: string = "Todos"
+
   constructor(
     private pedidoService: PedidoService,
     private router: Router
@@ -152,6 +153,7 @@
         return dataA.getTime() - dataB.getTime();
       });
     }
+    this.ordenarDataHora();
   }
 
   formataData(date: Date): string {
