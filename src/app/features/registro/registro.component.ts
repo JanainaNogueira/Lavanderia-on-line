@@ -71,7 +71,6 @@ export class RegistroComponent {
         novoCliente.endereco,
         novoCliente.telefone
       );
-      console.log(this.clienteService);
       this.router.navigate(['/login']);
     }
 

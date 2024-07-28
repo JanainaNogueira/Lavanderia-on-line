@@ -1,3 +1,4 @@
+import { EmailService } from '../email.service';
 import { JsonPipe } from '@angular/common';
 import { Injectable } from '@angular/core';
 import {Cliente } from '../../Cliente';
@@ -6,7 +7,7 @@ import {Cliente } from '../../Cliente';
 })
 export class ClienteService {
 
-  constructor() { }
+  constructor(private emailService: EmailService) { }
   private clientes:Cliente[]=[
     {
       id: 1,
@@ -39,8 +40,40 @@ export class ClienteService {
       senha: "2222",
     },
   ];
- 
 
+  CreateCliente(nome:string, email: string,cpf: string,endereco: string,telefone: string){
+    const novoCliente:Cliente={
+      id:Math.round(Math.random()*1000000),
+      pedidos: [],
+      nome:nome,
+      email: email,
+      cpf: cpf,
+      endereço: endereco,
+      telefone: telefone,
+      senha: Math.floor(1000 + Math.random() * 9000).toString()
+    }
+    const exists = this.clientes.some(cliente => cliente.cpf === cpf);
+    if (exists) {
+      return;
+    }else{
+      this.clientes.push(novoCliente)
+      this.sendEmail(novoCliente)
+      console.log(this.clientes)
+    }
+  }
+  sendEmail(cliente:Cliente){
+    this.emailService.sendEmail({
+      to_name: cliente.nome,
+      from_name: 'Lavanderia Lol',
+      message:  `Sua senha é: ${cliente.senha}`,
+      reply_to: cliente.email
+    }).then((response) => {
+      console.log(this.emailService.sendEmail)
+      console.log('Email enviado com sucesso!', response.status, response.text);
+    }).catch((error) => {
+      console.error('Erro ao enviar email:', error);
+    });
+  }
   getClientes(): Cliente[] {
     return this.clientes;
   }
@@ -50,11 +83,11 @@ export class ClienteService {
 
   validateLogin(email: string, senha: string): boolean {
     const cliente = this.clientes.find(c => c.email === email && c.senha === senha);
-  
+
     if(cliente){
       sessionStorage.setItem("clienteId", String(cliente.id))
     }
     return cliente !== undefined
   }
-  
+
 }
