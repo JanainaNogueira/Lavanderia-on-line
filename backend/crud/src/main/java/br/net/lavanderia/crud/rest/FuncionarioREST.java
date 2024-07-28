@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.net.lavanderia.crud.model.Funcionario;
-import br.net.lavanderia.crud.model.Login;
+
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,6 +39,15 @@ public class FuncionarioREST {
     .build();
     else
     return ResponseEntity.ok(u);
+    }
+
+    @GetMapping("/Funcionario/email/{email}")
+    public ResponseEntity<Funcionario> obterFuncionarioPorEmail(@PathVariable("email") String email) {
+    Funcionario f = listaFuncionarios.stream().filter(func -> func.getEmail().equals(email)).findAny().orElse(null);
+    if (f == null)
+    return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    else
+    return ResponseEntity.ok(f);
     }
 
     @PostMapping("/Funcionario")
@@ -93,20 +102,8 @@ public class FuncionarioREST {
     }
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<Funcionario> login(@RequestBody Login login) {
-    Funcionario funcionario = listaFuncionarios.stream().
-    filter(usu -> usu.getEmail().equals(login.getEmail()) &&
-    usu.getSenha().equals(login.getSenha())).
-    findAny().orElse(null);
-    if (funcionario==null)
-    return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-    .build();
-    else
-    return ResponseEntity.ok(funcionario);
-    }
-    
 
+    
     static {
         listaFuncionarios.add(
             new Funcionario ("admin.lol@email.com", "Admin", "01/01/2001","1234", 99)
