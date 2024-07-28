@@ -82,7 +82,7 @@ export class PedidoService {
       valor:50,
       data: '10/03/2024',
       hora: '10:03',
-      status: "Rejeitado/Cancelado",
+      status: "Rejeitado",
       clienteId: 4
     },
     {
@@ -157,7 +157,7 @@ export class PedidoService {
       return [];
     }
   }
-  
+
   updatePedidoStatus(id: number, status: string): Pedido[]{
     let index = this.pedidos.findIndex(pedido => pedido.id === id)
     this.pedidos[index] = {...this.pedidos[index], status}

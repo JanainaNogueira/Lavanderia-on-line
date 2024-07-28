@@ -95,5 +95,8 @@ public class ClienteREST {
         listaClientes.add(
                 new Cliente(1, "Jose", "jose@email.com", "098654723454", "Rua X Nº Y, Bairro, Cidade",
                         "(041) 000000000", "0000"));
+        listaClientes.add(
+                new Cliente(4, "Joao", "Joao@email.com", "0983245623454", "Rua X Nº Y, Bairro, Cidade",
+                        "(041) 000000000", "2222"));
     }
 }
