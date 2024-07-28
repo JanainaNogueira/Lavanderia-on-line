@@ -3,13 +3,8 @@
   >Tem certeza que deseja cancelar este pedido?
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-button mat-dialog-close>Não</button>
-  <button
-    mat-button
-    mat-dialog-close
-    cdkFocusInitial
-    (click)="cancelarPedido()"
-  >
+  <button mat-button mat-dialog-close (click)="onNoClick()">Não</button>
+  <button mat-button mat-dialog-close cdkFocusInitial (click)="cancelarPedido()">
     Sim
   </button>
 </mat-dialog-actions>

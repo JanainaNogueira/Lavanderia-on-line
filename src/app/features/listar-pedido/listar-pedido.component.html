@@ -115,10 +115,15 @@
               >
                 Visualizar
               </button>
-              <app-cancelDialog class="actionButton"
-                [pedidoId]="pedido.id"
-                *ngIf="pedido.status === 'Em Aberto'"
-              ></app-cancelDialog>
+              <button
+              class="actionButton"
+              mat-raised-button
+              color="warn"
+              *ngIf="pedido.status === 'Em Aberto'"
+              (click)="cancelarPedido(pedido.id)"
+            >
+              Cancelar
+            </button>
             </td>
           </tr>
         </tbody>
