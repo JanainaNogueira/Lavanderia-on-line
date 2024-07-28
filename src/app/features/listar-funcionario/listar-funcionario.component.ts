@@ -25,6 +25,7 @@ import { MatDialog } from '@angular/material/dialog';
 export class ListarFuncionarioComponent {
   funcionario: Funcionario[] = [];
   nome: string;
+  email: string;
 
   constructor(
     private FuncionarioService: FuncionarioService,
@@ -70,13 +71,11 @@ export class ListarFuncionarioComponent {
 
       const dialogRef = this.dialog.open(DeleteDialogW, {
         width: '25vw',
-        // Ajuste os tempos de animação conforme necessário
         enterAnimationDuration: '300ms',
         exitAnimationDuration: '300ms'
       });
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          // O usuário confirmou a exclusão
           const index = this.funcionario.indexOf(funcionario);
           if (index >= 0) {
             this.funcionario.splice(index, 1);

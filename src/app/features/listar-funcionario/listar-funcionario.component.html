@@ -45,7 +45,9 @@
               color="primary" [routerLink]="['/editar-funcionario', funcionario.email]">
                 Editar
               </button>
-              <button mat-raised-button color="warn" (click)="excluirFuncionario(funcionario)">
+              <button 
+              *ngIf="funcionario.email!='admin.lol@email.com'"
+              mat-raised-button color="warn" (click)="excluirFuncionario(funcionario)">
                 Excluir
               </button>
             </td>

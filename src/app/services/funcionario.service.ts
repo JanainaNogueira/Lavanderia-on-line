@@ -9,6 +9,13 @@ export class FuncionarioService {
   constructor() { }
   funcionarios:Funcionario[]=[
     {
+      email:'admin.lol@email.com',
+      nome:'Admin',
+      nascimento:'01/01/2001',
+      senha:'1234',
+      id: 99
+    },
+    {
       email:'mario.lol@email.com',
       nome:'Mario da Silva',
       nascimento:'02/07/2001',
