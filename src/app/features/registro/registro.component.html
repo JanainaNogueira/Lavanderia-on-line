@@ -54,8 +54,8 @@
                 <div *ngIf="!nome.errors?.['RequiredField'] && telefone.errors?.['invalidNumeric']" class="erro">Por favor preencha apenas com números</div>
                 <div *ngIf="!nome.errors?.['RequiredField'] && !telefone.errors?.['invalidNumeric'] && telefone.errors?.['length11']" class="erro">Por favor preencha um telefone completo (com DDD)</div>
             </small>
-            <button type="submit" class="botao">Continue</button>
+            <button class="botao" (click)="criarCliente()">Continue</button>
           </form>
-          
-    </div>    
+
+    </div>
 </div>
