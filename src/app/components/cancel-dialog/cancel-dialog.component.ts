@@ -47,8 +47,7 @@ export class CancelDialogW {
     private pedidoService: PedidoService) {
   }
   cancelarPedido(){
-    this.pedidoService.updatePedidoStatus(this.data.pedidoId, "Rejeitado/Cancelado");
-    alert('Pedido cancelado')
+    this.pedidoService.updatePedidoStatus(this.data.pedidoId,"Rejeitado/Cancelado");
     this.dialogRef.close(true); 
   }
 

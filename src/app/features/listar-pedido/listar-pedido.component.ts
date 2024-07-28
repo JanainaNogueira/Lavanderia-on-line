@@ -40,6 +40,10 @@ export class ListarPedidoComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.refetch();
+  }
+
+  refetch(){
     this.getPedidos();
     this.ordenarDataHora();
   }
@@ -96,17 +100,14 @@ export class ListarPedidoComponent implements OnInit {
       width: '25vw',
       enterAnimationDuration: '300ms',
       exitAnimationDuration: '300ms',
-      data: { pedidoId } // Passando o pedidoId para o dialog
+      data: { pedidoId } 
     
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        const index = this.pedidos.findIndex((pedido: Pedido) => pedido.id === pedidoId);
-        if (index >= 0) {
-          this.pedidos.splice(index, 1);
-          this.pedidoService.updatePedidoStatus(pedidoId, "Cancelado");
-        }
+        this.refetch();
+        alert('Pedido cancelado');
       }
     });
   }

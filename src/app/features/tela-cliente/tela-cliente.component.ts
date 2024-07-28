@@ -23,7 +23,11 @@ export class TelaClienteComponent implements OnInit {
     private router: Router,
     private dialog: MatDialog) { }
 
-  ngOnInit(): void {
+    ngOnInit(): void {
+      this.refetch()
+    }
+
+  refetch(){
     this.pedidos = this.pedidoService.getPedidos().filter(p => p.status === "Em Aberto");
   }
 
@@ -38,20 +42,18 @@ export class TelaClienteComponent implements OnInit {
   cancelarPedido(pedidoId: number): void {
     const dialogRef = this.dialog.open(CancelDialogW, {
       width: '25vw',
-      // Ajuste os tempos de animação conforme necessário
       enterAnimationDuration: '300ms',
-      exitAnimationDuration: '300ms'
+      exitAnimationDuration: '300ms',
+      data: { pedidoId } 
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        // O usuário confirmou a exclusão
-        const index = this.pedidos.findIndex((pedido: Pedido) => pedido.id === pedidoId);
-        if (index >= 0) {
-          this.pedidos.splice(index, 1);
-          this.pedidoService.updatePedidoStatus(pedidoId, "Cancelado");
-        }
+        this.refetch();
+        alert('Pedido cancelado');
       }
     });
+
+    
   }
 }
