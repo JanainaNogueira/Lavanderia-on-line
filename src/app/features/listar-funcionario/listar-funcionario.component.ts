@@ -9,14 +9,16 @@ import { MenuAdminComponent } from '../../components/menu-admin/menu-admin.compo
 import { Router, RouterModule } from '@angular/router';
 import { FuncionarioService } from '../../services/funcionario.service';
 import { Funcionario } from '../../Funcionario';
-import { DeleteDialog } from '../../components/delete-dialog/delete-dialog.component';
+import { DeleteDialogW } from '../../components/delete-dialog/delete-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+
 
 
 @Component({
   selector: 'app-listar-funcionario',
   standalone: true,
-  imports: [CommonModule,MatCommonModule,MatButtonModule,MatInputModule,
-    MatIconModule,FormsModule, MenuAdminComponent,DeleteDialog,RouterModule],
+  imports: [CommonModule,MatCommonModule,MatButtonModule,MatInputModule, 
+    MatIconModule,FormsModule, MenuAdminComponent,DeleteDialogW,RouterModule],
   templateUrl: './listar-funcionario.component.html',
   styleUrl: './listar-funcionario.component.css'
 })
@@ -26,7 +28,8 @@ export class ListarFuncionarioComponent {
 
   constructor(
     private FuncionarioService: FuncionarioService,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -64,11 +67,22 @@ export class ListarFuncionarioComponent {
     }
 
     excluirFuncionario(funcionario: Funcionario): void {
-      const index = this.funcionario.indexOf(funcionario);
-      if (index >= 0) {
-        this.funcionario.splice(index, 1);
-        this.FuncionarioService.excluirFuncionario(funcionario.email); 
-        };
-}
 
-}
+      const dialogRef = this.dialog.open(DeleteDialogW, {
+        width: '25vw',
+        // Ajuste os tempos de animação conforme necessário
+        enterAnimationDuration: '300ms',
+        exitAnimationDuration: '300ms'
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          // O usuário confirmou a exclusão
+          const index = this.funcionario.indexOf(funcionario);
+          if (index >= 0) {
+            this.funcionario.splice(index, 1);
+            this.FuncionarioService.excluirFuncionario(funcionario.email);
+          }
+        }
+      });
+    }
+  }
