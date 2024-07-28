@@ -4,30 +4,56 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { MatCommonModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
-import { CancelDialog } from '../../components/cancel-dialog/cancel-dialog.component';
+import { CancelDialogW } from '../../components/cancel-dialog/cancel-dialog.component';
 import { PedidoService } from '../../services/pedido.service';
 import { Pedido } from '../../Pedido';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-tela-cliente',
   standalone: true,
-  imports: [MenuLateralComponent, CommonModule, MatButtonModule, MatCommonModule, CancelDialog],
+  imports: [MenuLateralComponent, CommonModule, MatButtonModule, MatCommonModule, CancelDialogW],
   templateUrl: './tela-cliente.component.html',
-  styleUrl: './tela-cliente.component.css'
+  styleUrls: ['./tela-cliente.component.css']
 })
 export class TelaClienteComponent implements OnInit {
   pedidos: Pedido[] = []
-  constructor(private pedidoService: PedidoService, private router: Router) { }
+  constructor(
+    private pedidoService: PedidoService, 
+    private router: Router,
+    private dialog: MatDialog) { }
 
+    ngOnInit(): void {
+      this.refetch()
+    }
 
-  ngOnInit(): void {
-    this.pedidos = this.pedidoService.getPedidos().filter( p => p.status === "Em Aberto");
+  refetch(){
+    this.pedidos = this.pedidoService.getPedidos().filter(p => p.status === "Em Aberto");
   }
-  redirectPayment(num: number){
+
+  redirectPayment(num: number): void {
     this.router.navigateByUrl(`/payment/${num}`);
   }
-  visualizarPedido(id:number){
-    this.router.navigate(['/consulta-pedido'], {queryParams: {numero: id}})
+
+  visualizarPedido(id: number): void {
+    this.router.navigate(['/consulta-pedido'], { queryParams: { numero: id } });
   }
 
+  cancelarPedido(pedidoId: number): void {
+    const dialogRef = this.dialog.open(CancelDialogW, {
+      width: '25vw',
+      enterAnimationDuration: '300ms',
+      exitAnimationDuration: '300ms',
+      data: { pedidoId } 
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.refetch();
+        alert('Pedido cancelado');
+      }
+    });
+
+    
+  }
 }

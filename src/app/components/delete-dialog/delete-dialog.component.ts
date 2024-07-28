@@ -39,5 +39,10 @@ export class DeleteDialogW {
   constructor(public dialogRef: MatDialogRef<DeleteDialogW>) {}
   onYesClick(){
     alert('Funcionário excluído')
+    this.dialogRef.close(true); 
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close(false); 
   }
 }

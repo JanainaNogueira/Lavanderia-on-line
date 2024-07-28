@@ -3,7 +3,7 @@
   <div class="content">
     <div class="header">
       <h1 class="hello">Olá,</h1>
-      <h2 class="amountOpen">Você tem 3 pedidos em aberto</h2>
+      <h2 class="amountOpen">Você tem {{ pedidos.length }} pedidos em aberto</h2>
     </div>
     <div class="list-table">
       <table>
@@ -50,10 +50,14 @@
               >
                 Visualizar
               </button>
-              <app-cancelDialog
-                [pedidoId]="pedido.id"
+              <button
+                mat-raised-button
+                color="warn"
+                (click)="cancelarPedido(pedido.id)"
                 *ngIf="pedido.status === 'Em Aberto'"
-              ></app-cancelDialog>
+              >
+                Cancelar
+              </button>
             </td>
           </tr>
         </tbody>

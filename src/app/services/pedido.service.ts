@@ -105,7 +105,6 @@ export class PedidoService {
     let clienteId = sessionStorage.getItem("clienteId");
     let data = d.getDate()+'/'+d.getMonth()+'/'+d.getFullYear()
     let hora = String(d.getHours())+':'+String(d.getMinutes())
-    let tecido="";
     if(clienteId){
       const novoPedido:Pedido={
         id:Math.floor(Math.random() * 100) + 1,
