@@ -80,5 +80,8 @@ public void setTelefone( String telefone){
     this.telefone = telefone;
 }
 
+public String getLogin(){
+    return this.email;
+}
 
 }

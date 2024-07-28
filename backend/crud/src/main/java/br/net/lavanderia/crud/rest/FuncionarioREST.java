@@ -41,6 +41,15 @@ public class FuncionarioREST {
     return ResponseEntity.ok(u);
     }
 
+    @GetMapping("/Funcionario/email/{email}")
+    public ResponseEntity<Funcionario> obterFuncionarioPorEmail(@PathVariable("email") String email) {
+    Funcionario f = listaFuncionarios.stream().filter(func -> func.getEmail().equals(email)).findAny().orElse(null);
+    if (f == null)
+    return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    else
+    return ResponseEntity.ok(f);
+    }
+
     @PostMapping("/Funcionario")
     public ResponseEntity<Funcionario> inserir(@RequestBody Funcionario funcionario) {
     Funcionario u = listaFuncionarios.stream().filter(
@@ -92,8 +101,9 @@ public class FuncionarioREST {
     .build();
     }
     }
-    
 
+
+    
     static {
         listaFuncionarios.add(
             new Funcionario ("admin.lol@email.com", "Admin", "01/01/2001","1234", 99)

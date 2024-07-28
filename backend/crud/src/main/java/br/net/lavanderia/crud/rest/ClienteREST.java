@@ -28,6 +28,15 @@ public class ClienteREST {
         return listaClientes;
     }
 
+    @GetMapping("/Cliente/email/{email}")
+    public ResponseEntity<Cliente> obterClientePorEmail(@PathVariable("email") String email) {
+    Cliente c = listaClientes.stream().filter(cli -> cli.getEmail().equals(email)).findAny().orElse(null);
+    if (c == null)
+    return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    else
+    return ResponseEntity.ok(c);
+    }
+
     @GetMapping("/Cliente/{id}")
     public ResponseEntity<Cliente> obterClientePorId(
             @PathVariable("id") int id) {
