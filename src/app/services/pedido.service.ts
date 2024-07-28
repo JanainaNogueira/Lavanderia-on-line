@@ -135,12 +135,29 @@ export class PedidoService {
   }
 
   getPedidosStatus(status: string): Pedido[] {
-    return this.pedidos.filter(pedido => pedido.status === status);
+    let clientId = sessionStorage.getItem("clienteId");
+    let adminId = sessionStorage.getItem("adminId");
+    if (clientId) {
+      return this.pedidos.filter(p => p.clienteId == Number(clientId) && p.status === status);
+    } else if (adminId) {
+      return this.pedidos.filter(p => p.status === status);
+    } else {
+      return [];
+    }
   }
 
   getPedidosID(numero: number): Pedido[] {
-    return this.pedidos.filter(pedido => pedido.id === numero);
+    let clientId = sessionStorage.getItem("clienteId");
+    let adminId = sessionStorage.getItem("adminId");
+    if (clientId) {
+      return this.pedidos.filter(p => p.clienteId == Number(clientId) && p.id === numero);
+    } else if (adminId) {
+      return this.pedidos.filter(p => p.id === numero);
+    } else {
+      return [];
+    }
   }
+  
   updatePedidoStatus(id: number, status: string): Pedido[]{
     let index = this.pedidos.findIndex(pedido => pedido.id === id)
     this.pedidos[index] = {...this.pedidos[index], status}
