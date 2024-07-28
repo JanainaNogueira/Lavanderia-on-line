@@ -1,5 +1,4 @@
 import { EmailService } from '../email.service';
-import { JsonPipe } from '@angular/common';
 import { Injectable } from '@angular/core';
 import {Cliente } from '../../Cliente';
 @Injectable({
@@ -11,7 +10,6 @@ export class ClienteService {
   private clientes:Cliente[]=[
     {
       id: 1,
-      pedidos: [],
       nome:"Jose",
       email: "jose@email.com",
       cpf: "098654723454",
@@ -21,7 +19,6 @@ export class ClienteService {
     },
     {
       id: 2,
-      pedidos: [],
       nome:"Maria",
       email: "maria@email.com",
       cpf: "098654222254",
@@ -31,7 +28,6 @@ export class ClienteService {
     },
     {
       id: 4,
-      pedidos: [],
       nome:"Joao",
       email: "Joao@email.com",
       cpf: "0983245623454",
@@ -44,7 +40,6 @@ export class ClienteService {
   CreateCliente(nome:string, email: string,cpf: string,endereco: string,telefone: string){
     const novoCliente:Cliente={
       id:Math.round(Math.random()*1000000),
-      pedidos: [],
       nome:nome,
       email: email,
       cpf: cpf,

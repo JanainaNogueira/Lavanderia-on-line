@@ -1,8 +1,5 @@
-import { Pedido } from "./Pedido"
-
 export interface Cliente{
   id:number;
-  pedidos: Pedido[] ;
   nome:string;
   email: string;
   cpf: string;
