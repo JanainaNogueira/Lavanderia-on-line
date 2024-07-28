@@ -6,7 +6,6 @@ public class Funcionario {
     private String nascimento;
     private String senha;
     private int id;
-   
 
 
 public Funcionario () {}
@@ -54,7 +53,7 @@ public int getId(){
     return this.id;
 }
 
-public void setId( int id){
+public void setId(int id){
     this.id = id;
 }
 
