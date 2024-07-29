@@ -25,10 +25,6 @@ public class RoupaREST {
 
       public static List <Roupa> listaRoupas = new ArrayList<>();
 
-      /*@GetMapping("/Roupa")
-      public  List<Roupa> getRoupas() {
-          return listaRoupas;
-      }*/
       @GetMapping("/Roupas")
       public ResponseEntity<List<Roupa>>getRoupas() {
           return ResponseEntity.ok(listaRoupas);
