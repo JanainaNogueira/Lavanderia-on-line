@@ -55,6 +55,9 @@ export class ListarPedidoComponent implements OnInit {
   filtroStatus(status: string) {
     if (status === 'Todos') {
       this.getPedidos();
+    } else if (status === 'Rejeitado/Cancelado') {
+      this.pedidos = this.pedidoService.getPedidosStatus('Rejeitado')
+        .concat(this.pedidoService.getPedidosStatus('Cancelado'));
     } else {
       this.pedidos = this.pedidoService.getPedidosStatus(status);
     }
