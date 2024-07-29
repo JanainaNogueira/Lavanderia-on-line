@@ -1,55 +1,53 @@
 import { Injectable } from '@angular/core';
-import {Roupa} from '../Pedido'
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { Roupa } from '../Pedido';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RoupasService {
+  private apiUrl = 'http://localhost:8080/Roupas';
 
-  constructor() { }
-  roupas:Roupa[]=[
-    {
-      tipo:"calca",
-      tempo:5,
-    },
-    {
-      tipo:"camisa",
-      tempo:6,
-    },
-    {
-      tipo:"camiseta",
-      tempo: 5,
-    },
-    {
-      tipo:"cueca",
-      tempo:2,
-    },
-    {
-      tipo:"meia",
-      tempo:1,
-    }
-  ];
-  addRoupa(tipo:string,tempo:number){
-    const novaRoupa:Roupa={
-      tipo,
-      tempo,
-    };
-    this.roupas.push(novaRoupa);
+  constructor(private http: HttpClient) {}
+
+ 
+  addRoupa(roupa: Roupa): Observable<Roupa> {
+    return this.http.post<Roupa>(this.apiUrl, roupa).pipe(
+      catchError(this.handleError)
+    );
   }
 
-  getRoupaByTipo(tipo: string): Roupa | undefined {
-    return this.roupas.find(roupa => roupa.tipo === tipo);
+  getRoupas(): Observable<Roupa[]> {
+    return this.http.get<Roupa[]>(this.apiUrl).pipe(
+      catchError(this.handleError)
+    );
   }
-  getRoupas(): Roupa[] {
-    return this.roupas;
+
+  getRoupaByTipo(tipo: string): Observable<Roupa> {
+    return this.http.get<Roupa>(`${this.apiUrl}/${tipo}`).pipe(
+      catchError(this.handleError)
+    );
   }
-  excluirRoupa(tipo: string): void {
-    this.roupas = this.roupas.filter(roupas => roupas.tipo !== tipo);
+
+ 
+  excluirRoupa(tipo: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${tipo}`).pipe(
+      catchError(this.handleError)
+    );
   }
-  editarRoupa(roupaAtualizada: Roupa) {
-    const index = this.roupas.findIndex(roupa => roupa.tipo === roupaAtualizada.tipo);
-    if (index !== -1) {
-      this.roupas[index] = roupaAtualizada;
-    }
+
+  
+  editarRoupa(tipo: string, roupa: Roupa): Observable<Roupa> {
+    return this.http.put<Roupa>(`${this.apiUrl}/${tipo}`, roupa).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+
+  private handleError(error: HttpErrorResponse) {
+    console.error(`Erro: ${error.message}`);
+    return throwError('Erro ao realizar a operação. Tente novamente mais tarde.');
   }
 }

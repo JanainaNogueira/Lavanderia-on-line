@@ -1,49 +1,69 @@
-import { Component, OnInit } from '@angular/core'
-import { ActivatedRoute, Router } from '@angular/router'
-import { MenuAdminComponent } from '../../components/menu-admin/menu-admin.component';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { MatCommonModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
-import { Pedido } from '../../Pedido';
 import { PedidoService } from '../../services/pedido.service';
-import { CommonModule } from '@angular/common';
-
-
+import { Pedido } from '../../Pedido';
+import { Observable, of, EMPTY } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-tela-pagamento',
   standalone: true,
-  imports: [MenuAdminComponent,MatButtonModule, MatCommonModule, CommonModule],
+  imports: [CommonModule, MatButtonModule, MatCommonModule],
   templateUrl: './tela-pagamento.component.html',
-  styleUrl: './tela-pagamento.component.css'
+  styleUrls: ['./tela-pagamento.component.css']
 })
-export class TelaPagamentoComponent implements OnInit{
-  numero: number
-  pedido: Pedido
+export class TelaPagamentoComponent implements OnInit {
+  numero: number;
+  pedido$: Observable<Pedido | null> = EMPTY;  // Use type `Pedido | null`
   isCliente: boolean = false;
-  constructor(private route: ActivatedRoute, private pedidoService: PedidoService, private router: Router){
-  }
+
+  constructor(
+    private route: ActivatedRoute,
+    private pedidoService: PedidoService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-      this.numero = Number(this.route.snapshot.paramMap.get('numero')) || 0
-      this.pedido = this.pedidoService.getPedidosID(this.numero)[0] || null
+    this.numero = Number(this.route.snapshot.paramMap.get('numero')) || 0;
+    this.pedido$ = this.pedidoService.getPedidoById(this.numero).pipe(
+      catchError(err => {
+        console.error('Erro ao buscar pedido', err);
+        return of(null);  // Return `null` if there's an error
+      })
+    );
+    this.verificarUsuario();
   }
 
-  confirmarPagamento(){
-    this.pedidoService.updatePedidoStatus(this.numero, "Pago");
-    alert("pedido pago")
-    this.router.navigate(["/home"]);
-  }
-  getTotalItens(): number {
-    return this.pedido ? this.pedido.roupas.reduce((acc, item) => acc + item.quantidade, 0) : 0;
+  confirmarPagamento(): void {
+    this.pedido$.subscribe(pedido => {
+      if (pedido) {
+        pedido.status = 'Pago'; // Update status
+        this.pedidoService.updatePedido(this.numero, pedido).subscribe(
+          () => {
+            alert('Pedido pago');
+            this.router.navigate(['/home']);
+          },
+          err => console.error('Erro ao confirmar pagamento', err)
+        );
+      } else {
+        alert('Pedido não encontrado.');
+      }
+    });
   }
 
-  getTotalValor(): number {
-    return this.pedido ? this.pedido.roupas.reduce((acc, item) => acc + (10 * item.quantidade), 0) : 0;
+  getTotalItens(pedido: Pedido): number {
+    return pedido ? pedido.roupas.reduce((acc, item) => acc + item.quantidade, 0) : 0;
   }
 
-  verificarUsuario() {
-    const clienteId = sessionStorage.getItem("clienteId");
+  getTotalValor(pedido: Pedido): number {
+    return pedido ? pedido.roupas.reduce((acc, item) => acc + (10 * item.quantidade), 0) : 0;
+  }
+
+  verificarUsuario(): void {
+    const clienteId = sessionStorage.getItem('clienteId');
     this.isCliente = clienteId !== null;
   }
-
 }

@@ -1,103 +1,55 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { Funcionario } from '../Funcionario';
-
 
 @Injectable({
   providedIn: 'root'
 })
 export class FuncionarioService {
-  constructor() { }
-  funcionarios:Funcionario[]=[
-    {
-      email:'admin.lol@email.com',
-      nome:'Admin',
-      nascimento:'01/01/2001',
-      senha:'1234',
-      id: 99
-    },
-    {
-      email:'mario.lol@email.com',
-      nome:'Mario da Silva',
-      nascimento:'02/07/2001',
-      senha:'1234',
-      id: 13
-    },
-    {
-      email:'maria.lol@email.com',
-      nome:'Maria Joaquina Pereira',
-      nascimento:'07/12/2001',
-      senha:'1234',
-      id: 14
+  private apiUrl = 'http://localhost:8080/Funcionario';
 
-    },
-    {
-      email:'thor.lol@email.com',
-      nome:'Thor Ferreira',
-      nascimento:'23/04/2003',
-      senha:'1234',
-      id: 15
-    },
-    {
-      email:'fabricio.lol@email.com',
-      nome:'Fabricio Fritz Alt',
-      nascimento:'21/05/1981',
-      senha:'1234',
-      id: 16
-    },
+  constructor(private http: HttpClient) { }
 
-  ];
-  addFuncionario(email:string,nome:string,nascimento:string,senha:string)
-    {
-    const novoFuncionario:Funcionario={
-      email:email,
-      nome:nome,
-      nascimento:nascimento,
-      senha:senha,
-      id: Math.round(Math.random()*1000000)
-    }
-    const exists = this.funcionarios.some(funcionario => funcionario.email === email);
-
-    if (exists) {
-      return;
-    }
-    else{
-    this.funcionarios.push(novoFuncionario)
-    console.log(this.funcionarios)
+  getFuncionarios(): Observable<Funcionario[]> {
+    return this.http.get<Funcionario[]>(this.apiUrl).pipe(
+      catchError(this.handleError)
+    );
   }
+
+  getFuncionarioById(id: number): Observable<Funcionario> {
+    return this.http.get<Funcionario>(`${this.apiUrl}/${id}`).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  getFuncionarioByEmail(email: string): Observable<Funcionario> {
+    return this.http.get<Funcionario>(`${this.apiUrl}/email/${email}`).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  addFuncionario(funcionario: Funcionario): Observable<Funcionario> {
+    return this.http.post<Funcionario>(this.apiUrl, funcionario).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+    updateFuncionario(id: number, funcionario: Funcionario): Observable<Funcionario> {
+      return this.http.put<Funcionario>(`${this.apiUrl}/${id}`, funcionario).pipe(
+        catchError(this.handleError)
+      );
     }
 
-  getFuncionarios(): Funcionario[] {
-    return this.funcionarios;
+  deleteFuncionario(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(
+      catchError(this.handleError)
+    );
   }
 
-  getFuncionarioByEmail(email: string): Funcionario | undefined {
-    return this.funcionarios.find(funcionario => funcionario.email === email);
+  private handleError(error: HttpErrorResponse) {
+    console.error('Ocorreu um erro:', error);
+    return throwError('Algo deu errado; por favor, tente novamente mais tarde.');
   }
-
-  getFuncionariosNome(nome: string): Funcionario[] {
-    return this.funcionarios.filter(Funcionario => Funcionario.nome === nome);
-  }
-
-  excluirFuncionario(email: string): void {
-    this.funcionarios = this.funcionarios.filter(funcionario => funcionario.email !== email);
-    console.log('Funcionários após exclusão:', this.funcionarios);
-  }
-
-  editarFuncionario(funcionario: Funcionario) {
-    const index = this.funcionarios.findIndex(f => f.email === funcionario.email);
-    if (index !== -1) {
-      this.funcionarios[index] = funcionario;
-    }
-  }
-
-  validateLogin(email: string, senha: string): boolean {
-    const funcionario = this.funcionarios.find(f => f.email === email && f.senha === senha);
-    if(funcionario){
-      sessionStorage.setItem("adminId", String(funcionario.id))
-    }
-    return funcionario !== undefined;
-  }
-  
 }
-
-

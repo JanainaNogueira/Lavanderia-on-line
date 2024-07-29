@@ -1,19 +1,17 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormsModule, Validators } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { EmailDirective } from '../../shared/directive/email.directive';
 import { NumericoDirective } from '../../shared/directive/numerico.directive';
-import { ClienteService } from '../../services/cliente/cliente.service';
-import { FuncionarioService } from '../../services/funcionario.service';
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule, EmailDirective, FormsModule, NumericoDirective],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
   email: string = '';
@@ -21,21 +19,30 @@ export class LoginComponent {
 
   constructor(
     private router: Router,
-    private clienteService: ClienteService,
-    private funcionarioService: FuncionarioService
+    private loginService: LoginService
   ) { }
 
   onSubmit() {
-        sessionStorage.removeItem("clienteId")
-        sessionStorage.removeItem("adminId")    
-        if (this.clienteService.validateLogin(this.email, this.senha)) {
-          this.router.navigate(['/home']);
-        } else  if (this.funcionarioService.validateLogin(this.email, this.senha)) {
-          this.router.navigate(['/admin']);
+    this.loginService.login(this.email, this.senha).subscribe(
+      response => {
+        sessionStorage.removeItem("clienteId");
+        sessionStorage.removeItem("adminId");
+
+        if ('role' in response) { 
+          if (response.role === 'Funcionario') {
+            this.router.navigate(['/admin']);
+          } else if (response.role === 'Cliente') {
+            this.router.navigate(['/home']);
+          } else {
+            alert('Email ou senha inválidos');
+          }
         } else {
-          alert("Email ou senha invalidos");
+          alert('Email ou senha inválidos');
         }
+      },
+      error => {
+        alert('Erro ao fazer login');
+      }
+    );
   }
-
-
 }

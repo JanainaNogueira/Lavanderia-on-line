@@ -1,34 +1,42 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuLateralComponent } from '../../components/menu-lateral/menu-lateral.component';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { MatCommonModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
-import { CancelDialogW } from '../../components/cancel-dialog/cancel-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 import { PedidoService } from '../../services/pedido.service';
 import { Pedido } from '../../Pedido';
-import { MatDialog } from '@angular/material/dialog';
+import { CancelDialogW } from '../../components/cancel-dialog/cancel-dialog.component';
+import { Observable, of } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-tela-cliente',
   standalone: true,
-  imports: [MenuLateralComponent, CommonModule, MatButtonModule, MatCommonModule, CancelDialogW],
+  imports: [CommonModule, MatButtonModule, MatCommonModule, CancelDialogW],
   templateUrl: './tela-cliente.component.html',
   styleUrls: ['./tela-cliente.component.css']
 })
 export class TelaClienteComponent implements OnInit {
-  pedidos: Pedido[] = []
+  pedidos$: Observable<Pedido[]> = of([]);
+
   constructor(
     private pedidoService: PedidoService, 
     private router: Router,
-    private dialog: MatDialog) { }
+    private dialog: MatDialog
+  ) { }
 
-    ngOnInit(): void {
-      this.refetch()
-    }
+  ngOnInit(): void {
+    this.refetch();
+  }
 
-  refetch(){
-    this.pedidos = this.pedidoService.getPedidos().filter(p => p.status === "Em Aberto");
+  refetch(): void {
+    this.pedidos$ = this.pedidoService.getPedidosByStatus('Em Aberto').pipe(
+      catchError(err => {
+        console.error('Erro ao buscar pedidos', err);
+        return of([]);
+      })
+    );
   }
 
   redirectPayment(num: number): void {
@@ -47,13 +55,22 @@ export class TelaClienteComponent implements OnInit {
       data: { pedidoId } 
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.refetch();
-        alert('Pedido cancelado');
-      }
-    });
-
-    
+    dialogRef.afterClosed().pipe(
+      tap(result => {
+        if (result) {
+          this.pedidoService.deletePedido(pedidoId).pipe(
+            tap(() => {
+              this.refetch();
+              alert('Pedido cancelado');
+            }),
+            catchError(err => {
+              console.error('Erro ao cancelar pedido', err);
+              alert('Erro ao cancelar o pedido');
+              return of(null);
+            })
+          ).subscribe();
+        }
+      })
+    ).subscribe();
   }
 }

@@ -1,6 +1,6 @@
-import { Component,OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatCommonModule, MatNativeDateModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
@@ -17,9 +17,9 @@ import { RequiredFieldDirective } from '../../shared/directive/required.directiv
 @Component({
   selector: 'app-editar-roupas',
   standalone: true,
-  imports: [CommonModule, MatCommonModule,MatButtonModule,MatInputModule,
-    MatIconModule,FormsModule, MenuAdminComponent,
-    DeleteDialog,RouterModule,ReactiveFormsModule,MatDatepickerModule,MatNativeDateModule, NumericoDirective, RequiredFieldDirective],
+  imports: [CommonModule, MatCommonModule, MatButtonModule, MatInputModule,
+    MatIconModule, FormsModule, MenuAdminComponent,
+    DeleteDialog, RouterModule, ReactiveFormsModule, MatDatepickerModule, MatNativeDateModule, NumericoDirective, RequiredFieldDirective],
   templateUrl: './editar-roupas.component.html',
   styleUrls: ['./editar-roupas.component.css']
 })
@@ -38,32 +38,46 @@ export class EditarRoupasComponent implements OnInit {
     this.createForm();
     const tipo = this.route.snapshot.paramMap.get('tipo');
     if (tipo) {
-      this.roupa = this.roupasService.getRoupaByTipo(tipo);
-      if (!this.roupa) {
-        this.router.navigate(['/listar-roupa']);
-      } else {
-        this.FormularioEditarRoupa.patchValue({
-          tipo: this.roupa.tipo,
-          tempo: this.roupa.tempo,
-        });
-      }
+      this.roupasService.getRoupaByTipo(tipo).subscribe(
+        roupa => {
+          this.roupa = roupa;
+          this.FormularioEditarRoupa.patchValue({
+            tipo: this.roupa.tipo,
+            tempo: this.roupa.tempo
+          });
+        },
+        error => {
+          console.error('Erro ao buscar a roupa', error);
+          this.router.navigate(['/listar-roupa']);
+        }
+      );
     } else {
       this.router.navigate(['/listar-roupa']);
+    }
   }
-}
+
   createForm() {
     this.FormularioEditarRoupa = this.formBuilder.group({
       tipo: null,
       tempo: null
     });
   }
-
   onSubmit() {
     if (this.FormularioEditarRoupa.valid && this.roupa) {
-      this.roupa.tipo = this.FormularioEditarRoupa.value.tipo;
-      this.roupa.tempo = this.FormularioEditarRoupa.value.tempo;
-      this.roupasService.editarRoupa(this.roupa);
-      this.router.navigate(['/listar-roupa']);
+      const roupaAtualizada: Roupa = {
+        tipo: this.FormularioEditarRoupa.value.tipo,
+        tempo: this.FormularioEditarRoupa.value.tempo
+      };
+
+      this.roupasService.editarRoupa(this.roupa.tipo, roupaAtualizada).subscribe(
+        () => {
+          this.router.navigate(['/listar-roupa']);
+        },
+        error => {
+          console.error('Erro ao atualizar a roupa', error);
+        }
+      );
     }
   }
 }
+

@@ -11,6 +11,7 @@ import { CancelDialogW } from '../../components/cancel-dialog/cancel-dialog.comp
 import { PedidoService } from '../../services/pedido.service';
 import { Pedido } from '../../Pedido';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { mergeMap,map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-listar-pedido',
@@ -43,25 +44,44 @@ export class ListarPedidoComponent implements OnInit {
     this.refetch();
   }
 
-  refetch(){
+  refetch() {
     this.getPedidos();
-    this.ordenarDataHora();
   }
 
   getPedidos() {
-    this.pedidos = this.pedidoService.getPedidos();
+    this.pedidoService.getPedidos().subscribe({
+      next: (data) => {
+        this.pedidos = data;
+        this.ordenarDataHora();
+      },
+      error: (err) => console.error('Erro ao obter pedidos:', err)
+    });
   }
 
   filtroStatus(status: string) {
     if (status === 'Todos') {
       this.getPedidos();
     } else if (status === 'Rejeitado/Cancelado') {
-      this.pedidos = this.pedidoService.getPedidosStatus('Rejeitado')
-        .concat(this.pedidoService.getPedidosStatus('Cancelado'));
+      this.pedidoService.getPedidosByStatus('Rejeitado').pipe(
+        mergeMap(rejeitados => this.pedidoService.getPedidosByStatus('Cancelado').pipe(
+          map(cancelados => rejeitados.concat(cancelados))
+        ))
+      ).subscribe({
+        next: (data) => {
+          this.pedidos = data;
+          this.ordenarDataHora();
+        },
+        error: (err) => console.error('Erro ao filtrar por status:', err)
+      });
     } else {
-      this.pedidos = this.pedidoService.getPedidosStatus(status);
+      this.pedidoService.getPedidosByStatus(status).subscribe({
+        next: (data) => {
+          this.pedidos = data;
+          this.ordenarDataHora();
+        },
+        error: (err) => console.error('Erro ao filtrar por status:', err)
+      });
     }
-    this.ordenarDataHora();
   }
 
   ordenarDataHora() {
@@ -84,8 +104,13 @@ export class ListarPedidoComponent implements OnInit {
     } else {
       const pedidoId = parseInt(num, 10);
       if (!isNaN(pedidoId)) {
-        this.pedidos = this.pedidoService.getPedidosID(pedidoId);
-        this.ordenarDataHora();
+        this.pedidoService.getPedidoById(pedidoId).subscribe({
+          next: (pedido) => {
+            this.pedidos = [pedido];
+            this.ordenarDataHora();
+          },
+          error: (err) => console.error('Erro ao pesquisar por número:', err)
+        });
       }
     }
   }
@@ -104,13 +129,17 @@ export class ListarPedidoComponent implements OnInit {
       enterAnimationDuration: '300ms',
       exitAnimationDuration: '300ms',
       data: { pedidoId } 
-    
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.refetch();
-        alert('Pedido cancelado');
+      if (result === 'confirm') {
+        this.pedidoService.deletePedido(pedidoId).subscribe({
+          next: () => {
+            this.refetch();
+            alert('Pedido cancelado');
+          },
+          error: (err) => console.error('Erro ao cancelar pedido:', err)
+        });
       }
     });
   }

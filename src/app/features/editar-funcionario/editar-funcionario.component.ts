@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component,OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { FuncionarioService } from '../../services/funcionario.service';
 import { Funcionario } from '../../Funcionario';
@@ -17,18 +17,31 @@ import { NomeDirective } from '../../shared/directive/nome.directive';
 import { RequiredFieldDirective } from '../../shared/directive/required.directive';
 import { length4Directive } from '../../shared/directive/length4.directive';
 
-
 @Component({
   selector: 'app-editar-funcionario',
   standalone: true,
-  imports: [CommonModule, MatCommonModule,MatButtonModule,MatInputModule,
-    MatIconModule,FormsModule, MenuAdminComponent,
-    DeleteDialog,RouterModule,ReactiveFormsModule,MatDatepickerModule,MatNativeDateModule, EmailDirective, NumericoDirective, NomeDirective, RequiredFieldDirective, length4Directive],
+  imports: [
+    CommonModule,
+    MatCommonModule,
+    MatButtonModule,
+    MatInputModule,
+    MatIconModule,
+    FormsModule,
+    MenuAdminComponent,
+    DeleteDialog,
+    RouterModule,
+    ReactiveFormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    EmailDirective,
+    NumericoDirective,
+    NomeDirective,
+    RequiredFieldDirective,
+    length4Directive, 
+  ],
   templateUrl: './editar-funcionario.component.html',
-  styleUrl: './editar-funcionario.component.css'
+  styleUrls: ['./editar-funcionario.component.css']
 })
-
-
 export class EditarFuncionarioComponent implements OnInit {
   FormularioRegistroFunc: FormGroup;
   funcionario: Funcionario | undefined;
@@ -45,31 +58,40 @@ export class EditarFuncionarioComponent implements OnInit {
     this.createForm();
     const email = this.route.snapshot.paramMap.get('email');
     if (email) {
-      this.funcionario = this.funcionarioService.getFuncionarioByEmail(email);
-      if (!this.funcionario) {
-        this.router.navigate(['/listar-funcionarios']);
-      } else {
-        const nascimentoDate = this.parseDate(this.funcionario.nascimento);
-        this.FormularioRegistroFunc.patchValue({
-          nome: this.funcionario.nome,
-          nascimento: nascimentoDate,
-          email: this.funcionario.email,
-          senha: this.funcionario.senha
-        });
-        setTimeout(() => {
-          this.cdr.detectChanges();
-        }, 0);
-      }
+      this.funcionarioService.getFuncionarioByEmail(email).subscribe(
+        (funcionario) => {
+          this.funcionario = funcionario;
+          if (this.funcionario) {
+            const nascimentoDate = this.parseDate(this.funcionario.nascimento);
+            this.FormularioRegistroFunc.patchValue({
+              nome: this.funcionario.nome,
+              nascimento: nascimentoDate,
+              email: this.funcionario.email,
+              senha: this.funcionario.senha
+            });
+            setTimeout(() => {
+              this.cdr.detectChanges();
+            }, 0);
+          } else {
+            this.router.navigate(['/listar-funcionarios']);
+          }
+        },
+        (error) => {
+          console.error('Erro ao buscar funcionário', error);
+          this.router.navigate(['/listar-funcionarios']);
+        }
+      );
     } else {
       this.router.navigate(['/listar-funcionarios']);
+    }
   }
-}
+
   createForm() {
     this.FormularioRegistroFunc = this.formBuilder.group({
-      nome: null,
-      nascimento: null,
-      email: null,
-      senha: null
+      nome: [null, Validators.required],
+      nascimento: [null, Validators.required],
+      email: [null, [Validators.required, Validators.email]],
+      senha: [null, Validators.required]
     });
   }
 
@@ -79,8 +101,15 @@ export class EditarFuncionarioComponent implements OnInit {
       this.funcionario.nascimento = this.formatDate(this.FormularioRegistroFunc.value.nascimento);
       this.funcionario.email = this.FormularioRegistroFunc.value.email;
       this.funcionario.senha = this.FormularioRegistroFunc.value.senha;
-      this.funcionarioService.editarFuncionario(this.funcionario);
-      this.router.navigate(['./listar-funcionario']);
+      const funcionarioId = this.funcionario.id;
+      this.funcionarioService.updateFuncionario(funcionarioId, this.funcionario).subscribe(
+        () => {
+          this.router.navigate(['/listar-funcionarios']);
+        },
+        (error) => {
+          console.error('Erro ao atualizar funcionário', error);
+        }
+      );
     }
   }
 
@@ -100,6 +129,5 @@ export class EditarFuncionarioComponent implements OnInit {
     this.FormularioRegistroFunc.patchValue({
       nascimento: event.value
     });
-}
-
+  }
 }
