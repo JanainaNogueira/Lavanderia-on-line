@@ -12,7 +12,7 @@ public class Cliente {
     private int id;
     private String nome;
     private String cpf;
-    private String endereço;
+    private String endereco;
     private String telefone;
     @OneToOne()
     @JoinColumn(name = "fk_Login_IdLogin", referencedColumnName = "IdLogin")
@@ -24,12 +24,12 @@ public class Cliente {
     public Cliente() {
     }
 
-    public Cliente(int id, String nome, String email, String cpf, String endereço, String telefone, String senha,
+    public Cliente(int id, String nome, String email, String cpf, String endereco, String telefone, String senha,
             Login login) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
-        this.endereço = endereço;
+        this.endereco = endereco;
         this.telefone = telefone;
         this.login = login;
         this.status = "Ativo";
@@ -72,12 +72,12 @@ public class Cliente {
         this.id = id;
     }
 
-    public String getEndereço() {
-        return this.endereço;
+    public String getEndereco() {
+        return this.endereco;
     }
 
-    public void setEndereço(String endereço) {
-        this.endereço = endereço;
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
     }
 
     public String getTelefone() {
@@ -98,6 +98,10 @@ public class Cliente {
 
     public String getStatus() {
         return this.status;
+    }
+
+    public void setLoginandSenha(Login login) {
+        this.login = login;
     }
 
 }

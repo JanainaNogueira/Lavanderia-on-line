@@ -62,13 +62,21 @@ public class ClienteREST {
     @PostMapping("/Cliente")
     public ResponseEntity<Cliente> inserir(@RequestBody Cliente cliente) {
         Login l = loginRepository.findBylogin(cliente.getLogin()).orElse(null);
-        if (l != null) {
-            Cliente c = l.getCliente();
-            if (c != null) {
-                return ResponseEntity.status(HttpStatus.CONFLICT).build();
-            }
-            clienteRepository.save(cliente);
-            return ResponseEntity.status(HttpStatus.CREATED).body(cliente);
+        System.out.println(cliente);
+        if (l == null) {
+            Cliente c = new Cliente();
+            Login newLog = new Login(cliente.getLogin(), cliente.getSenha());
+            c.setNome(cliente.getNome());
+            c.setLoginandSenha(newLog);
+            c.setCPF(cliente.getCPF());
+            c.setEndereco(cliente.getEndereco());
+            c.setTelefone(cliente.getTelefone());
+            c.setSenha(cliente.getSenha());
+            c.setEmail(newLog.getLogin());
+            c.setStatus("Ativo");
+            loginRepository.save(newLog);
+            Cliente returnC = clienteRepository.save(c);
+            return ResponseEntity.status(HttpStatus.CREATED).body(returnC);
         } else {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
@@ -80,15 +88,13 @@ public class ClienteREST {
             @RequestBody Cliente cliente) {
         Cliente c = clienteRepository.findById(id).orElse(null);
         if (c != null) {
-            c.setId(cliente.getId());
             c.setNome(cliente.getNome());
-            c.setEmail(cliente.getLogin());
             c.setCPF(cliente.getCPF());
-            c.setEndereço(cliente.getEndereço());
+            c.setEndereco(cliente.getEndereco());
             c.setTelefone(cliente.getTelefone());
-            c.setSenha(cliente.getSenha());
-            clienteRepository.save(c);
-            return ResponseEntity.ok(c);
+            c.setStatus("Ativo");
+            Cliente returnC = clienteRepository.save(c);
+            return ResponseEntity.ok(returnC);
         } else
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .build();
@@ -99,8 +105,8 @@ public class ClienteREST {
         Cliente Cliente = clienteRepository.findById(id).orElse(null);
         if (Cliente != null) {
             Cliente.setStatus("Desativado");
-            clienteRepository.delete(Cliente);
-            return ResponseEntity.ok(Cliente);
+            Cliente returnC = clienteRepository.save(Cliente);
+            return ResponseEntity.ok(returnC);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .build();
