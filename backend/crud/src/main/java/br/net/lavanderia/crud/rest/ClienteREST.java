@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.net.lavanderia.crud.model.Cliente;
+import br.net.lavanderia.crud.model.Login;
+
 import br.net.lavanderia.crud.respository.ClienteRepository;
 import br.net.lavanderia.crud.respository.LoginRepository;
 
@@ -34,17 +36,22 @@ public class ClienteREST {
 
     @GetMapping("/Cliente/email/{email}")
     public ResponseEntity<Cliente> obterClientePorEmail(@PathVariable("email") String email) {
-        Cliente c = loginRepository.findBylogin(email).get().getCliente();
-        if (c == null)
+        Login l = loginRepository.findBylogin(email).orElse(null);
+        if (l != null) {
+            Cliente c = l.getCliente();
+            if (c == null)
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            else
+                return ResponseEntity.ok(c);
+        } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        else
-            return ResponseEntity.ok(c);
+        }
     }
 
     @GetMapping("/Cliente/{id}")
     public ResponseEntity<Cliente> obterClientePorId(
             @PathVariable("id") int id) {
-        Cliente c = clienteRepository.findById(id).get();
+        Cliente c = clienteRepository.findById(id).orElse(null);
         if (c == null)
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .build();
@@ -54,19 +61,24 @@ public class ClienteREST {
 
     @PostMapping("/Cliente")
     public ResponseEntity<Cliente> inserir(@RequestBody Cliente cliente) {
-        Cliente c = loginRepository.findBylogin(cliente.getLogin()).get().getCliente();
-        if (c != null) {
+        Login l = loginRepository.findBylogin(cliente.getLogin()).orElse(null);
+        if (l != null) {
+            Cliente c = l.getCliente();
+            if (c != null) {
+                return ResponseEntity.status(HttpStatus.CONFLICT).build();
+            }
+            clienteRepository.save(cliente);
+            return ResponseEntity.status(HttpStatus.CREATED).body(cliente);
+        } else {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
-        clienteRepository.save(cliente);
-        return ResponseEntity.status(HttpStatus.CREATED).body(cliente);
     }
 
     @PutMapping("/Cliente/{id}")
     public ResponseEntity<Cliente> alterar(
             @PathVariable("id") int id,
             @RequestBody Cliente cliente) {
-        Cliente c = clienteRepository.findById(id).get();
+        Cliente c = clienteRepository.findById(id).orElse(null);
         if (c != null) {
             c.setId(cliente.getId());
             c.setNome(cliente.getNome());
@@ -84,7 +96,7 @@ public class ClienteREST {
 
     @DeleteMapping("/Cliente/{id}")
     public ResponseEntity<Cliente> remover(@PathVariable("id") int id) {
-        Cliente Cliente = clienteRepository.findById(id).get();
+        Cliente Cliente = clienteRepository.findById(id).orElse(null);
         if (Cliente != null) {
             clienteRepository.delete(Cliente);
             return ResponseEntity.ok(Cliente);

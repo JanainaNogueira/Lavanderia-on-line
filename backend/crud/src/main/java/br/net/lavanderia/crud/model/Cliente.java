@@ -1,5 +1,7 @@
 package br.net.lavanderia.crud.model;
 
+import java.util.List;
+
 import jakarta.persistence.*;;
 
 @Entity
@@ -15,6 +17,8 @@ public class Cliente {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_Login_IdLogin", referencedColumnName = "IdLogin")
     private Login login;
+    @OneToMany(mappedBy = "cliente")
+    private List<Pedido> pedidos;
 
     public Cliente() {
     }

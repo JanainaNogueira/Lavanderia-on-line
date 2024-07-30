@@ -2,21 +2,34 @@ package br.net.lavanderia.crud.model;
 
 import java.util.List;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "pedido")
 public class Pedido {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private double valor;
     private int prazo;
+
+    @OneToMany(mappedBy = "pedido")
     private List<ItemPedido> roupas;
     private String hora;
     private String status;
     private String data;
-    private int clienteId;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "clienteId")
+    private Cliente cliente;
 
     // Construtor padrão
-    public Pedido() {}
+    public Pedido() {
+    }
 
     // Construtor com parâmetros
-    public Pedido(int id, double valor, int prazo, List<ItemPedido> roupas, String hora, String status, String data, int clienteId) {
+    public Pedido(int id, double valor, int prazo, List<ItemPedido> roupas, String hora, String status, String data,
+            Cliente c) {
         this.id = id;
         this.valor = valor;
         this.prazo = prazo;
@@ -24,7 +37,7 @@ public class Pedido {
         this.hora = hora;
         this.status = status;
         this.data = data;
-        this.clienteId = clienteId;
+        this.cliente = c;
     }
 
     public int getId() {
@@ -84,10 +97,11 @@ public class Pedido {
     }
 
     public int getClienteId() {
-        return clienteId;
+        return this.cliente.getId();
     }
 
-    public void setClienteId(int clienteId) {
-        this.clienteId = clienteId;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
+
 }

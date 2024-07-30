@@ -1,10 +1,23 @@
 package br.net.lavanderia.crud.model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "itemPedido")
 public class ItemPedido {
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "roupaId")
     private Roupa roupa;
     private int quantidade;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "pedidoId")
+    private Pedido pedido;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int itemPedidoId;
 
-    public ItemPedido() {}
+    public ItemPedido() {
+    }
 
     // Construtor com parâmetros
     public ItemPedido(Roupa roupa, int quantidade) {

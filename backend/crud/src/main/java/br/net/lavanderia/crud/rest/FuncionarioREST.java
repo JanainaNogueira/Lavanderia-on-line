@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.net.lavanderia.crud.model.Funcionario;
+import br.net.lavanderia.crud.model.Login;
 import br.net.lavanderia.crud.respository.FuncionarioRepository;
 import br.net.lavanderia.crud.respository.LoginRepository;
 
@@ -37,7 +38,7 @@ public class FuncionarioREST {
     @GetMapping("/Funcionario/{id}")
     public ResponseEntity<Funcionario> obterFuncionarioPorId(
             @PathVariable("id") int id) {
-        Funcionario u = funcionarioRepository.findById(id).get();
+        Funcionario u = funcionarioRepository.findById(id).orElse(null);
         if (u == null)
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .build();
@@ -47,7 +48,12 @@ public class FuncionarioREST {
 
     @GetMapping("/Funcionario/email/{email}")
     public ResponseEntity<Funcionario> obterFuncionarioPorEmail(@PathVariable("email") String email) {
-        Funcionario f = loginRepository.findBylogin(email).get().getFuncionario();
+        Login l = loginRepository.findBylogin(email).orElse(null);
+        if (l == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+
+        }
+        Funcionario f = l.getFuncionario();
         if (f == null)
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         else
@@ -56,7 +62,12 @@ public class FuncionarioREST {
 
     @PostMapping("/Funcionario")
     public ResponseEntity<Funcionario> inserir(@RequestBody Funcionario funcionario) {
-        Funcionario u = loginRepository.findBylogin(funcionario.getEmail()).get().getFuncionario();
+        Login l = loginRepository.findBylogin(funcionario.getLogin()).orElse(null);
+        if (l == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+
+        }
+        Funcionario u = l.getFuncionario();
         if (u != null) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
@@ -68,7 +79,7 @@ public class FuncionarioREST {
     public ResponseEntity<Funcionario> alterar(
             @PathVariable("id") int id,
             @RequestBody Funcionario funcionario) {
-        Funcionario u = funcionarioRepository.findById(id).get();
+        Funcionario u = funcionarioRepository.findById(id).orElse(null);
         if (u != null) {
             u.setEmail(funcionario.getEmail());
             u.setNome(funcionario.getNome());
@@ -85,7 +96,7 @@ public class FuncionarioREST {
     @DeleteMapping("/Funcionario/{id}")
     public ResponseEntity<Funcionario> remover(
             @PathVariable("id") int id) {
-        Funcionario funcionario = funcionarioRepository.findById(id).get();
+        Funcionario funcionario = funcionarioRepository.findById(id).orElse(null);
         if (funcionario != null) {
             funcionarioRepository.delete(funcionario);
             return ResponseEntity.ok(funcionario);
