@@ -98,6 +98,7 @@ public class ClienteREST {
     public ResponseEntity<Cliente> remover(@PathVariable("id") int id) {
         Cliente Cliente = clienteRepository.findById(id).orElse(null);
         if (Cliente != null) {
+            Cliente.setStatus("Desativado");
             clienteRepository.delete(Cliente);
             return ResponseEntity.ok(Cliente);
         } else {

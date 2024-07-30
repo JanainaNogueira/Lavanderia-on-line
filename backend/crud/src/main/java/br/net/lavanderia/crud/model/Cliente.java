@@ -14,11 +14,12 @@ public class Cliente {
     private String cpf;
     private String endereço;
     private String telefone;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne()
     @JoinColumn(name = "fk_Login_IdLogin", referencedColumnName = "IdLogin")
     private Login login;
     @OneToMany(mappedBy = "cliente")
     private List<Pedido> pedidos;
+    private String status;
 
     public Cliente() {
     }
@@ -31,6 +32,7 @@ public class Cliente {
         this.endereço = endereço;
         this.telefone = telefone;
         this.login = login;
+        this.status = "Ativo";
     }
 
     public void setEmail(String email) {
@@ -89,4 +91,13 @@ public class Cliente {
     public String getLogin() {
         return this.login.getLogin();
     }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getStatus() {
+        return this.status;
+    }
+
 }

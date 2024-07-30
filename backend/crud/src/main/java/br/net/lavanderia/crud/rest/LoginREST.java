@@ -27,7 +27,7 @@ public class LoginREST {
         ResponseEntity<Cliente> clienteResponse = clienteREST.obterClientePorEmail(login.getLogin());
         if (clienteResponse.getStatusCode() == HttpStatus.OK) {
             Cliente cliente = clienteResponse.getBody();
-            if (cliente != null && cliente.getSenha().equals(login.getSenha())) {
+            if (cliente != null && cliente.getStatus() != "Desativado" && cliente.getSenha().equals(login.getSenha())) {
                 return ResponseEntity.ok(cliente);
             }
         }
