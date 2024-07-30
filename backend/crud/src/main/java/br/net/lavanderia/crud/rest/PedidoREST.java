@@ -11,9 +11,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.net.lavanderia.crud.model.ItemPedido;
 import br.net.lavanderia.crud.model.Pedido;
-import br.net.lavanderia.crud.respository.ClienteRepository;
 import br.net.lavanderia.crud.respository.PedidoRepository;
+import br.net.lavanderia.crud.respository.itemPedidoRepository;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -25,7 +26,7 @@ public class PedidoREST {
   @Autowired
   private PedidoRepository pedidoRepositoiry;
   @Autowired
-  private ClienteRepository clienteRepository;
+  private itemPedidoRepository itemPRepository;
 
   @GetMapping("/Pedidos")
   public ResponseEntity<List<Pedido>> getPedidos() {
@@ -49,8 +50,12 @@ public class PedidoREST {
     if (pedidoExite != null) {
       return ResponseEntity.status(HttpStatus.CONFLICT).build();
     }
-    pedidoRepositoiry.save(pedido);
-    return ResponseEntity.status(HttpStatus.CREATED).body(pedido);
+    Pedido pedidoReturn = pedidoRepositoiry.save(pedido);
+    for (ItemPedido itP : pedido.getRoupas()) {
+      itP.setPedido(pedidoReturn);
+      itemPRepository.save(itP);
+    }
+    return ResponseEntity.status(HttpStatus.CREATED).body(pedidoReturn);
   }
 
   @PutMapping("/Pedido/{id}")
@@ -59,13 +64,7 @@ public class PedidoREST {
       @RequestBody Pedido pedidoAtualizado) {
     Pedido pedidoExist = pedidoRepositoiry.findById(id).orElse(null);
     if (pedidoExist != null) {
-      pedidoExist.setValor(pedidoAtualizado.getValor());
-      pedidoExist.setPrazo(pedidoAtualizado.getPrazo());
-      pedidoExist.setRoupas(pedidoAtualizado.getRoupas());
-      pedidoExist.setHora(pedidoAtualizado.getHora());
       pedidoExist.setStatus(pedidoAtualizado.getStatus());
-      pedidoExist.setData(pedidoAtualizado.getData());
-      pedidoExist.setCliente(clienteRepository.findById(pedidoAtualizado.getClienteId()).orElse(null));
       pedidoRepositoiry.save(pedidoExist);
       return ResponseEntity.ok(pedidoExist);
     } else {
@@ -78,7 +77,8 @@ public class PedidoREST {
       @PathVariable("id") int id) {
     Pedido pedido = pedidoRepositoiry.findById(id).orElse(null);
     if (pedido != null) {
-      pedidoRepositoiry.delete(pedido);
+      pedido.setStatus("DELETADO");
+      pedidoRepositoiry.save(pedido);
       return ResponseEntity.ok(pedido);
     } else {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).build();

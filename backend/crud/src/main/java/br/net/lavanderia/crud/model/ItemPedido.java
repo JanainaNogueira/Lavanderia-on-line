@@ -40,4 +40,8 @@ public class ItemPedido {
     public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
     }
+
+    public void setPedido(Pedido p) {
+        this.pedido = p;
+    }
 }
