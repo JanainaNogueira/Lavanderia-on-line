@@ -47,8 +47,8 @@ public class RoupaREST {
     if (roupaExiste != null) {
       return ResponseEntity.status(HttpStatus.CONFLICT).build();
     }
-    roupaRepository.save(roupa);
-    return ResponseEntity.status(HttpStatus.CREATED).body(roupa);
+    Roupa Result = roupaRepository.save(roupa);
+    return ResponseEntity.status(HttpStatus.CREATED).body(Result);
   }
 
   @PutMapping("Roupas/{tipo}")
@@ -61,7 +61,7 @@ public class RoupaREST {
       roupaExist.setTempo(roupaAtualizada.getTempo());
       roupaExist.setDescricao(roupaAtualizada.getDescricao());
       roupaExist.setPrecoRoupa(roupaAtualizada.getPrecoRoupa());
-      roupaExist.setId(roupaAtualizada.getId());
+      roupaRepository.save(roupaExist);
       return ResponseEntity.ok(roupaExist);
     } else {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -72,9 +72,9 @@ public class RoupaREST {
   public ResponseEntity<Roupa> remover(
       @PathVariable("tipo") String tipo) {
     Roupa roupa = roupaRepository.findByTipo(tipo);
-
     if (roupa != null) {
-      roupaRepository.delete(roupa);
+      roupa.setDescricao("DELETADO");
+      roupaRepository.save(roupa);
       return ResponseEntity.ok(roupa);
     } else {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
