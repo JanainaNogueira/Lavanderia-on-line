@@ -71,4 +71,7 @@ public class Funcionario {
         return this.login.getLogin();
     }
 
+    public void setLogin(Login l) {
+        this.login = l;
+    }
 }

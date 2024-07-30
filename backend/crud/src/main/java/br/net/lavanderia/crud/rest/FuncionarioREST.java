@@ -51,7 +51,6 @@ public class FuncionarioREST {
         Login l = loginRepository.findBylogin(email).orElse(null);
         if (l == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-
         }
         Funcionario f = l.getFuncionario();
         if (f == null)
@@ -63,31 +62,33 @@ public class FuncionarioREST {
     @PostMapping("/Funcionario")
     public ResponseEntity<Funcionario> inserir(@RequestBody Funcionario funcionario) {
         Login l = loginRepository.findBylogin(funcionario.getLogin()).orElse(null);
-        if (l == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-
-        }
-        Funcionario u = l.getFuncionario();
-        if (u != null) {
+        if (l != null) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
-        funcionarioRepository.save(u);
-        return ResponseEntity.status(HttpStatus.CREATED).body(funcionario);
+        Funcionario newFuncionario = new Funcionario();
+        Login newLog = new Login(funcionario.getLogin(), funcionario.getSenha());
+        newFuncionario.setLogin(newLog);
+        newFuncionario.setNome(funcionario.getNome());
+        newFuncionario.setNascimento(funcionario.getNascimento());
+        loginRepository.save(newLog);
+        Funcionario f = funcionarioRepository.save(newFuncionario);
+        return ResponseEntity.status(HttpStatus.CREATED).body(f);
     }
 
     @PutMapping("/Funcionario/{id}")
     public ResponseEntity<Funcionario> alterar(
             @PathVariable("id") int id,
             @RequestBody Funcionario funcionario) {
-        Funcionario u = funcionarioRepository.findById(id).orElse(null);
-        if (u != null) {
-            u.setEmail(funcionario.getEmail());
-            u.setNome(funcionario.getNome());
-            u.setNascimento(funcionario.getNascimento());
-            u.setSenha(funcionario.getSenha());
-            u.setId(funcionario.getId());
-            funcionarioRepository.save(u);
-            return ResponseEntity.ok(u);
+        Funcionario Func = funcionarioRepository.findById(id).orElse(null);
+        Login l = loginRepository.findBylogin(funcionario.getEmail()).orElse(null);
+        if (Func != null && l != null) {
+            Func.setNome(funcionario.getNome());
+            Func.setNascimento(funcionario.getNascimento());
+            l.setLogin(funcionario.getLogin());
+            l.setSenha(funcionario.getSenha());
+            loginRepository.save(l);
+            Funcionario uFunc = funcionarioRepository.save(Func);
+            return ResponseEntity.ok(uFunc);
         } else
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .build();
