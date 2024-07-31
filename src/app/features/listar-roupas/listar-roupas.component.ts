@@ -8,7 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { MenuAdminComponent } from '../../components/menu-admin/menu-admin.component';
 import { Router, RouterModule } from '@angular/router';
 import { RoupasService } from '../../services/roupas.service';
-import {Roupa} from '../../Pedido';
+import {Roupa} from '../../shared/models/Pedido';
 import { DeleteDialog } from '../../components/delete-dialog/delete-dialog.component';
 
 @Component({

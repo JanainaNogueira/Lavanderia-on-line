@@ -38,7 +38,7 @@ export class InserirRoupaComponent {
         const tempo = parseInt(this.FormularioRegistroRoupa.value.tempo, 10);
         this.roupasService.addRoupa(
           tipo,
-          tempo);
+          tempo, "", 0);
         this.router.navigate(['./listar-roupa'])
       }
 

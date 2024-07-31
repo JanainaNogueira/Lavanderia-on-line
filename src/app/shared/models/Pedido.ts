@@ -1,5 +1,5 @@
 export interface Pedido{
-  id:number
+  id?:number
   valor:number
   prazo:number
   roupas:{ roupa: Roupa; quantidade: number;}[]
@@ -11,4 +11,7 @@ export interface Pedido{
 export interface Roupa{
   tipo:string
   tempo:number
+  precoRoupa: number
+  descricao: string
+  id?: number
 }

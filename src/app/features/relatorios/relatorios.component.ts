@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 import { CancelDialog } from '../../components/cancel-dialog/cancel-dialog.component';
 import { PedidoService } from '../../services/pedido.service';
 import { OnInit } from '@angular/core';
-import { Pedido, Roupa } from '../../Pedido';
+import { Pedido, Roupa } from '../../shared/models/Pedido';
 import {MatDateRangeInput} from '@angular/material/datepicker';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDateRangePicker } from '@angular/material/datepicker';

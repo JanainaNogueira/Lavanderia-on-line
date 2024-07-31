@@ -1,10 +1,8 @@
 import { EmailService } from '../email.service';
 import { Injectable } from '@angular/core';
-import { Cliente } from '../../Cliente';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { catchError, Observable, throwError, map, of } from 'rxjs';
-
-
+import {Cliente } from '../../shared/models/Cliente';
 @Injectable({
   providedIn: 'root'
 })
@@ -22,39 +20,12 @@ export class ClienteService {
     private emailService: EmailService,
     private httpClient: HttpClient
     ) { }
-  private clientes:Cliente[]=[
-    {
-      id: 1,
-      nome:"Jose",
-      email: "jose@email.com",
-      cpf: "098654723454",
-      endereço: "Rua X Nº Y, Bairro, Cidade",
-      telefone: "(041) 000000000",
-      senha: "0000",
-    },
-    {
-      id: 2,
-      nome:"Maria",
-      email: "maria@email.com",
-      cpf: "098654222254",
-      endereço: "Rua X Nº Y, Bairro, Cidade",
-      telefone: "(041) 000000000",
-      senha: "1111",
-    },
-    {
-      id: 4,
-      nome:"Joao",
-      email: "Joao@email.com",
-      cpf: "0983245623454",
-      endereço: "Rua X Nº Y, Bairro, Cidade",
-      telefone: "(041) 000000000",
-      senha: "2222",
-    },
-  ];
+  private clientes:Cliente[]=[ ];
 
   inserir(cliente: Cliente): Observable<Cliente | null> {
+    let cPost = {...cliente, login: {login: cliente.login, senha: cliente.senha}}
     return this.httpClient.post<Cliente>(this.BASE_URL, 
-      JSON.stringify(cliente), 
+      JSON.stringify(cPost), 
       this.httpOptions).pipe(
         map((resp: HttpResponse<Cliente>) => {
           if (resp.status==201) {
@@ -72,32 +43,33 @@ export class ClienteService {
 
   CreateCliente(nome: string, email: string, cpf: string, endereco: string, telefone: string): Observable<Cliente | null> | void {
     const novoCliente: Cliente = {
-      id: Math.round(Math.random() * 1000000),
       nome: nome,
-      email: email,
+      login: email,
       cpf: cpf,
       endereço: endereco,
       telefone: telefone,
       senha: Math.floor(1000 + Math.random() * 9000).toString()
     };
-
-    const exists = this.clientes.some(cliente => cliente.cpf === cpf);
-    if (exists) {
-      return;
-    } else {
-      this.clientes.push(novoCliente);
-      this.sendEmail(novoCliente);
-      console.log(this.clientes);
-      return this.inserir(novoCliente);
-    }
+    this.inserir(novoCliente).subscribe((clientReturn) => {
+      if(clientReturn){
+        this.clientes.push(novoCliente);
+        this.sendEmail(novoCliente);
+      }
+    })
+  
+  
+  
   }
+
+   
+  
 
   sendEmail(cliente:Cliente){
     this.emailService.sendEmail({
       to_name: cliente.nome,
       from_name: 'Lavanderia Lol',
       message:  `Sua senha é: ${cliente.senha}`,
-      reply_to: cliente.email
+      reply_to: cliente.login
     }).then((response) => {
       console.log(this.emailService.sendEmail)
       console.log('Email enviado com sucesso!', response.status, response.text);
@@ -105,6 +77,7 @@ export class ClienteService {
       console.error('Erro ao enviar email:', error);
     });
   }
+
   getClientes(): Observable<Cliente[] | null> {
     return this.httpClient.get<Cliente[]>(
       this.BASE_URL, 
@@ -151,13 +124,5 @@ export class ClienteService {
       );
   }
 
-  validateLogin(email: string, senha: string): boolean {
-    const cliente = this.clientes.find(c => c.email === email && c.senha === senha);
-
-    if(cliente){
-      sessionStorage.setItem("clienteId", String(cliente.id))
-    }
-    return cliente !== undefined
-  }
 
 }

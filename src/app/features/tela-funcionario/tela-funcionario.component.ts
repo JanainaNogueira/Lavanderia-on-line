@@ -6,7 +6,7 @@ import { MatCommonModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { CancelDialog } from '../../components/cancel-dialog/cancel-dialog.component';
 import { PedidoService } from '../../services/pedido.service';
-import { Pedido } from '../../Pedido';
+import { Pedido } from '../../shared/models/Pedido';
 
 @Component({
   selector: 'app-tela-funcionario',
@@ -26,9 +26,11 @@ export class TelaFuncionarioComponent implements OnInit {
   refetch(){
     this.pedidos = this.pedidoService.getPedidosStatus("Em Aberto");
   }
-  recolherPedido(id: number){
-    this.pedidoService.updatePedidoStatus(id, "Recolhido")
-    this.refetch()
+  recolherPedido(id: number | undefined){
+    if(id){
+      this.pedidoService.updatePedidoStatus(id, "Recolhido")
+      this.refetch()
+    }
   }
 
   constructor(private router: Router, private pedidoService: PedidoService) { }

@@ -9,7 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MenuAdminComponent } from '../../components/menu-admin/menu-admin.component';
 import { DeleteDialog } from '../../components/delete-dialog/delete-dialog.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { Roupa } from '../../Pedido';
+import { Roupa } from '../../shared/models/Pedido';
 import { RoupasService } from '../../services/roupas.service';
 import { NumericoDirective } from '../../shared/directive/numerico.directive';
 import { RequiredFieldDirective } from '../../shared/directive/required.directive';

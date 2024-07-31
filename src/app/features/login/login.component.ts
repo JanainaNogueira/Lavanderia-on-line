@@ -1,3 +1,4 @@
+import { LoginService } from './../../services/login.service';
 import { Component } from '@angular/core';
 import { FormBuilder, FormsModule, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -22,15 +23,16 @@ export class LoginComponent {
   constructor(
     private router: Router,
     private clienteService: ClienteService,
-    private funcionarioService: FuncionarioService
+    private funcionarioService: FuncionarioService,
+    private loginService: LoginService
   ) { }
 
   onSubmit() {
         sessionStorage.removeItem("clienteId")
-        sessionStorage.removeItem("adminId")    
-        if (this.clienteService.validateLogin(this.email, this.senha)) {
+        sessionStorage.removeItem("adminId")
+        if (this.loginService.validateLoginClient(this.email, this.senha)) {
           this.router.navigate(['/home']);
-        } else  if (this.funcionarioService.validateLogin(this.email, this.senha)) {
+        } else  if (this.loginService.validateLoginFunc(this.email, this.senha)) {
           this.router.navigate(['/admin']);
         } else {
           alert("Email ou senha invalidos");

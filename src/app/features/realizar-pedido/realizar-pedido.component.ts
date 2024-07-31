@@ -5,7 +5,7 @@ import { FormControl, ReactiveFormsModule,FormsModule } from '@angular/forms';
 import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from  '@angular/material/icon';
 import { CommonModule } from '@angular/common';
-import { Roupa } from '../../Pedido';
+import { Roupa } from '../../shared/models/Pedido';
 import { RoupasService } from '../../services/roupas.service';
 import { MenuLateralComponent } from '../../components/menu-lateral/menu-lateral.component';
 import { OrcamentoDialogComponent } from '../../components/orcamento-dialog/orcamento-dialog.component';

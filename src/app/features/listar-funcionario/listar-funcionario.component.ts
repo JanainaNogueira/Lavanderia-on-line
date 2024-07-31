@@ -8,7 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { MenuAdminComponent } from '../../components/menu-admin/menu-admin.component';
 import { Router, RouterModule } from '@angular/router';
 import { FuncionarioService } from '../../services/funcionario.service';
-import { Funcionario } from '../../Funcionario';
+import { Funcionario } from '../../shared/models/Funcionario';
 import { DeleteDialogW } from '../../components/delete-dialog/delete-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -17,7 +17,7 @@ import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-listar-funcionario',
   standalone: true,
-  imports: [CommonModule,MatCommonModule,MatButtonModule,MatInputModule, 
+  imports: [CommonModule,MatCommonModule,MatButtonModule,MatInputModule,
     MatIconModule,FormsModule, MenuAdminComponent,DeleteDialogW,RouterModule],
   templateUrl: './listar-funcionario.component.html',
   styleUrl: './listar-funcionario.component.css'
@@ -79,7 +79,7 @@ export class ListarFuncionarioComponent {
           const index = this.funcionario.indexOf(funcionario);
           if (index >= 0) {
             this.funcionario.splice(index, 1);
-            this.FuncionarioService.excluirFuncionario(funcionario.email);
+            this.FuncionarioService.excluirFuncionario(funcionario.login);
           }
         }
       });

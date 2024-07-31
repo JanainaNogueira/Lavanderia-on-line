@@ -9,20 +9,20 @@ import { MenuLateralComponent } from '../../components/menu-lateral/menu-lateral
 import { Router } from '@angular/router';
 import { CancelDialogW } from '../../components/cancel-dialog/cancel-dialog.component';
 import { PedidoService } from '../../services/pedido.service';
-import { Pedido } from '../../Pedido';
+import { Pedido } from '../../shared/models/Pedido';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-listar-pedido',
   standalone: true,
   imports: [
-    CommonModule, 
-    MatCommonModule, 
-    MatButtonModule, 
+    CommonModule,
+    MatCommonModule,
+    MatButtonModule,
     MatInputModule,
     MatIconModule,
-    FormsModule, 
-    MenuLateralComponent, 
+    FormsModule,
+    MenuLateralComponent,
     CancelDialogW,
     MatDialogModule
   ],
@@ -90,21 +90,27 @@ export class ListarPedidoComponent implements OnInit {
     }
   }
 
-  redirectPayment(num: string) {
+  redirectPayment(num: number | undefined) {
+    if(!num)
+      return
     this.router.navigateByUrl(`/payment/${num}`);
   }
 
-  visualizarPedido(id: number) {
+  visualizarPedido(id: number | undefined) {
+    if(!id)
+      return
     this.router.navigate(['/consulta-pedido'], { queryParams: { numero: id } });
   }
 
-  cancelarPedido(pedidoId: number): void {
+  cancelarPedido(pedidoId: number | undefined): void {
+    if(!pedidoId)
+      return
     const dialogRef = this.dialog.open(CancelDialogW, {
       width: '25vw',
       enterAnimationDuration: '300ms',
       exitAnimationDuration: '300ms',
-      data: { pedidoId } 
-    
+      data: { pedidoId }
+
     });
 
     dialogRef.afterClosed().subscribe(result => {

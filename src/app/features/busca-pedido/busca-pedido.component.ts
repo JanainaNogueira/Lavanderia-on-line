@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 import { CancelDialog } from '../../components/cancel-dialog/cancel-dialog.component';
 import { PedidoService } from '../../services/pedido.service';
 import { OnInit } from '@angular/core';
-import { Pedido } from '../../Pedido';
+import { Pedido } from '../../shared/models/Pedido';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { PedidoDialogComponent } from '../../components/pedido-dialog/pedido-dialog.component';
 
@@ -46,7 +46,7 @@ export class BuscaPedidoComponent implements OnInit {
     if (!isNaN(pedidoId)) {
       this.filteredPedidos = this.pedidoService.getPedidosID(pedidoId);
       if (this.filteredPedidos.length > 0) {
-        this.openPedidoDialog(this.filteredPedidos[0]); 
+        this.openPedidoDialog(this.filteredPedidos[0]);
       } else {
         console.log('Pedido não encontrado');
       }
@@ -54,7 +54,7 @@ export class BuscaPedidoComponent implements OnInit {
       console.log('Número inválido');
     }
   }
-  
+
 
   openPedidoDialog(pedido: Pedido) {
     this.dialog.open(PedidoDialogComponent, {

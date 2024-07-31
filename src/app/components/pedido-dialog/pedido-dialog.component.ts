@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Pedido } from '../../Pedido';
+import { Pedido } from '../../shared/models/Pedido';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 
 

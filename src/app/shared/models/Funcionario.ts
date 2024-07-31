@@ -1,7 +1,7 @@
 export interface Funcionario{
-    email:string
+    login:string
     nome:string
     nascimento:string
     senha:string
-    id: number
+    id?: number,
   }

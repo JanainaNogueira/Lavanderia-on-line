@@ -6,7 +6,7 @@ import { MatCommonModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { CancelDialogW } from '../../components/cancel-dialog/cancel-dialog.component';
 import { PedidoService } from '../../services/pedido.service';
-import { Pedido } from '../../Pedido';
+import { Pedido } from '../../shared/models/Pedido';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
@@ -19,7 +19,7 @@ import { MatDialog } from '@angular/material/dialog';
 export class TelaClienteComponent implements OnInit {
   pedidos: Pedido[] = []
   constructor(
-    private pedidoService: PedidoService, 
+    private pedidoService: PedidoService,
     private router: Router,
     private dialog: MatDialog) { }
 
@@ -31,29 +31,32 @@ export class TelaClienteComponent implements OnInit {
     this.pedidos = this.pedidoService.getPedidos().filter(p => p.status === "Em Aberto");
   }
 
-  redirectPayment(num: number): void {
+  redirectPayment(num: number | undefined): void {
+    if(num)
     this.router.navigateByUrl(`/payment/${num}`);
   }
 
-  visualizarPedido(id: number): void {
+  visualizarPedido(id: number | undefined): void {
+    if(id)
     this.router.navigate(['/consulta-pedido'], { queryParams: { numero: id } });
   }
 
-  cancelarPedido(pedidoId: number): void {
-    const dialogRef = this.dialog.open(CancelDialogW, {
-      width: '25vw',
-      enterAnimationDuration: '300ms',
-      exitAnimationDuration: '300ms',
-      data: { pedidoId } 
-    });
+  cancelarPedido(pedidoId: number | undefined): void {
+    if(pedidoId){
+      const dialogRef = this.dialog.open(CancelDialogW, {
+        width: '25vw',
+        enterAnimationDuration: '300ms',
+        exitAnimationDuration: '300ms',
+        data: { pedidoId }
+      });
+      
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.refetch();
+          alert('Pedido cancelado');
+        }
+      });
+    }
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.refetch();
-        alert('Pedido cancelado');
-      }
-    });
-
-    
   }
 }
