@@ -90,13 +90,7 @@ export class FuncionarioService {
     }
   }
 
-  validateLogin(email: string, senha: string): boolean {
-    const funcionario = this.funcionarios.find(f => f.email === email && f.senha === senha);
-    if(funcionario){
-      sessionStorage.setItem("adminId", String(funcionario.id))
-    }
-    return funcionario !== undefined;
-  }
+
 
 }
 
