@@ -1,8 +1,15 @@
-<app-menu-admin />
+<app-menu-admin></app-menu-admin>
 <div class="layout">
   <div class="content">
     <div class="header">
       <h1 class="hello">Funcionários Ativos</h1>
+      <div *ngIf="mensagem.length > 0">
+        <div class="alert alert-danger alert-dismissable fade show" role="alert">
+          <h4 class="alert-heading">{{ mensagem }}</h4>
+          <p>{{ mensagem_detalhes }}</p>
+          <button type="button" class="btn-close" (click)="mensagem = ''" aria-label="Close"></button>
+        </div>
+      </div>
       <form class="example-form">
         <mat-form-field class="example-full-width">
           <mat-label>Pesquisar Funcionário</mat-label>
@@ -21,39 +28,42 @@
           routerLink="/inserir-funcionario"
           color="primary"
           class="Adicionar"
-          >
+        >
           <mat-icon>add</mat-icon>
         </button>
       </form>
-    <div>
-      <table>
-        <tr>
-          <th>Nome</th>
-          <th>Email</th>
-          <th>Data de Nascimento</th>
-          <th>Senha</th>
-          <th>Ações</th>
-        </tr>
-        <tbody>
-          <tr *ngFor="let funcionario of funcionario">
-            <td>{{ funcionario.nome }}</td>
-            <td>{{ funcionario.email }}</td>
-            <td>{{ funcionario.nascimento }}</td>
-            <td>{{ funcionario.senha }}</td>
-            <td>
-              <button mat-raised-button 
-              color="primary" [routerLink]="['/editar-funcionario', funcionario.email]">
-                Editar
-              </button>
-              <button 
-              *ngIf="funcionario.email!='admin.lol@email.com'"
-              mat-raised-button color="warn" (click)="excluirFuncionario(funcionario)">
+      <div>
+        <table>
+          <tr>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Data de Nascimento</th>
+            <th>Senha</th>
+            <th>Ações</th>
+          </tr>
+          <tbody>
+            <tr *ngFor="let funcionario of funcionario">
+              <td>{{ funcionario.nome }}</td>
+              <td>{{ funcionario.email }}</td>
+              <td>{{ funcionario.nascimento }}</td>
+              <td>{{ funcionario.senha }}</td>
+              <td>
+                <button mat-raised-button 
+                  color="primary" [routerLink]="['/editar-funcionario', funcionario.email]">
+                  Editar
+                </button>
+                <button 
+                *ngIf="funcionario.email != 'admin.lol@email.com'"
+                mat-raised-button 
+                color="warn" 
+                (click)="remover($event, funcionario)">
                 Excluir
               </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>
