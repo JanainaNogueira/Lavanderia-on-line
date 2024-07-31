@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component,OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { FuncionarioService } from '../../services/funcionario.service';
-import { Funcionario } from '../../Funcionario';
+import { Funcionario } from '../../shared/models/Funcionario';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatCommonModule, MatNativeDateModule } from '@angular/material/core';

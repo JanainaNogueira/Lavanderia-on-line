@@ -6,7 +6,7 @@ import { MatCommonModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { CancelDialogW } from '../../components/cancel-dialog/cancel-dialog.component';
 import { PedidoService } from '../../services/pedido.service';
-import { Pedido } from '../../Pedido';
+import { Pedido } from '../../shared/models/Pedido';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
@@ -19,7 +19,7 @@ import { MatDialog } from '@angular/material/dialog';
 export class TelaClienteComponent implements OnInit {
   pedidos: Pedido[] = []
   constructor(
-    private pedidoService: PedidoService, 
+    private pedidoService: PedidoService,
     private router: Router,
     private dialog: MatDialog) { }
 
@@ -44,7 +44,7 @@ export class TelaClienteComponent implements OnInit {
       width: '25vw',
       enterAnimationDuration: '300ms',
       exitAnimationDuration: '300ms',
-      data: { pedidoId } 
+      data: { pedidoId }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -54,6 +54,6 @@ export class TelaClienteComponent implements OnInit {
       }
     });
 
-    
+
   }
 }

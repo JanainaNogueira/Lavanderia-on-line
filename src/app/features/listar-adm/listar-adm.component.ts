@@ -10,7 +10,7 @@
   import { CancelDialog } from '../../components/cancel-dialog/cancel-dialog.component';
   import { PedidoService } from '../../services/pedido.service';
   import { OnInit } from '@angular/core';
-  import { Pedido } from '../../Pedido';
+  import { Pedido } from '../../shared/models/Pedido';
   import {MatDateRangeInput} from '@angular/material/datepicker';
   import { MatDatepickerModule } from '@angular/material/datepicker';
   import { MatDateRangePicker } from '@angular/material/datepicker';
@@ -25,7 +25,7 @@
     templateUrl: './listar-adm.component.html',
     styleUrl: './listar-adm.component.css'
   })
- 
+
   export class ListarAdmComponent {
   pedidos: Pedido[] = [];
   pedidosOriginal: Pedido[] = [];
@@ -55,7 +55,7 @@
     this.pedidoService.updatePedidoStatus(id, "Aguardando Pagamento")
     this.getPedidos();
   }
-  
+
   finalizarPedido(id: number){
     this.pedidoService.updatePedidoStatus(id, "Finalizado")
     this.getPedidos();
@@ -71,8 +71,8 @@
     if (status === 'Todos') {
       this.pedidos = [...this.pedidosOriginal];
     }else if (status === 'Pedidos de Hoje') {
-      const hoje = new Date(); 
-      const hojeFormatado = this.formataData(hoje); 
+      const hoje = new Date();
+      const hojeFormatado = this.formataData(hoje);
       this.pedidos = this.pedidosOriginal.filter(pedido => pedido.data === hojeFormatado);
     }
     else {

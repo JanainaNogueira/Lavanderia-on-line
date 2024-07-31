@@ -6,7 +6,7 @@ import { MatCommonModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { CancelDialog } from '../../components/cancel-dialog/cancel-dialog.component';
 import { PedidoService } from '../../services/pedido.service';
-import { Pedido } from '../../Pedido';
+import { Pedido } from '../../shared/models/Pedido';
 
 @Component({
   selector: 'app-tela-funcionario',

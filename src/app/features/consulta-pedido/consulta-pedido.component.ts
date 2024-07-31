@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MenuLateralComponent } from '../../components/menu-lateral/menu-lateral.component';
 import { ActivatedRoute, Router } from '@angular/router'
 import { PedidoService } from '../../services/pedido.service';
-import { Pedido } from '../../Pedido';
+import { Pedido } from '../../shared/models/Pedido';
 import { CommonModule } from '@angular/common';
 import { MatCommonModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';

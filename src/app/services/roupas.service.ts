@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Roupa} from '../Pedido'
+import {Roupa} from '../shared/models/Pedido'
 
 @Injectable({
   providedIn: 'root'

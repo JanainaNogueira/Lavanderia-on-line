@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Funcionario } from '../Funcionario';
+import { Funcionario } from '../shared/models/Funcionario';
 
 
 @Injectable({
@@ -97,7 +97,7 @@ export class FuncionarioService {
     }
     return funcionario !== undefined;
   }
-  
+
 }
 
 

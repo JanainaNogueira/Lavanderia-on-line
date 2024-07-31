@@ -1,6 +1,6 @@
 import { EmailService } from '../email.service';
 import { Injectable } from '@angular/core';
-import {Cliente } from '../../Cliente';
+import {Cliente } from '../../shared/models/Cliente';
 @Injectable({
   providedIn: 'root'
 })

@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { MenuAdminComponent } from '../../components/menu-admin/menu-admin.component';
 import { MatCommonModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
-import { Pedido } from '../../Pedido';
+import { Pedido } from '../../shared/models/Pedido';
 import { PedidoService } from '../../services/pedido.service';
 import { CommonModule } from '@angular/common';
 
