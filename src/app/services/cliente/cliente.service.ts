@@ -46,7 +46,7 @@ export class ClienteService {
       nome: nome,
       login: email,
       cpf: cpf,
-      endereço: endereco,
+      endereco: endereco,
       telefone: telefone,
       senha: Math.floor(1000 + Math.random() * 9000).toString()
     };
