@@ -60,7 +60,10 @@
     this.getPedidos();
   }
 
-  finalizarPedido(id: number){
+  finalizarPedido(id: number | undefined){
+    if(!id){
+      return
+    }
     this.pedidoService.updatePedidoStatus(id, "Finalizado")
     this.getPedidos();
   }
