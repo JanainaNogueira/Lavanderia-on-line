@@ -6,7 +6,12 @@
       <form class="example-form">
         <mat-form-field class="example-full-width">
           <mat-label>Pesquisar Funcionário</mat-label>
-          <input matInput placeholder="Ex.Joao" name="nome" [(ngModel)]="nome" />
+          <input
+            matInput
+            placeholder="Ex.Joao"
+            name="nome"
+            [(ngModel)]="nome"
+          />
         </mat-form-field>
         <button
           mat-fab
@@ -21,39 +26,46 @@
           routerLink="/inserir-funcionario"
           color="primary"
           class="Adicionar"
-          >
+        >
           <mat-icon>add</mat-icon>
         </button>
       </form>
-    <div>
-      <table>
-        <tr>
-          <th>Nome</th>
-          <th>Email</th>
-          <th>Data de Nascimento</th>
-          <th>Senha</th>
-          <th>Ações</th>
-        </tr>
-        <tbody>
-          <tr *ngFor="let funcionario of funcionario">
-            <td>{{ funcionario.nome }}</td>
-            <td>{{ funcionario.email }}</td>
-            <td>{{ funcionario.nascimento }}</td>
-            <td>{{ funcionario.senha }}</td>
-            <td>
-              <button mat-raised-button 
-              color="primary" [routerLink]="['/editar-funcionario', funcionario.email]">
-                Editar
-              </button>
-              <button 
-              *ngIf="funcionario.email!='admin.lol@email.com'"
-              mat-raised-button color="warn" (click)="excluirFuncionario(funcionario)">
-                Excluir
-              </button>
-            </td>
+      <div>
+        <table>
+          <tr>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Data de Nascimento</th>
+            <th>Senha</th>
+            <th>Ações</th>
           </tr>
-        </tbody>
-      </table>
+          <tbody>
+            <tr *ngFor="let funcionario of funcionario">
+              <td>{{ funcionario.nome }}</td>
+              <td>{{ funcionario.login }}</td>
+              <td>{{ funcionario.nascimento }}</td>
+              <td>{{ funcionario.senha }}</td>
+              <td>
+                <button
+                  mat-raised-button
+                  color="primary"
+                  [routerLink]="['/editar-funcionario', funcionario.login]"
+                >
+                  Editar
+                </button>
+                <button
+                  *ngIf="funcionario.login != 'admin.lol@email.com'"
+                  mat-raised-button
+                  color="warn"
+                  (click)="excluirFuncionario(funcionario)"
+                >
+                  Excluir
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>

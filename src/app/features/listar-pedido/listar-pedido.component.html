@@ -2,7 +2,7 @@
 <div class="layout">
   <div class="content">
     <div class="header">
-      <h1 >Histórico de pedidos</h1>
+      <h1>Histórico de pedidos</h1>
       <form class="example-form">
         <mat-form-field class="example-full-width">
           <mat-label>Listagem Pedidos</mat-label>
@@ -100,7 +100,7 @@
                 *ngIf="pedido.status === 'Aguardando Pagamento'"
                 (click)="
                   pedido.status === 'Aguardando Pagamento'
-                    ? redirectPayment(pedido.id.toString())
+                    ? redirectPayment(pedido.id)
                     : null
                 "
               >
@@ -116,14 +116,14 @@
                 Visualizar
               </button>
               <button
-              class="actionButton"
-              mat-raised-button
-              color="warn"
-              *ngIf="pedido.status === 'Em Aberto'"
-              (click)="cancelarPedido(pedido.id)"
-            >
-              Cancelar
-            </button>
+                class="actionButton"
+                mat-raised-button
+                color="warn"
+                *ngIf="pedido.status === 'Em Aberto'"
+                (click)="cancelarPedido(pedido.id)"
+              >
+                Cancelar
+              </button>
             </td>
           </tr>
         </tbody>

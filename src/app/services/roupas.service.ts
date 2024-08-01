@@ -7,32 +7,13 @@ import {Roupa} from '../shared/models/Pedido'
 export class RoupasService {
 
   constructor() { }
-  roupas:Roupa[]=[
-    {
-      tipo:"calca",
-      tempo:5,
-    },
-    {
-      tipo:"camisa",
-      tempo:6,
-    },
-    {
-      tipo:"camiseta",
-      tempo: 5,
-    },
-    {
-      tipo:"cueca",
-      tempo:2,
-    },
-    {
-      tipo:"meia",
-      tempo:1,
-    }
-  ];
-  addRoupa(tipo:string,tempo:number){
+  roupas:Roupa[]=[];
+  addRoupa(tipo:string,tempo:number, descricao: string, precoRoupa: number){
     const novaRoupa:Roupa={
       tipo,
       tempo,
+      descricao,
+      precoRoupa
     };
     this.roupas.push(novaRoupa);
   }

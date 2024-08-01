@@ -53,7 +53,7 @@ export class EditarFuncionarioComponent implements OnInit {
         this.FormularioRegistroFunc.patchValue({
           nome: this.funcionario.nome,
           nascimento: nascimentoDate,
-          email: this.funcionario.email,
+          email: this.funcionario.login,
           senha: this.funcionario.senha
         });
         setTimeout(() => {
@@ -77,7 +77,7 @@ export class EditarFuncionarioComponent implements OnInit {
     if (this.FormularioRegistroFunc.valid && this.funcionario) {
       this.funcionario.nome = this.FormularioRegistroFunc.value.nome;
       this.funcionario.nascimento = this.formatDate(this.FormularioRegistroFunc.value.nascimento);
-      this.funcionario.email = this.FormularioRegistroFunc.value.email;
+      this.funcionario.login = this.FormularioRegistroFunc.value.email;
       this.funcionario.senha = this.FormularioRegistroFunc.value.senha;
       this.funcionarioService.editarFuncionario(this.funcionario);
       this.router.navigate(['./listar-funcionario']);

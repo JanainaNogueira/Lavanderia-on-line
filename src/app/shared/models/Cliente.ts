@@ -1,9 +1,9 @@
 export interface Cliente{
-  id:number;
+  id?:number;
   nome:string;
-  email: string;
+  login: string;
   cpf: string;
-  endereço: string;
+  endereco: string;
   telefone: string;
   senha: string;
 }

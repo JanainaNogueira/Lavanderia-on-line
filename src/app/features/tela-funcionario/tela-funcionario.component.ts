@@ -26,9 +26,11 @@ export class TelaFuncionarioComponent implements OnInit {
   refetch(){
     this.pedidos = this.pedidoService.getPedidosStatus("Em Aberto");
   }
-  recolherPedido(id: number){
-    this.pedidoService.updatePedidoStatus(id, "Recolhido")
-    this.refetch()
+  recolherPedido(id: number | undefined){
+    if(id){
+      this.pedidoService.updatePedidoStatus(id, "Recolhido")
+      this.refetch()
+    }
   }
 
   constructor(private router: Router, private pedidoService: PedidoService) { }

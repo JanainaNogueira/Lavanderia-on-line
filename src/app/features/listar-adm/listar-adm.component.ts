@@ -47,11 +47,15 @@
   refetch(){
     this.pedidos = this.pedidoService.getPedidosStatus("Em Aberto");
   }
-  recolherPedido(id: number){
+  recolherPedido(id: number | undefined){
+    if(!id)
+      return
     this.pedidoService.updatePedidoStatus(id, "Recolhido")
     this.getPedidos();
   }
-  confirmarLavagem(id: number){
+  confirmarLavagem(id: number | undefined){
+    if(!id)
+      return
     this.pedidoService.updatePedidoStatus(id, "Aguardando Pagamento")
     this.getPedidos();
   }
@@ -172,7 +176,9 @@
     this.filtroData();
   }
 
-  visualizarPedido(num:number){
+  visualizarPedido(num:number | undefined){
+    if(!num)
+      return
     this.router.navigateByUrl(`/payment/${num}`);
   }
 }

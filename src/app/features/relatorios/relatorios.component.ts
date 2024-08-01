@@ -17,6 +17,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDateRangePicker } from '@angular/material/datepicker';
 import { ClienteService } from '../../services/cliente/cliente.service';
 import * as jspdf from 'jspdf';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -28,7 +29,7 @@ import * as jspdf from 'jspdf';
   templateUrl: './relatorios.component.html',
   styleUrl: './relatorios.component.css'
 })
-export class RelatoriosComponent {
+export class RelatoriosComponent implements OnInit {
 
 dataInicio: Date;
 dataFim: Date;
@@ -54,8 +55,8 @@ openDialog(num: string) {}
 relatorioReceitas(){
   if (this.dataInicio && this.dataFim) {
   let pedidos = this.pedidoService.getPedidosbyInterval(this.dataInicio, this.dataFim)
-  console.log(pedidos)
-  let footerData:string[] = ["valor total:"]
+  console.log(pedidos);
+  let footerData:string[] = ["valor total:"];
   let valorTotal = 0;
   pedidos.forEach(p => {
     valorTotal += p.valor;
@@ -65,11 +66,14 @@ relatorioReceitas(){
   }
 }
 relatorioClientes(){
-  this.createPDF(this.clienteService.getClientes(), "Clientes")
+  this.clienteService.getClientes().subscribe(clientes => {
+    this.createPDF(clientes ?? [], "Clientes");
+  });
 }
 relatorioClientesFieis(){
-  this.createPDF(this.clienteService.getClientes(), "Clientes Fieis")
-
+  this.clienteService.getClientes().subscribe(clientes => {
+    this.createPDF(clientes ?? [], "Clientes Fieis");
+  });
 }
 
 

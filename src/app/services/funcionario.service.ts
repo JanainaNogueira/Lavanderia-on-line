@@ -7,55 +7,17 @@ import { Funcionario } from '../shared/models/Funcionario';
 })
 export class FuncionarioService {
   constructor() { }
-  funcionarios:Funcionario[]=[
-    {
-      email:'admin.lol@email.com',
-      nome:'Admin',
-      nascimento:'01/01/2001',
-      senha:'1234',
-      id: 99
-    },
-    {
-      email:'mario.lol@email.com',
-      nome:'Mario da Silva',
-      nascimento:'02/07/2001',
-      senha:'1234',
-      id: 13
-    },
-    {
-      email:'maria.lol@email.com',
-      nome:'Maria Joaquina Pereira',
-      nascimento:'07/12/2001',
-      senha:'1234',
-      id: 14
-
-    },
-    {
-      email:'thor.lol@email.com',
-      nome:'Thor Ferreira',
-      nascimento:'23/04/2003',
-      senha:'1234',
-      id: 15
-    },
-    {
-      email:'fabricio.lol@email.com',
-      nome:'Fabricio Fritz Alt',
-      nascimento:'21/05/1981',
-      senha:'1234',
-      id: 16
-    },
-
-  ];
+  funcionarios:Funcionario[]=[];
   addFuncionario(email:string,nome:string,nascimento:string,senha:string)
     {
     const novoFuncionario:Funcionario={
-      email:email,
+      login:email,
       nome:nome,
       nascimento:nascimento,
       senha:senha,
       id: Math.round(Math.random()*1000000)
     }
-    const exists = this.funcionarios.some(funcionario => funcionario.email === email);
+    const exists = this.funcionarios.some(funcionario => funcionario.login === email);
 
     if (exists) {
       return;
@@ -71,7 +33,7 @@ export class FuncionarioService {
   }
 
   getFuncionarioByEmail(email: string): Funcionario | undefined {
-    return this.funcionarios.find(funcionario => funcionario.email === email);
+    return this.funcionarios.find(funcionario => funcionario.login === email);
   }
 
   getFuncionariosNome(nome: string): Funcionario[] {
@@ -79,12 +41,12 @@ export class FuncionarioService {
   }
 
   excluirFuncionario(email: string): void {
-    this.funcionarios = this.funcionarios.filter(funcionario => funcionario.email !== email);
+    this.funcionarios = this.funcionarios.filter(funcionario => funcionario.login !== email);
     console.log('Funcionários após exclusão:', this.funcionarios);
   }
 
   editarFuncionario(funcionario: Funcionario) {
-    const index = this.funcionarios.findIndex(f => f.email === funcionario.email);
+    const index = this.funcionarios.findIndex(f => f.login === funcionario.login);
     if (index !== -1) {
       this.funcionarios[index] = funcionario;
     }

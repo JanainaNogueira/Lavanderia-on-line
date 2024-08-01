@@ -7,6 +7,7 @@ import { Cliente } from '../shared/models/Cliente';
 import { ClienteService } from './cliente/cliente.service';
 import { FuncionarioService } from './funcionario.service';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -44,9 +45,13 @@ login(login:Login): Observable<Cliente | null>{
     })
   )
 }
+
 validateLoginClient(email: string, senha: string): boolean {
-  const clientes = this.clienteService.getClientes();
-  const cliente = clientes.find(c => c.email === email && c.senha === senha);//(A)pegar os clientes do banco
+  let clientes: Cliente[] = []
+   this.clienteService.getClientes().subscribe(c => { if(c){
+    clientes = c;
+   }} );
+  const cliente = clientes.find(c => c.login === email && c.senha === senha);//(A)pegar os clientes do banco
   if(cliente){
     sessionStorage.setItem("clienteId", String(cliente.id))
   }
@@ -54,7 +59,7 @@ validateLoginClient(email: string, senha: string): boolean {
 }
 validateLoginFunc(email: string, senha: string): boolean {
   const funcionarios = this.funcionarioService.getFuncionarios();
-  const funcionario =funcionarios.find(f => f.email === email && f.senha === senha);//(A) pegar os funcioanrio do banco
+  const funcionario =funcionarios.find(f => f.login === email && f.senha === senha);//(A) pegar os funcioanrio do banco
   if(funcionario){
     sessionStorage.setItem("adminId", String(funcionario.id))
   }

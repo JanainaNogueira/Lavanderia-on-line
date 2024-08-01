@@ -90,15 +90,21 @@ export class ListarPedidoComponent implements OnInit {
     }
   }
 
-  redirectPayment(num: string) {
+  redirectPayment(num: number | undefined) {
+    if(!num)
+      return
     this.router.navigateByUrl(`/payment/${num}`);
   }
 
-  visualizarPedido(id: number) {
+  visualizarPedido(id: number | undefined) {
+    if(!id)
+      return
     this.router.navigate(['/consulta-pedido'], { queryParams: { numero: id } });
   }
 
-  cancelarPedido(pedidoId: number): void {
+  cancelarPedido(pedidoId: number | undefined): void {
+    if(!pedidoId)
+      return
     const dialogRef = this.dialog.open(CancelDialogW, {
       width: '25vw',
       enterAnimationDuration: '300ms',

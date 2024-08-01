@@ -31,11 +31,13 @@ export class TelaClienteComponent implements OnInit {
     this.pedidos = this.pedidoService.getPedidos().filter(p => p.status === "Em Aberto");
   }
 
-  redirectPayment(num: number): void {
+  redirectPayment(num: number | undefined): void {
+    if(num)
     this.router.navigateByUrl(`/payment/${num}`);
   }
 
-  visualizarPedido(id: number): void {
+  visualizarPedido(id: number | undefined): void {
+    if(id)
     this.router.navigate(['/consulta-pedido'], { queryParams: { numero: id } });
   }
 

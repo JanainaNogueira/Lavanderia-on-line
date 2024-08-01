@@ -79,7 +79,7 @@ export class ListarFuncionarioComponent {
           const index = this.funcionario.indexOf(funcionario);
           if (index >= 0) {
             this.funcionario.splice(index, 1);
-            this.FuncionarioService.excluirFuncionario(funcionario.email);
+            this.FuncionarioService.excluirFuncionario(funcionario.login);
           }
         }
       });
