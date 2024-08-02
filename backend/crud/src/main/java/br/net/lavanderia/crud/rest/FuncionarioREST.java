@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Comparator;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.net.lavanderia.crud.model.Funcionario;
+import br.net.lavanderia.crud.model.HashFunc;
 import br.net.lavanderia.crud.model.Login;
 import br.net.lavanderia.crud.respository.FuncionarioRepository;
 import br.net.lavanderia.crud.respository.LoginRepository;
@@ -34,6 +36,9 @@ public class FuncionarioREST {
     public List<Funcionario> obterTodosFuncionarios() {
         return funcionarioRepository.findAll();
     }
+
+    @Value("${passwordSalt}")
+    private String salt;
 
     @GetMapping("/Funcionario/{id}")
     public ResponseEntity<Funcionario> obterFuncionarioPorId(
@@ -65,8 +70,10 @@ public class FuncionarioREST {
         if (l != null) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
+        String hashSenha = HashFunc.generateSHA256(funcionario.getSenha() + salt);
+
         Funcionario newFuncionario = new Funcionario();
-        Login newLog = new Login(funcionario.getEmail(), funcionario.getSenha());
+        Login newLog = new Login(funcionario.getEmail(), hashSenha);
         newFuncionario.setLogin(newLog);
         newFuncionario.setNome(funcionario.getNome());
         newFuncionario.setNascimento(funcionario.getNascimento());

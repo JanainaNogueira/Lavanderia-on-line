@@ -66,7 +66,7 @@ export class ClienteService {
       to_name: cliente.nome,
       from_name: 'Lavanderia Lol',
       message:  `Olá. Bem-vindo a Lavanderia Lol.
-      Seu Login é seu email. ]
+      Seu Login é seu email. 
       Sua senha é: ${cliente.senha}`,
       reply_to: cliente.login
     }).then((response) => {
