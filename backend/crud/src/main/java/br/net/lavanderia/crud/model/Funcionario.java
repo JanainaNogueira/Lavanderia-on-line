@@ -67,8 +67,8 @@ public class Funcionario {
         this.id = id;
     }
 
-    public String getLogin() {
-        return this.login.getLogin();
+    public Login getLogin() {
+        return this.login;
     }
 
     public void setLogin(Login l) {

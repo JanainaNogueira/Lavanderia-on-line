@@ -61,12 +61,12 @@ public class FuncionarioREST {
 
     @PostMapping("/Funcionario")
     public ResponseEntity<Funcionario> inserir(@RequestBody Funcionario funcionario) {
-        Login l = loginRepository.findBylogin(funcionario.getLogin()).orElse(null);
+        Login l = loginRepository.findBylogin(funcionario.getEmail()).orElse(null);
         if (l != null) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
         Funcionario newFuncionario = new Funcionario();
-        Login newLog = new Login(funcionario.getLogin(), funcionario.getSenha());
+        Login newLog = new Login(funcionario.getEmail(), funcionario.getSenha());
         newFuncionario.setLogin(newLog);
         newFuncionario.setNome(funcionario.getNome());
         newFuncionario.setNascimento(funcionario.getNascimento());
@@ -84,7 +84,7 @@ public class FuncionarioREST {
         if (Func != null && l != null) {
             Func.setNome(funcionario.getNome());
             Func.setNascimento(funcionario.getNascimento());
-            l.setLogin(funcionario.getLogin());
+            l.setLogin(funcionario.getEmail());
             l.setSenha(funcionario.getSenha());
             loginRepository.save(l);
             Funcionario uFunc = funcionarioRepository.save(Func);
@@ -99,7 +99,9 @@ public class FuncionarioREST {
             @PathVariable("id") int id) {
         Funcionario funcionario = funcionarioRepository.findById(id).orElse(null);
         if (funcionario != null) {
+            Login login = loginRepository.findBylogin(funcionario.getEmail()).orElse(null);
             funcionarioRepository.delete(funcionario);
+            loginRepository.delete(login);
             return ResponseEntity.ok(funcionario);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
