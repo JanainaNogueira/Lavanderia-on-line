@@ -68,7 +68,9 @@ export class ClienteService {
     this.emailService.sendEmail({
       to_name: cliente.nome,
       from_name: 'Lavanderia Lol',
-      message:  `Sua senha é: ${cliente.senha}`,
+      message:  `Olá. Bem-vindo a Lavanderia Lol.
+      Seu Login é seu email. ]
+      Sua senha é: ${cliente.senha}`,
       reply_to: cliente.login
     }).then((response) => {
       console.log(this.emailService.sendEmail)
