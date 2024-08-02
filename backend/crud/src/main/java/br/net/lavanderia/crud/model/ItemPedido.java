@@ -9,7 +9,7 @@ public class ItemPedido {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "roupaId")
     private Roupa roupa;
-    @NotBlank
+    @Min(1)
     private int quantidade;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "pedidoId")
