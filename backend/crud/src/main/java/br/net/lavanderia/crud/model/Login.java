@@ -5,6 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.*;
 
 import jakarta.persistence.OneToOne;
 
@@ -14,8 +15,9 @@ public class Login {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer IdLogin;
-
+    @NotBlank
     private String login;
+    @NotBlank
     private String senha;
     private String token;
 

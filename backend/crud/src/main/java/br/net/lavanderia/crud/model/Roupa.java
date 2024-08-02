@@ -3,6 +3,7 @@ package br.net.lavanderia.crud.model;
 import java.util.List;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 @Entity
 @Table(name = "roupa")
@@ -10,10 +11,14 @@ public class Roupa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer IdRoupa;
+    @NotBlank
     private String descricao;
+    @NotBlank
     private Double precoRoupa;
     @Column(unique = true)
+    @NotBlank
     private String tipo;
+    @NotBlank
     private int tempo;
     @OneToMany(mappedBy = "roupa")
     private List<ItemPedido> pedidos;

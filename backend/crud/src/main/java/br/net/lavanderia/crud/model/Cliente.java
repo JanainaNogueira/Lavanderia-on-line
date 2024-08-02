@@ -2,7 +2,8 @@ package br.net.lavanderia.crud.model;
 
 import java.util.List;
 
-import jakarta.persistence.*;;
+import jakarta.validation.constraints.*;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "cliente")
@@ -10,21 +11,27 @@ public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @NotBlank
     private String nome;
+    @NotBlank
     private String cpf;
+    @NotBlank
     private String endereco;
+    @NotBlank
     private String telefone;
     @OneToOne()
     @JoinColumn(name = "fk_Login_IdLogin", referencedColumnName = "IdLogin")
     private Login login;
     @OneToMany(mappedBy = "cliente")
     private List<Pedido> pedidos;
+    @NotBlank
     private String status;
 
     public Cliente() {
     }
 
-    public Cliente(int id, String nome, String email, String cpf, String endereco, String telefone, String senha,
+    public Cliente(int id, String nome, String email, String cpf, String endereco, String telefone,
+            String senha,
             Login login) {
         this.id = id;
         this.nome = nome;

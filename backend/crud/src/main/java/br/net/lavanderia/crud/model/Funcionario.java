@@ -1,6 +1,7 @@
 package br.net.lavanderia.crud.model;
 
-import jakarta.persistence.*;;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 @Entity
 @Table(name = "funcionario")
@@ -8,7 +9,9 @@ public class Funcionario {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_Login_IdLogin", referencedColumnName = "IdLogin")
     private Login login;
+    @NotBlank
     private String nome;
+    @NotBlank
     private String nascimento;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

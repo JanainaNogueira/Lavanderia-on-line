@@ -1,6 +1,7 @@
 package br.net.lavanderia.crud.model;
 
 import java.util.List;
+import jakarta.validation.constraints.*;
 
 import jakarta.persistence.*;
 
@@ -10,13 +11,18 @@ public class Pedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @NotBlank
     private double valor;
+    @NotBlank
     private int prazo;
 
     @OneToMany(mappedBy = "pedido")
     private List<ItemPedido> roupas;
+    @NotBlank
     private String hora;
+    @NotBlank
     private String status;
+    @NotBlank
     private String data;
 
     @ManyToOne(fetch = FetchType.EAGER)

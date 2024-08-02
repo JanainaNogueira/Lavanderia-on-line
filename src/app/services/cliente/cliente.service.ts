@@ -56,9 +56,6 @@ export class ClienteService {
         this.sendEmail(novoCliente);
       }
     })
-
-
-
   }
 
 
