@@ -71,11 +71,7 @@ export class RegistroComponent {
         novoCliente.endereco,
         novoCliente.telefone,
       );
-      if(!c){
-        alert("Erro ao cadastrar. Atualize a página e tente novamente.");
-      } else {
         this.router.navigate(['/login']);
-      }
     }
 
   }

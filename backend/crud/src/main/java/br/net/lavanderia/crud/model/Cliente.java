@@ -24,7 +24,6 @@ public class Cliente {
 
     @OneToOne()
     @JoinColumn(name = "fk_Login_IdLogin", referencedColumnName = "IdLogin")
-    @JsonIgnore
     private Login login;
 
     @OneToMany(mappedBy = "cliente")

@@ -66,6 +66,7 @@ public class ClienteREST {
 
     @PostMapping("/Cliente")
     public ResponseEntity<Cliente> inserir(@RequestBody Cliente cliente) {
+        System.out.println("cliente");
         Login l = loginRepository.findBylogin(cliente.getLogin()).orElse(null);
         if (l == null) {
             Cliente c = new Cliente();
@@ -75,16 +76,11 @@ public class ClienteREST {
             c.setCPF(cliente.getCPF());
             c.setEndereco(cliente.getEndereco());
             c.setTelefone(cliente.getTelefone());
-            c.setSenha(hashSenha);
-            c.setEmail(newLog.getLogin());
             c.setNome(cliente.getNome());
             c.setStatus("Ativo");
             loginRepository.save(newLog);
             try {
-
                 Cliente returnC = clienteRepository.save(c);
-                returnC.setEmail("forbidden");
-                returnC.setSenha("forbidden");
                 return ResponseEntity.status(HttpStatus.CREATED).body(returnC);
             } catch (DataAccessException e) {
                 loginRepository.delete(newLog);

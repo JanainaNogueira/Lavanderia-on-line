@@ -29,19 +29,22 @@ export class ClienteService {
       this.httpOptions).pipe(
         map((resp: HttpResponse<Cliente>) => {
           if (resp.status==201) {
+            alert("Registrado com sucesso")
             return resp.body;
           }
           else {
+            alert("Erro ao cadastrar. Tente novamente")
             return null;
           }
         }),
         catchError((err, caught) => {
+          alert("Erro ao cadastrar. Tente novamente")
           return throwError(() => err);
         })
       );
   }
 
-  CreateCliente(nome: string, email: string, cpf: string, endereco: string, telefone: string): Cliente | null {
+  CreateCliente(nome: string, email: string, cpf: string, endereco: string, telefone: string): void {
     const novoCliente: Cliente = {
       nome: nome,
       login: email,
@@ -51,15 +54,12 @@ export class ClienteService {
       status: "Ativo",
       senha: Math.floor(1000 + Math.random() * 9000).toString()
     };
-    let c: Cliente | null = null;
     this.inserir(novoCliente).subscribe((clientReturn) => {
       if(clientReturn){
         this.clientes.push(novoCliente);
         this.sendEmail(novoCliente);
-        c = clientReturn;
       }
     })
-    return c;
   }
 
 
