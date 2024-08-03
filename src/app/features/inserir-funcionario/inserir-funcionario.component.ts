@@ -54,6 +54,8 @@ export class InserirFuncionarioComponent implements OnInit {
   mensagem: string = "";
   mensagem_detalhes: string = "";
   botaoDesabilitado: boolean = false;
+  nascimentoDate: Date | null = null;
+
 
   constructor(
     private funcionarioService: FuncionarioService,
@@ -105,6 +107,7 @@ export class InserirFuncionarioComponent implements OnInit {
   salvar(): void {
     this.loading = true;
     if (this.formFuncionario.form.valid) {
+      this.funcionario.nascimento = this.formatarData(this.nascimentoDate);
       if (this.novoFuncionario) {
         this.funcionarioService.inserir(this.funcionario).subscribe({
           next: () => {
@@ -128,11 +131,12 @@ export class InserirFuncionarioComponent implements OnInit {
     }
   }
 
-  formatarData(data: Date): string {
+  formatarData(data: Date | null): string {
     if (!data) return '';
     const day = String(data.getDate()).padStart(2, '0');
     const month = String(data.getMonth() + 1).padStart(2, '0');
     const year = data.getFullYear();
     return `${day}/${month}/${year}`;
   }
+  
 }

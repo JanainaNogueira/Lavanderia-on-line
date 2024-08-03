@@ -10,8 +10,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerInputEvent, MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MenuAdminComponent } from '../../components/menu-admin/menu-admin.component';
-import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatError, MatFormField, MatFormFieldModule, MatLabel } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { length4Directive } from '../../shared/directive/length4.directive';
+import { EmailDirective } from '../../shared/directive/email.directive';
+import { NomeDirective } from '../../shared/directive/nome.directive';
+import { NumericoDirective } from '../../shared/directive/numerico.directive';
+import { RequiredFieldDirective } from '../../shared/directive/required.directive';
 
 @Component({
   selector: 'app-editar-funcionario',
@@ -24,9 +30,16 @@ import { MatIcon } from '@angular/material/icon';
     MatNativeDateModule,
     MenuAdminComponent,
     MatFormField,
+    MatFormFieldModule,
     MatLabel,
     MatError,MatIcon,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatInputModule,
+    EmailDirective,
+    NumericoDirective,
+    NomeDirective,
+    RequiredFieldDirective,
+    length4Directive,
   ],
   templateUrl: './editar-funcionario.component.html',
   styleUrls: ['./editar-funcionario.component.css']
@@ -41,6 +54,7 @@ export class EditarFuncionarioComponent implements OnInit {
   mensagem: string = "";
   mensagem_detalhes: string = "";
   botaoDesabilitado: boolean = false;
+  nascimentoDate: Date | null = null;
 
   constructor(
     private funcionarioService: FuncionarioService,
@@ -60,40 +74,41 @@ export class EditarFuncionarioComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loading = false;
-
     this.id = this.route.snapshot.params['id'];
+    console.log('Retrieved ID:', this.id);
     if (this.id) {
       this.funcionarioService.buscarPorId(+this.id).subscribe({
         next: (funcionario) => {
-          if (funcionario == null) {
-            this.mensagem = `Erro buscando funcionário ${this.id}`;
-            this.mensagem_detalhes = `Usuário não encontrado ${this.id}`;
-            this.botaoDesabilitado = true;
-          } else {
+          console.log('Fetched Funcionario:', funcionario);
+          if (funcionario) {
             this.funcionario = funcionario;
-            this.senhaAntiga = funcionario.senha ? funcionario.senha : "";
+            this.senhaAntiga = funcionario.senha || "";
             this.funcionario.senha = "";
-            this.botaoDesabilitado = false;
+            this.nascimentoDate = this.parseDateString(funcionario.nascimento);
+          } else {
+            this.mensagem = `Funcionário com ID ${this.id} não encontrado.`;
+            this.mensagem_detalhes = 'Verifique se o ID está correto.';
+            this.openDialog();
           }
         },
         error: (err) => {
-          this.mensagem = `Erro buscando usuário ${this.id}`;
+          this.mensagem = `Erro ao buscar funcionário com ID ${this.id}`;
           this.mensagem_detalhes = `[${err.status}] ${err.message}`;
           this.openDialog();
-          this.botaoDesabilitado = true;
         }
       });
     } else {
-      this.funcionario = { login: '', nome: '', nascimento: '', senha: '', id: 0 };
+      this.funcionario = { nome: '', nascimento: '', login: '', senha: '', id: 0 };
     }
   }
 
   salvar(): void {
     this.loading = true;
     if (this.formFuncionario.form.valid) {
+      this.funcionario.nascimento = this.formatarData(this.nascimentoDate);
+      console.log('ID:', this.id);
+      console.log('Funcionario to save:', this.funcionario);
       if (this.id) {
-        this.funcionario.senha = this.senhaAntiga;
         this.funcionarioService.alterar(this.funcionario).subscribe({
           next: () => {
             this.loading = false;
@@ -119,8 +134,8 @@ export class EditarFuncionarioComponent implements OnInit {
               this.mensagem_detalhes = `Usuário já existente`;
             } else {
               this.mensagem_detalhes = `[${err.status}] ${err.message}`;
-              this.openDialog();
             }
+            this.openDialog();
           }
         });
       }
@@ -129,7 +144,7 @@ export class EditarFuncionarioComponent implements OnInit {
     }
   }
 
-  formatarData(data: Date): string {
+  formatarData(data: Date | null): string {
     if (!data) return '';
     const day = String(data.getDate()).padStart(2, '0');
     const month = String(data.getMonth() + 1).padStart(2, '0');
@@ -145,4 +160,22 @@ export class EditarFuncionarioComponent implements OnInit {
     }
   }
   
+  parseDateString(dateString: string): Date | null {
+    if (!dateString) return null;
+
+
+    let date = new Date(dateString);
+    if (!isNaN(date.getTime())) return date;
+
+    const parts = dateString.split('/');
+    if (parts.length === 3) {
+      const day = parseInt(parts[0], 10);
+      const month = parseInt(parts[1], 10) - 1; 
+      const year = parseInt(parts[2], 10);
+      date = new Date(year, month, day);
+      if (!isNaN(date.getTime())) return date;
+    }
+
+    return null;
+  }
 }
