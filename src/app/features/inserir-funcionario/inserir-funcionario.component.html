@@ -45,7 +45,7 @@
       <div class="form-group">
         <mat-form-field appearance="fill">
           <mat-label>Senha</mat-label>
-          <input matInput type="password" name="senha" [(ngModel)]="funcionario.senha" #senha="ngModel" required pattern="\\d{4}">
+          <input matInput type="password" name="senha" [(ngModel)]="funcionario.senha" #senha="ngModel" required pattern="\d{4}">
           <small *ngIf="senha.invalid && senha.touched">
             <div *ngIf="senha.errors?.['required']">Digite a senha.</div>
             <div *ngIf="senha.errors?.['pattern']">A senha deve ser numérica e conter 4 caracteres.</div>
