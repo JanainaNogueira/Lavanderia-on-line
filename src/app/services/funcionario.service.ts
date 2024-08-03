@@ -9,7 +9,7 @@ import { Funcionario } from '../shared/models/Funcionario';
   providedIn: 'root'
 })
 export class FuncionarioService {
-  BASE_URL = "http://localhost:8080/Funcionarios"
+  BASE_URL = "http://localhost:8080/Funcionario"
 
   httpOptions = {
     observe: "response" as "response",
