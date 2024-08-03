@@ -2,6 +2,8 @@ package br.net.lavanderia.crud.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.validation.constraints.*;
 import jakarta.persistence.*;
 
@@ -19,15 +21,19 @@ public class Cliente {
     private String endereco;
     @NotBlank
     private String telefone;
+
     @OneToOne()
     @JoinColumn(name = "fk_Login_IdLogin", referencedColumnName = "IdLogin")
+    @JsonIgnore
     private Login login;
+
     @OneToMany(mappedBy = "cliente")
     private List<Pedido> pedidos;
     @NotBlank
     private String status;
 
     public Cliente() {
+        this.status = "Ativo";
     }
 
     public Cliente(int id, String nome, String email, String cpf, String endereco, String telefone,

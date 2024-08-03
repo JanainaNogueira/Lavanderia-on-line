@@ -26,9 +26,9 @@ constructor(
   private funcionarioService:FuncionarioService
 ) { }
 
-login(login:Login): Observable<Cliente | null>{
-  return this.httpClient.post<Cliente>(this.Base_URL, JSON.stringify(login), this.httpOptions)
-    .pipe(map(( resp:HttpResponse<Cliente>)=>{
+login(login:Login): Observable<Cliente | Funcionario |null>{
+  return this.httpClient.post<Cliente | Funcionario>(this.Base_URL, JSON.stringify(login), this.httpOptions)
+    .pipe(map(( resp:HttpResponse<Cliente | Funcionario>)=>{
       if(resp.status == 200){
         console.log(resp.body);
         return resp.body;
@@ -47,26 +47,4 @@ login(login:Login): Observable<Cliente | null>{
   )
 }
 
-validateLoginClient(email: string, senha: string): boolean {
-  let clientes: Cliente[] = []
-   this.clienteService.getClientes().subscribe(c => { if(c){
-    clientes = c;
-   }} );
-  const cliente = clientes.find(c => c.login === email && c.senha === senha);//(A)pegar os clientes do banco
-  if(cliente){
-    sessionStorage.setItem("clienteId", String(cliente.id))
-  }
-  return cliente !== undefined
-}
-validateLoginFunc(email: string, senha: string): boolean {
-  let funcionarios: Funcionario[] = []
-  this.funcionarioService.listarTodos().subscribe(f => { if(f){
-    funcionarios = f;
-  }});
-  const funcionario =funcionarios.find(f => f.login === email && f.senha === senha);//(A) pegar os funcioanrio do banco
-  if(funcionario){
-    sessionStorage.setItem("adminId", String(funcionario.id))
-  }
-  return funcionario !== undefined;
-}
 }

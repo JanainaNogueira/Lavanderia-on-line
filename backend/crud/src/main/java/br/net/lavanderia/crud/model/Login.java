@@ -1,6 +1,7 @@
 package br.net.lavanderia.crud.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -21,9 +22,9 @@ public class Login {
     private String senha;
     private String token;
 
-    @OneToOne(mappedBy = "login")
+    @OneToOne(mappedBy = "login", fetch = FetchType.LAZY)
     private Cliente cliente;
-    @OneToOne(mappedBy = "login")
+    @OneToOne(mappedBy = "login", fetch = FetchType.LAZY)
     private Funcionario funcionario;
 
     public Login() {

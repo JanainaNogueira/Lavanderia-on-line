@@ -64,14 +64,18 @@ export class RegistroComponent {
         telefone: this.telefone.value ?? '' as string,
       };
 
-      this.clienteService.CreateCliente(
+      let c = this.clienteService.CreateCliente(
         novoCliente.nome,
         novoCliente.email,
         novoCliente.cpf,
         novoCliente.endereco,
-        novoCliente.telefone
+        novoCliente.telefone,
       );
-      this.router.navigate(['/login']);
+      if(!c){
+        alert("Erro ao cadastrar. Atualize a página e tente novamente.");
+      } else {
+        this.router.navigate(['/login']);
+      }
     }
 
   }

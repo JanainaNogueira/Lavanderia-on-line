@@ -1,10 +1,10 @@
 package br.net.lavanderia.crud.rest;
 
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -53,14 +53,15 @@ public class FuncionarioREST {
     @GetMapping("/Funcionario/email/{email}")
     public ResponseEntity<Funcionario> obterFuncionarioPorEmail(@PathVariable("email") String email) {
         Login l = loginRepository.findBylogin(email).orElse(null);
-        if (l == null) {
+        if (l != null) {
+            Funcionario f = l.getFuncionario();
+            if (f != null) {
+                return ResponseEntity.ok(f);
+            } else
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        } else
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-        Funcionario f = l.getFuncionario();
-        if (f == null)
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        else
-            return ResponseEntity.ok(f);
+
     }
 
     @PostMapping("/Funcionario")
@@ -77,8 +78,16 @@ public class FuncionarioREST {
         newFuncionario.setNome(funcionario.getNome());
         newFuncionario.setNascimento(funcionario.getNascimento());
         loginRepository.save(newLog);
-        Funcionario f = funcionarioRepository.save(newFuncionario);
-        return ResponseEntity.status(HttpStatus.CREATED).body(f);
+        try {
+            Funcionario f = funcionarioRepository.save(newFuncionario);
+            f.setEmail("forbidden");
+            f.setSenha("forbidden");
+            return ResponseEntity.status(HttpStatus.CREATED).body(f);
+        } catch (DataAccessException e) {
+            loginRepository.delete(newLog);
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+
+        }
     }
 
     @PutMapping("/Funcionario/{id}")

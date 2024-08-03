@@ -41,21 +41,25 @@ export class ClienteService {
       );
   }
 
-  CreateCliente(nome: string, email: string, cpf: string, endereco: string, telefone: string): Observable<Cliente | null> | void {
+  CreateCliente(nome: string, email: string, cpf: string, endereco: string, telefone: string): Cliente | null {
     const novoCliente: Cliente = {
       nome: nome,
       login: email,
       cpf: cpf,
       endereco: endereco,
       telefone: telefone,
+      status: "Ativo",
       senha: Math.floor(1000 + Math.random() * 9000).toString()
     };
+    let c: Cliente | null = null;
     this.inserir(novoCliente).subscribe((clientReturn) => {
       if(clientReturn){
         this.clientes.push(novoCliente);
         this.sendEmail(novoCliente);
+        c = clientReturn;
       }
     })
+    return c;
   }
 
 

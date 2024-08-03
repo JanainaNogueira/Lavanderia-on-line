@@ -3,6 +3,7 @@ package br.net.lavanderia.crud.rest;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -35,7 +36,6 @@ public class ClienteREST {
 
     @GetMapping("/Cliente")
     public List<Cliente> obterTodosClientes() {
-        System.out.println(salt);
         return clienteRepository.findAll();
     }
 
@@ -77,10 +77,20 @@ public class ClienteREST {
             c.setTelefone(cliente.getTelefone());
             c.setSenha(hashSenha);
             c.setEmail(newLog.getLogin());
+            c.setNome(cliente.getNome());
             c.setStatus("Ativo");
             loginRepository.save(newLog);
-            Cliente returnC = clienteRepository.save(c);
-            return ResponseEntity.status(HttpStatus.CREATED).body(returnC);
+            try {
+
+                Cliente returnC = clienteRepository.save(c);
+                returnC.setEmail("forbidden");
+                returnC.setSenha("forbidden");
+                return ResponseEntity.status(HttpStatus.CREATED).body(returnC);
+            } catch (DataAccessException e) {
+                loginRepository.delete(newLog);
+                return ResponseEntity.status(HttpStatus.CONFLICT).build();
+
+            }
         } else {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }

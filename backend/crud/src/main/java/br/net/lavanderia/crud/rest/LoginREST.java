@@ -35,6 +35,9 @@ public class LoginREST {
             if (cliente != null && !cliente.getStatus().equals("Desativado")) {
                 String hashSenha = HashFunc.generateSHA256(login.getSenha() + salt);
                 if (cliente.getSenha().equals(hashSenha)) {
+                    cliente.setEmail("forbidden");
+                    cliente.setSenha("forbidden");
+
                     return ResponseEntity.ok(cliente);
                 }
             } else {
@@ -43,10 +46,13 @@ public class LoginREST {
         }
 
         ResponseEntity<Funcionario> funcionarioResponse = funcionarioREST.obterFuncionarioPorEmail(login.getLogin());
+
         if (funcionarioResponse.getStatusCode() == HttpStatus.OK) {
             Funcionario funcionario = funcionarioResponse.getBody();
             String hashSenha = HashFunc.generateSHA256(login.getSenha() + salt);
             if (funcionario != null && funcionario.getSenha().equals(hashSenha)) {
+                funcionario.setEmail("forbidden");
+                funcionario.setSenha("forbidden");
                 return ResponseEntity.ok(funcionario);
             }
         }

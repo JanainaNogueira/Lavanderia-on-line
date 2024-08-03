@@ -1,21 +1,26 @@
 package br.net.lavanderia.crud.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
 @Entity
 @Table(name = "funcionario")
 public class Funcionario {
-    @OneToOne(cascade = CascadeType.ALL)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @OneToOne()
     @JoinColumn(name = "fk_Login_IdLogin", referencedColumnName = "IdLogin")
+    @JsonIgnore
     private Login login;
+
     @NotBlank
     private String nome;
     @NotBlank
     private String nascimento;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
 
     public Funcionario() {
     }
