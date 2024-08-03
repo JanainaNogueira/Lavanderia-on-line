@@ -1,6 +1,6 @@
 package br.net.lavanderia.crud.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
