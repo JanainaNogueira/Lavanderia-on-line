@@ -80,7 +80,7 @@ public class FuncionarioREST {
         loginRepository.save(newLog);
         try {
             Funcionario f = funcionarioRepository.save(newFuncionario);
-            f.setLogin("forbidden");
+            f.setEmail("forbidden");
             f.setSenha("forbidden");
             return ResponseEntity.status(HttpStatus.CREATED).body(f);
         } catch (DataAccessException e) {
