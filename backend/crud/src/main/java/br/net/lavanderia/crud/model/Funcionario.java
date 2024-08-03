@@ -31,7 +31,7 @@ public class Funcionario {
         this.id = id;
     }
 
-    public void setLogin(String email) {
+    public void setEmail(String email) {
         this.login.setLogin(email);
         ;
     }

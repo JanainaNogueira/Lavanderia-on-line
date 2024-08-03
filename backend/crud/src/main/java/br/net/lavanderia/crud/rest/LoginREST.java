@@ -52,7 +52,7 @@ public class LoginREST {
             Funcionario funcionario = funcionarioResponse.getBody();
             String hashSenha = HashFunc.generateSHA256(login.getSenha() + salt);
             if (funcionario != null && funcionario.getSenha().equals(hashSenha)) {
-                funcionario.setLogin("forbidden");
+                funcionario.setEmail("forbidden");
                 funcionario.setSenha("forbidden");
                 return ResponseEntity.ok(funcionario);
             }
