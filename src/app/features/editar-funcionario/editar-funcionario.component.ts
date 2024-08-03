@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { FuncionarioService } from '../../services/funcionario.service';
 import { Funcionario } from '../../shared/models/Funcionario';
 import { MatDialog } from '@angular/material/dialog';
@@ -177,5 +177,9 @@ export class EditarFuncionarioComponent implements OnInit {
     }
 
     return null;
+  }
+  
+  navigateBack() {
+    this.router.navigate(['/listar-funcionario']);
   }
 }

@@ -60,9 +60,9 @@
             <mat-icon>save</mat-icon> Salvar
           </ng-template>
         </button>
-        <button mat-raised-button color="secondary" type="button" routerLink="/listar-funcionario">
+        <a mat-raised-button color="secondary" (click)="navigateBack()">
           <mat-icon>arrow_back</mat-icon> Voltar
-        </button>
+        </a>               
       </div>
     </form>
   </div>
