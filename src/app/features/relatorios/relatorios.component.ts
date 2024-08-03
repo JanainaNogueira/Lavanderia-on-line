@@ -81,8 +81,8 @@ relatorioClientes() {
 }
 
 relatorioClientesFieis() {
- // this.relatorioClientes();
-  this.clienteService.getClientes().subscribe(clientes => {
+  this.relatorioClientes();
+/*  this.clienteService.getClientes().subscribe(clientes => {
     if (clientes) {
       this.pedidoService.getPedidos().subscribe(pedidos => {
         const clientesPedidos = clientes.map(cliente => {
@@ -108,7 +108,7 @@ relatorioClientesFieis() {
         this.createPDF(dataParaPDF, "Clientes Fieis");
       });
     }
-  }); 
+  }); */
 }
   
 
