@@ -45,13 +45,14 @@ public class LoginREST {
             }
         }
 
-        ResponseEntity<Funcionario> funcionarioResponse = funcionarioREST.obterFuncionarioPorEmail(login.getLogin());
+        ResponseEntity<Funcionario> funcionarioResponse = funcionarioREST
+                .obterFuncionarioPorEmail(login.getLogin());
 
         if (funcionarioResponse.getStatusCode() == HttpStatus.OK) {
             Funcionario funcionario = funcionarioResponse.getBody();
             String hashSenha = HashFunc.generateSHA256(login.getSenha() + salt);
             if (funcionario != null && funcionario.getSenha().equals(hashSenha)) {
-                funcionario.setEmail("forbidden");
+                funcionario.setLogin("forbidden");
                 funcionario.setSenha("forbidden");
                 return ResponseEntity.ok(funcionario);
             }

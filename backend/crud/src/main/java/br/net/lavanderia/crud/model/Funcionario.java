@@ -14,7 +14,6 @@ public class Funcionario {
 
     @OneToOne()
     @JoinColumn(name = "fk_Login_IdLogin", referencedColumnName = "IdLogin")
-    @JsonIgnore
     private Login login;
 
     @NotBlank
@@ -32,12 +31,7 @@ public class Funcionario {
         this.id = id;
     }
 
-    public String getEmail() {
-        return this.login.getLogin();
-
-    }
-
-    public void setEmail(String email) {
+    public void setLogin(String email) {
         this.login.setLogin(email);
         ;
     }
@@ -62,6 +56,10 @@ public class Funcionario {
         return this.login.getSenha();
     }
 
+    public String getLogin() {
+        return this.login.getLogin();
+    }
+
     public void setSenha(String senha) {
         this.login.setSenha(senha);
         ;
@@ -75,11 +73,7 @@ public class Funcionario {
         this.id = id;
     }
 
-    public Login getLogin() {
-        return this.login;
-    }
-
-    public void setLogin(Login l) {
-        this.login = l;
+    public void setLoginandSenha(Login login) {
+        this.login = login;
     }
 }

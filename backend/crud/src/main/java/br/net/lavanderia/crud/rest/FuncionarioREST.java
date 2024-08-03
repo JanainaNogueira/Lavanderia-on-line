@@ -66,21 +66,21 @@ public class FuncionarioREST {
 
     @PostMapping("/Funcionario")
     public ResponseEntity<Funcionario> inserir(@RequestBody Funcionario funcionario) {
-        Login l = loginRepository.findBylogin(funcionario.getEmail()).orElse(null);
+        Login l = loginRepository.findBylogin(funcionario.getLogin()).orElse(null);
         if (l != null) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
         String hashSenha = HashFunc.generateSHA256(funcionario.getSenha() + salt);
 
         Funcionario newFuncionario = new Funcionario();
-        Login newLog = new Login(funcionario.getEmail(), hashSenha);
-        newFuncionario.setLogin(newLog);
+        Login newLog = new Login(funcionario.getLogin(), hashSenha);
+        newFuncionario.setLoginandSenha(newLog);
         newFuncionario.setNome(funcionario.getNome());
         newFuncionario.setNascimento(funcionario.getNascimento());
         loginRepository.save(newLog);
         try {
             Funcionario f = funcionarioRepository.save(newFuncionario);
-            f.setEmail("forbidden");
+            f.setLogin("forbidden");
             f.setSenha("forbidden");
             return ResponseEntity.status(HttpStatus.CREATED).body(f);
         } catch (DataAccessException e) {
@@ -95,11 +95,11 @@ public class FuncionarioREST {
             @PathVariable("id") int id,
             @RequestBody Funcionario funcionario) {
         Funcionario Func = funcionarioRepository.findById(id).orElse(null);
-        Login l = loginRepository.findBylogin(funcionario.getEmail()).orElse(null);
+        Login l = loginRepository.findBylogin(funcionario.getLogin()).orElse(null);
         if (Func != null && l != null) {
             Func.setNome(funcionario.getNome());
             Func.setNascimento(funcionario.getNascimento());
-            l.setLogin(funcionario.getEmail());
+            l.setLogin(funcionario.getLogin());
             l.setSenha(funcionario.getSenha());
             loginRepository.save(l);
             Funcionario uFunc = funcionarioRepository.save(Func);
@@ -114,7 +114,7 @@ public class FuncionarioREST {
             @PathVariable("id") int id) {
         Funcionario funcionario = funcionarioRepository.findById(id).orElse(null);
         if (funcionario != null) {
-            Login login = loginRepository.findBylogin(funcionario.getEmail()).orElse(null);
+            Login login = loginRepository.findBylogin(funcionario.getLogin()).orElse(null);
             funcionarioRepository.delete(funcionario);
             loginRepository.delete(login);
             return ResponseEntity.ok(funcionario);
