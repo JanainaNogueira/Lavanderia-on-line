@@ -6,6 +6,7 @@ import { Login } from '../shared/models/login.model';
 import { Cliente } from '../shared/models/Cliente';
 import { ClienteService } from './cliente/cliente.service';
 import { FuncionarioService } from './funcionario.service';
+import { Funcionario } from '../shared/models/Funcionario';
 
 
 @Injectable({
@@ -58,7 +59,10 @@ validateLoginClient(email: string, senha: string): boolean {
   return cliente !== undefined
 }
 validateLoginFunc(email: string, senha: string): boolean {
-  const funcionarios = this.funcionarioService.getFuncionarios();
+  let funcionarios: Funcionario[] = []
+  this.funcionarioService.listarTodos().subscribe(f => { if(f){
+    funcionarios = f;
+  }});
   const funcionario =funcionarios.find(f => f.login === email && f.senha === senha);//(A) pegar os funcioanrio do banco
   if(funcionario){
     sessionStorage.setItem("adminId", String(funcionario.id))

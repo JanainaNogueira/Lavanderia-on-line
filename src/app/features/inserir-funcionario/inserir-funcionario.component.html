@@ -35,7 +35,7 @@
       <div class="form-group">
         <mat-form-field appearance="fill">
           <mat-label>Email</mat-label>
-          <input matInput name="email" [(ngModel)]="funcionario.email" #email="ngModel" required email>
+          <input matInput name="email" [(ngModel)]="funcionario.login" #email="ngModel" required email>
           <small *ngIf="email.invalid && email.touched">
             <div *ngIf="email.errors?.['required']">Digite o email da pessoa.</div>
             <div *ngIf="email.errors?.['email']">Digite um email válido.</div>

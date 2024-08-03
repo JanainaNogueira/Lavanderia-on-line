@@ -3,7 +3,7 @@ import { FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { FuncionarioService } from '../../services/funcionario.service';
-import { Funcionario } from '../../Funcionario';
+import { Funcionario } from '../../shared/models/Funcionario';
 import { AlertDialogComponent } from '../../components/alert-dialog/alert-dialog.component';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
@@ -40,14 +40,14 @@ import { MenuAdminComponent } from '../../components/menu-admin/menu-admin.compo
     MenuAdminComponent,
     MatDialogModule
   ],
-  templateUrl: './inserir-funcionario.component.html',
+  templateUrl: './inserir-funcionario.component.html', 
   styleUrls: ['./inserir-funcionario.component.css']
 })
 export class InserirFuncionarioComponent implements OnInit {
 
   @ViewChild('formFuncionario') formFuncionario!: NgForm;
   novoFuncionario: boolean = true;
-  funcionario: Funcionario = { email: '', nome: '', nascimento: '', senha: '', id: 0 };
+  funcionario: Funcionario = { login: '', nome: '', nascimento: '', senha: '', id: 0 };
   id!: string;
   loading: boolean = false;
   senhaAntiga: string = "";

@@ -34,7 +34,7 @@ import { MatIcon } from '@angular/material/icon';
 export class EditarFuncionarioComponent implements OnInit {
 
   @ViewChild('formFuncionario') formFuncionario!: NgForm;
-  funcionario: Funcionario = { email: '', nome: '', nascimento: '', senha: '', id: 0 };
+  funcionario: Funcionario = { login: '', nome: '', nascimento: '', senha: '', id: 0 };
   id!: string;
   loading: boolean = false;
   senhaAntiga: string = "";
@@ -85,7 +85,7 @@ export class EditarFuncionarioComponent implements OnInit {
         }
       });
     } else {
-      this.funcionario = { email: '', nome: '', nascimento: '', senha: '', id: 0 };
+      this.funcionario = { login: '', nome: '', nascimento: '', senha: '', id: 0 };
     }
   }
 
@@ -107,16 +107,6 @@ export class EditarFuncionarioComponent implements OnInit {
           }
         });
       } else {
-        const nascimentoDate = this.parseDate(this.funcionario.nascimento);
-        this.FormularioRegistroFunc.patchValue({
-          nome: this.funcionario.nome,
-          nascimento: nascimentoDate,
-          email: this.funcionario.login,
-          senha: this.funcionario.senha
-        });
-        setTimeout(() => {
-          this.cdr.detectChanges();
-        }, 0);
         this.funcionarioService.inserir(this.funcionario).subscribe({
           next: () => {
             this.loading = false;

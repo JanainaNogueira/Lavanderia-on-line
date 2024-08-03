@@ -50,16 +50,16 @@
         <tbody>
           <tr *ngFor="let funcionario of funcionario">
             <td>{{ funcionario.nome }}</td>
-            <td>{{ funcionario.email }}</td>
+            <td>{{ funcionario.login }}</td>
             <td>{{ funcionario.nascimento }}</td>
             <td>{{ funcionario.senha }}</td>
             <td>
               <button mat-raised-button 
-              color="primary" [routerLink]="['/editar-funcionario', funcionario.email]">
+              color="primary" [routerLink]="['/editar-funcionario', funcionario.login]">
                 Editar
               </button>
               <button 
-              *ngIf="funcionario.email!='admin.lol@email.com'"
+              *ngIf="funcionario.login!='admin.lol@email.com'"
               mat-raised-button color="warn" (click)="remover($event, funcionario)">
                 Excluir
               </button>

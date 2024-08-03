@@ -37,7 +37,7 @@
       <div class="form-group">
         <mat-form-field appearance="fill">
           <mat-label>Email</mat-label>
-          <input matInput type="email" [(ngModel)]="funcionario.email" name="email" required>
+          <input matInput type="email" [(ngModel)]="funcionario.login" name="email" required>
           <mat-error *ngIf="!formFuncionario.form.controls['email'].valid && formFuncionario.form.controls['email'].touched">
             Digite um email válido.
           </mat-error>

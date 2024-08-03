@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable, throwError, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import { Funcionario } from '../Funcionario';
+import { Funcionario } from '../shared/models/Funcionario';
 
 
 @Injectable({
@@ -19,6 +19,8 @@ export class FuncionarioService {
     };
 
   constructor(private httpClient: HttpClient) { }
+
+  private funcionarios: Funcionario[] = [ ] ;
 
   listarTodos(): Observable<Funcionario[] | null> {
     return this.httpClient.get<Funcionario[]>(
