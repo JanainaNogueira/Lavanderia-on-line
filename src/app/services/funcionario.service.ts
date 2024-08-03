@@ -66,9 +66,10 @@ export class FuncionarioService {
   );
 }
  
-inserir(funcionario: Funcionario): Observable<Funcionario | null> { 
+inserir(funcionario: Funcionario): Observable<Funcionario | null> {
+  let funcionarioPost = {...funcionario, login: {login: funcionario.login, senha: funcionario.senha}, senha: undefined} 
   return this.httpClient.post<Funcionario>(this.BASE_URL,
-  JSON.stringify(funcionario), 
+  JSON.stringify(funcionarioPost), 
   this.httpOptions).pipe(
   map((resp: HttpResponse<Funcionario>) => 
   { if (resp.status==201) { 
@@ -103,8 +104,9 @@ remover(id: number): Observable<Funcionario | null> {
  
 
 alterar(funcionario: Funcionario): Observable<Funcionario | null> {
+  let funcionarioPut = {...funcionario, login: {login: funcionario.login, senha: funcionario.senha}, senha: undefined} 
   return this.httpClient.put<Funcionario>(this.BASE_URL + "/" + funcionario.id,
-  JSON.stringify(funcionario),
+  JSON.stringify(funcionarioPut),
    this.httpOptions).pipe(
   map((resp: HttpResponse<Funcionario>) => { 
     if (resp.status==200) {
