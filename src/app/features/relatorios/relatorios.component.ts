@@ -69,7 +69,7 @@ relatorioClientes(){
   this.clienteService.getClientes().subscribe(clientes => {
     if(clientes){
       let c = clientes.map((c) =>{ return {...c, login: undefined, email: c.login, senha: undefined}})
-      this.createPDF(clientes ?? [], "Clientes");
+      this.createPDF(c ?? [], "Clientes");
     }
   });
 }
