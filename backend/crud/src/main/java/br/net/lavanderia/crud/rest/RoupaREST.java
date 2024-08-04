@@ -29,9 +29,9 @@ public class RoupaREST {
     return ResponseEntity.ok(roupaRepository.findAll());
   }
 
-  @GetMapping("/Roupas/{tipo}")
-  public ResponseEntity<Roupa> getRoupaTipo(@PathVariable("tipo") String tipo) {
-    Roupa roupa = roupaRepository.findByTipo(tipo);
+  @GetMapping("/Roupas/{id}")
+  public ResponseEntity<Roupa> getRoupaId(@PathVariable("id") Integer id) {
+    Roupa roupa = roupaRepository.findById(id).orElse(null);
     if (roupa == null) {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     } else {
@@ -61,11 +61,11 @@ public class RoupaREST {
     }
   }
 
-  @PutMapping("Roupas/{tipo}")
+  @PutMapping("Roupas/{id}")
   public ResponseEntity<Roupa> alterar(
-      @PathVariable("tipo") String tipo,
+      @PathVariable("id") Integer id,
       @RequestBody Roupa roupaAtualizada) {
-    Roupa roupaExist = roupaRepository.findByTipo(tipo);
+    Roupa roupaExist = roupaRepository.findById(id).orElse(null);
     if (roupaExist != null) {
       roupaExist.setTipo(roupaAtualizada.getTipo());
       roupaExist.setTempo(roupaAtualizada.getTempo());
@@ -78,10 +78,10 @@ public class RoupaREST {
     }
   }
 
-  @DeleteMapping("/Roupas/{tipo}")
+  @DeleteMapping("/Roupas/{id}")
   public ResponseEntity<Roupa> remover(
-      @PathVariable("tipo") String tipo) {
-    Roupa roupa = roupaRepository.findByTipo(tipo);
+      @PathVariable("id") Integer id) {
+    Roupa roupa = roupaRepository.findById(id).orElse(null);
     if (roupa != null) {
       roupa.setDescricao("DELETADO");
       roupaRepository.save(roupa);

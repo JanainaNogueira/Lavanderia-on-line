@@ -32,7 +32,7 @@ export class RealizarPedidoComponent {
   queryField = new FormControl();
   //Busca o que foi escolhido na seleção e envia para listaPedido
   ngOnInit() {
-    this.tiposRoupas = this.roupasService.getRoupas();
+    //this.tiposRoupas = this.roupasService.getRoupas();
   }
 
   onSearch(){

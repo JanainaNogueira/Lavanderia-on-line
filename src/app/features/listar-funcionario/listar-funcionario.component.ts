@@ -17,7 +17,7 @@ import { AlertDialogComponent } from '../../components/alert-dialog/alert-dialog
 @Component({
   selector: 'app-listar-funcionario',
   standalone: true,
-  imports: [CommonModule,MatCommonModule,MatButtonModule,MatInputModule, 
+  imports: [CommonModule,MatCommonModule,MatButtonModule,MatInputModule,
     MatIconModule,FormsModule, MenuAdminComponent,DeleteDialogW,RouterModule,MatDialogModule,
   ],
   templateUrl: './listar-funcionario.component.html',
@@ -51,18 +51,18 @@ export class ListarFuncionarioComponent implements OnInit {
     this.ordenarNome();
   }
 
-  
+
 listarTodos (): Funcionario[] {
-  this.FuncionarioService.listarTodos().subscribe({ 
+  this.FuncionarioService.listarTodos().subscribe({
   next: (data: Funcionario[] | null) => { if (data == null) {
-  this.funcionario = [];
+    this.funcionario = [];
   }
   else {
     this.funcionario = data;
   }
 },
   error: (err) => {
-    this.mensagem = "Erro buscando lista de funcionários"; 
+    this.mensagem = "Erro buscando lista de funcionários";
     this.mensagem_detalhes = `[${err.status}} ${err.message}`;
     this.openDialog();
   }
@@ -74,12 +74,12 @@ remover($event: any, funcionario: Funcionario): void {
   $event.preventDefault();
   this.mensagem = "";
   this.mensagem_detalhes = "";
-  if (confirm (`Deseja realmente remover o funcionário ${funcionario.nome}?`)) { 
+  if (confirm (`Deseja realmente remover o funcionário ${funcionario.nome}?`)) {
     this.FuncionarioService.remover (funcionario.id!).
   subscribe({
     complete: () => { this.listarTodos(); },
     error: (err) => {
-    this.mensagem = `Erro removendo funcionário $(funcionario.id} - ${funcionario.nome}`; 
+    this.mensagem = `Erro removendo funcionário $(funcionario.id} - ${funcionario.nome}`;
     this.mensagem_detalhes = `[${err.status}] ${err.message}`;
     this.openDialog();
     }
@@ -90,7 +90,7 @@ remover($event: any, funcionario: Funcionario): void {
 pesquisarPorNome() {
   if (!this.nome || this.nome.trim() === '') {
     this.FuncionarioService.listarTodos().subscribe(funcionarios => {
-      this.funcionario = funcionarios || []; 
+      this.funcionario = funcionarios || [];
     });
   } else {
     const pesquisaNome = this.nome.trim().toLowerCase();

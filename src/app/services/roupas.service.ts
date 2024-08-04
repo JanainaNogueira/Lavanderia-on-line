@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Roupa} from '../shared/models/Pedido'
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { catchError, map, Observable, throwError } from 'rxjs';
+import { catchError, map, Observable, of, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -37,7 +37,6 @@ export class RoupasService {
           }
         }),
         catchError((err,caught)=>{
-          console.log('error:',novaRoupa,err);
           return throwError(()=>err);
         })
       );
@@ -46,11 +45,41 @@ export class RoupasService {
   getRoupaByTipo(tipo: string): Roupa | undefined {
     return this.roupas.find(roupa => roupa.tipo === tipo);
   }
-  getRoupas(): Roupa[] {
-    return this.roupas;
+  getRoupas(): Observable<Roupa[]| null>{
+    console.log();
+    return this.httpClient.get<Roupa[]>(
+      this.BASE_URL,
+      this.httpOptions).pipe(
+        map((resp:HttpResponse<Roupa[]>)=>{
+          if(resp.status===200){
+            return resp.body;
+          }else{
+            return [];
+          }
+        }),
+        catchError((err, caught)=>{
+          if(err.status ==404){
+            return of([]);
+          }else{
+            return throwError(()=>err);
+          }
+        })
+      );
   }
-  excluirRoupa(tipo: string): void {
-    this.roupas = this.roupas.filter(roupas => roupas.tipo !== tipo);
+  excluirRoupa(id:number): Observable<Roupa|null> {
+    return this.httpClient.delete<Roupa>(
+      this.BASE_URL+"/"+id, this.httpOptions).pipe(
+        map((resp:HttpResponse<Roupa>)=>{
+          if(resp.status==200){
+            return resp.body;
+          }else{
+            return null;
+          }
+        }),
+        catchError((err,caught)=>{
+          return throwError(()=>err);
+        })
+      );
   }
   editarRoupa(roupaAtualizada: Roupa) {
     const index = this.roupas.findIndex(roupa => roupa.tipo === roupaAtualizada.tipo);

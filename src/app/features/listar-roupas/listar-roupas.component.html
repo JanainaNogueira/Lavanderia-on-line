@@ -30,12 +30,14 @@
         <tr class="titulo-list">
           <th>Tipo</th>
           <th>Tempo (dias)</th>
+          <th>Preço</th>
           <th>Ações</th>
         </tr>
         <tbody class="table-body">
           <tr *ngFor="let roupa of roupas">
             <td>{{ roupa.tipo }}</td>
             <td>{{ roupa.tempo}}</td>
+            <td>{{ roupa.precoRoupa}}</td>
             <td>
               <button
                 mat-raised-button
@@ -44,7 +46,7 @@
               >
                 Editar
               </button>
-              <button mat-raised-button color="warn" (click)="excluirRoupa(roupa)">Excluir</button>
+              <button mat-raised-button color="warn" (click)="excluirRoupa($event,roupa)">Excluir</button>
             </td>
           </tr>
         </tbody>
