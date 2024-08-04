@@ -42,9 +42,28 @@ export class RoupasService {
       );
   }
 
-  getRoupaByTipo(tipo: string): Roupa | undefined {
-    return this.roupas.find(roupa => roupa.tipo === tipo);
+  getRoupaById(id: number): Observable<Roupa | null> {
+    return this.httpClient.get<Roupa>(
+      this.BASE_URL+"/"+id,
+      this.httpOptions)
+      .pipe(
+        map((resp:HttpResponse<Roupa>)=>{
+          if(resp.status==200){
+            return resp.body;
+          }else{
+            return null;
+          }
+        }),
+        catchError((err,caught)=>{
+          if(err.status==404){
+            return of (null);
+          }else{
+            return throwError(()=>err);
+          }
+        })
+      );
   }
+
   getRoupas(): Observable<Roupa[]| null>{
     console.log();
     return this.httpClient.get<Roupa[]>(
@@ -81,10 +100,22 @@ export class RoupasService {
         })
       );
   }
-  editarRoupa(roupaAtualizada: Roupa) {
-    const index = this.roupas.findIndex(roupa => roupa.tipo === roupaAtualizada.tipo);
-    if (index !== -1) {
-      this.roupas[index] = roupaAtualizada;
-    }
+  editarRoupa(roupaAtualizada: Roupa):Observable<Roupa | null>{
+    let roupaPut = {...roupaAtualizada,tipo:roupaAtualizada.tipo,preco:roupaAtualizada.precoRoupa,tempo:roupaAtualizada.tempo}
+    return this.httpClient.put<Roupa>(
+      this.BASE_URL+"/"+roupaAtualizada.id,
+      JSON.stringify(roupaPut),
+        this.httpOptions).pipe(
+        map((resp:HttpResponse<Roupa>)=>{
+          if(resp.status==200){
+            return resp.body;
+          }else{
+            return null;
+          }
+        }),
+        catchError((err,caught)=>{
+          return throwError(()=>err);
+        })
+      )
   }
 }
