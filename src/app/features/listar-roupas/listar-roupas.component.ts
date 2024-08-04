@@ -74,14 +74,14 @@ export class ListarRoupasComponent {
   }
 
   pesquisarPorNome() {
-      if (!this.nome || this.nome.trim() === '') {
-        this.getRoupas();
-      } else {
-        const pesquisaNome = this.nome.trim().toLowerCase();
-        /*this.roupas = this.RoupasService.getRoupas().filter(roupa =>
-          roupa.tipo.toLowerCase().includes(pesquisaNome)
-        );*/
-      }
+    if (!this.nome || this.nome.trim() === '') {
+      this.getRoupas();
+    } else {
+      const pesquisaNome = this.nome.trim().toLowerCase();
+      this.roupas = this.roupas.filter(roupa =>
+        roupa.tipo.toLowerCase().includes(pesquisaNome)
+      );
+    }
   }
 
   openDialog(){
