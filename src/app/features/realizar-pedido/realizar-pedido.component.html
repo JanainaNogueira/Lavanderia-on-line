@@ -2,16 +2,11 @@
   <app-menu-lateral/>
   <div class="boxSearch">
     <select
-    class="inputSearch"
-      type="search"
+      class="inputSearch"
       [formControl] = "queryField"
       placeholder="Digite a roupa que deseja adicionar..."
-    >
-      <option value="calca">Calça</option>
-      <option value="camisa">Camisa</option>
-      <option value="meia">Meia</option>
-      <option value="cueca">Cueca</option>
-      <option value="camiseta">Camiseta</option>
+      >
+      <option *ngFor="let roupa of tiposRoupas" [value]="roupa.tipo">{{ roupa.tipo }}</option>
     </select>
 
     <button
@@ -30,7 +25,7 @@
     <div class="listClothes">
       <div *ngFor="let item of listaPedido" class="boxCard">
       <mat-card class="card">
-      <img mat-card-image [src]="'../../assets/img/' + item.roupa.tipo+ '.png'" class="cardImage">
+      <img mat-card-image [src]="'../../assets/img/' + item.roupa.tipo.toLowerCase()+'.png'" class="cardImage">
       <mat-card-content mat-card-content class="description">
         <p>{{item.roupa.tipo}}</p>
       </mat-card-content >

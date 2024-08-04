@@ -9,6 +9,7 @@ import { Roupa } from '../../shared/models/Pedido';
 import { RoupasService } from '../../services/roupas.service';
 import { MenuLateralComponent } from '../../components/menu-lateral/menu-lateral.component';
 import { OrcamentoDialogComponent } from '../../components/orcamento-dialog/orcamento-dialog.component';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-realizar-pedido',
@@ -32,12 +33,23 @@ export class RealizarPedidoComponent {
   queryField = new FormControl();
   //Busca o que foi escolhido na seleção e envia para listaPedido
   ngOnInit() {
-    //this.tiposRoupas = this.roupasService.getRoupas();
+    this.roupasService.getRoupas().pipe(
+      map(roupas => roupas?roupas.filter(roupa => roupa.descricao !== 'DELETADO'):[])
+    ).subscribe({
+      next:(roupas:Roupa[]|null)=>{
+        if(roupas==null){
+          this.tiposRoupas=roupas??[];
+        }else{
+          this.tiposRoupas=roupas;
+        }
+      }
+    });
   }
 
   onSearch(){
     const termoBusca=this.queryField.value;
-    const itemEncontrado=this.tiposRoupas.find(item=>item.tipo.toLowerCase() === termoBusca.toLowerCase());
+    const itemEncontrado=this.tiposRoupas.find(
+      item=>item.tipo.toLowerCase() === termoBusca.toLowerCase());
 
     if(itemEncontrado){
         this.listaPedido.push({roupa: itemEncontrado,quantidade: 1});
@@ -49,7 +61,7 @@ export class RealizarPedidoComponent {
   }
 
   CalculaValor():number{
-    return this.listaPedido.reduce((total, item) => total + item.quantidade * 10, 0);
+    return this.listaPedido.reduce((total, item) => total + item.roupa.precoRoupa*item.quantidade, 0);
   }
 
   CalculaPrazo():number{
