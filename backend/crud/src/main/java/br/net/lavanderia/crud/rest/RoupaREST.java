@@ -40,13 +40,25 @@ public class RoupaREST {
   }
 
   @PostMapping("/Roupas")
-  public ResponseEntity<Roupa> inserir(@RequestBody Roupa roupa) {
-    Roupa roupaExiste = roupaRepository.findByTipo(roupa.getTipo());
-    if (roupaExiste != null) {
-      return ResponseEntity.status(HttpStatus.CONFLICT).build();
+  public ResponseEntity<Roupa> inserir(@RequestBody Roupa novaRoupa) {
+    try{
+      System.out.println("Recebendo nova roupa: " + novaRoupa);
+      if (novaRoupa.getTipo()==null || novaRoupa.getTipo().isEmpty()) {
+        return ResponseEntity.badRequest().body(null);
+      }
+      if (novaRoupa.getTempo() <= 0 || novaRoupa.getPrecoRoupa() <= 0) {
+        return ResponseEntity.badRequest().body(null);
+      }
+
+      Roupa result = roupaRepository.save(novaRoupa);
+
+      return new ResponseEntity<>(result, HttpStatus.CREATED);
+    }catch(Exception e){
+      System.out.println("Erro ao processar nova roupa: " + e.getMessage());
+
+      e.printStackTrace();
+      return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
     }
-    Roupa Result = roupaRepository.save(roupa);
-    return ResponseEntity.status(HttpStatus.CREATED).body(Result);
   }
 
   @PutMapping("Roupas/{tipo}")
