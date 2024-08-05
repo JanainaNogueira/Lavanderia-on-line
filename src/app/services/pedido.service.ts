@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { Pedido, Roupa } from '../shared/models/Pedido';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { catchError, map, Observable, of, throwError } from 'rxjs';
@@ -13,8 +13,10 @@ export class PedidoService {
     'Content-Type': 'application/json'
     })
   };
-  constructor(private httpClient:HttpClient) { }
   pedidos:Pedido[]=[];
+  constructor(private httpClient:HttpClient) { }
+
+ 
 
   addItem(valor:number,prazo:number,roupas:{ roupa: Roupa;quantidade: number }[],status:string){
     let d = new Date();
@@ -81,28 +83,17 @@ export class PedidoService {
       );
   }
 
-  getPedidos(): Pedido[] {
-    this.fetchPedidos().subscribe({
-      next: (data: Pedido[] | null) => { if (data == null) {
-        this.pedidos = [];
-      }
-      else {
-        this.pedidos = data;
-      }
-    },
-      error: (err) => {
-        
-      }
-      });
+  getPedidos() {
     return this.pedidos;
   }
 
+
   getPedidosStatus(status: string): Pedido[] {
-    return this.getPedidos().filter((p) => p.status === status)
+    return this.pedidos.filter((p) => p.status === status)
   }
 
   getPedidosID(numero: number): Pedido | null {
-    return this.getPedidos().find((p) => p.id === numero) || null
+    return this.pedidos.find((p) => p.id === numero) || null
   }
 
   updatePedidoStatus(id: number | undefined, status: string): Pedido[]{
@@ -115,7 +106,7 @@ export class PedidoService {
   }
 
   getPedidosbyInterval(start: Date, end: Date){
-    return this.getPedidos().filter(p => this.processDateStringtoDate(p.data) >= start && this.processDateStringtoDate(p.data) <= end)
+    return this.pedidos.filter(p => this.processDateStringtoDate(p.data) >= start && this.processDateStringtoDate(p.data) <= end)
   }
 
   processDateStringtoDate(date:string){

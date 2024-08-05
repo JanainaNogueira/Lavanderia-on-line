@@ -28,7 +28,7 @@ export class TelaClienteComponent implements OnInit {
     }
 
   refetch(){
-    this.pedidos = this.pedidoService.getPedidos().filter(p => p.status === "Em Aberto");
+    this.pedidoService.fetchPedidos().subscribe(p => p ? this.pedidos = p.filter((ped) => ped.status == "Em Aberto") : []);
   }
 
   redirectPayment(num: number | undefined): void {
