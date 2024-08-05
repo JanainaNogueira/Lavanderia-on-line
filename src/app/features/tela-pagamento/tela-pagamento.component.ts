@@ -26,16 +26,33 @@ export class TelaPagamentoComponent implements OnInit {
 
   ngOnInit(): void {
     this.numero = Number(this.route.snapshot.paramMap.get('numero')) || 0;
-    this.pedido = this.pedidoService.getPedidosID(this.numero);
+    this.pedidoService
+      .fetchPedidos()
+      .subscribe((ped) =>
+        ped
+          ? (this.pedido = ped.find((p) => p.id === this.numero)!)
+          : alert('Erro ao carregar os pedidos')
+      );
   }
 
   confirmarPagamento() {
     let d = new Date();
-    let data = d.getDate() + '/' + (d.getMonth() + 1) + '/' + d.getFullYear();
-    let pedido = { ...this.pedido!, dataPagaento: data };
-    this.pedidoService.updatePedidoStatus(this.numero, 'Pago', pedido);
-    alert('pedido pago');
-    this.router.navigate(['/home']);
+    let data =
+      d.getDate() +
+      '/' +
+      (d.getMonth() + 1) +
+      '/' +
+      d.getFullYear() +
+      '-' +
+      d.getHours() +
+      ':' +
+      d.getMinutes();
+    let pedido = { ...this.pedido!, dataPagamento: data };
+    this.pedidoService
+      .updatePedidoStatus(this.numero, 'Pago', pedido)
+      .subscribe((p) => {
+        this.router.navigate(['/home']);
+      });
   }
   getTotalItens(): number {
     return this.pedido
@@ -51,6 +68,7 @@ export class TelaPagamentoComponent implements OnInit {
 
   verificarUsuario() {
     const clienteId = sessionStorage.getItem('clienteId');
+    console.log(clienteId);
     this.isCliente = clienteId !== null;
   }
 }

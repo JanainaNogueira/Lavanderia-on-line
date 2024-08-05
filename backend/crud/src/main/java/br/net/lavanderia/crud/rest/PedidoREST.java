@@ -72,6 +72,9 @@ public class PedidoREST {
     Pedido pedidoExist = pedidoRepositoiry.findById(id).orElse(null);
     if (pedidoExist != null) {
       pedidoExist.setStatus(pedidoAtualizado.getStatus());
+      if (pedidoAtualizado.getDataPagamento() != null) {
+        pedidoExist.setDataPagamento(pedidoAtualizado.getDataPagamento());
+      }
       pedidoRepositoiry.save(pedidoExist);
       return ResponseEntity.ok(pedidoExist);
     } else {
