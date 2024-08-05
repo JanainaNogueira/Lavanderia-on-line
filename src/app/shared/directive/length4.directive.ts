@@ -16,7 +16,7 @@ export class length4Directive implements Validator {
 
   validate(c: FormControl): ValidationErrors | null {
     const value: string = c.value;
-    const length22Regex = new RegExp('^.{4}$');
+    const length22Regex = new RegExp('^{4}$');
     const valid = length22Regex.test(value);
     if (!valid) {
       return { 'length4': true };

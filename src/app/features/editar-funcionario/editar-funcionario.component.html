@@ -16,42 +16,41 @@
         <mat-form-field appearance="fill">
           <mat-label>Nome</mat-label>
           <input matInput type="text" placeholder="Digite seu nome" [(ngModel)]="funcionario.nome" name="nome" required>
-          <mat-error *ngIf="!funcionario.nome">
+          <mat-error *ngIf="formFuncionario.submitted && !funcionario.nome">
             Por favor preencha o nome
           </mat-error>
         </mat-form-field>
       </div>
-
       <div class="form-group">
         <mat-form-field appearance="fill">
           <mat-label>Data de Nascimento</mat-label>
-          <input matInput [matDatepicker]="picker" [(ngModel)]="funcionario.nascimento" name="nascimento" (dateChange)="onDateChange($event)" required>
+          <input matInput [matDatepicker]="picker" [(ngModel)]="nascimentoDate" name="nascimento" (dateChange)="onDateChange($event)" required>
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
-          <mat-error *ngIf="!funcionario.nascimento">
+          <mat-error *ngIf="formFuncionario.submitted && !nascimentoDate">
             Digite a data de nascimento.
           </mat-error>
         </mat-form-field>
       </div>
-
       <div class="form-group">
         <mat-form-field appearance="fill">
           <mat-label>Email</mat-label>
           <input matInput type="email" [(ngModel)]="funcionario.login" name="email" required>
-          <mat-error *ngIf="!formFuncionario.form.controls['email'].valid && formFuncionario.form.controls['email'].touched">
+          <mat-error *ngIf="formFuncionario.submitted && !formFuncionario.form.controls['email'].valid">
             Digite um email válido.
           </mat-error>
-        </mat-form-field>        
+        </mat-form-field>
       </div>
       <div class="form-group">
         <mat-form-field appearance="fill">
           <mat-label>Senha</mat-label>
-          <input matInput type="password" [(ngModel)]="funcionario.senha" name="senha" required>
-          <mat-error *ngIf="!formFuncionario.form.controls['senha'].valid && formFuncionario.form.controls['senha'].touched">
-            Digite a senha.
-          </mat-error>
-        </mat-form-field>        
-      </div>
+          <input matInput type="password" name="senha" [(ngModel)]="funcionario.senha" #senha="ngModel" required pattern="\d{4}">
+          <small *ngIf="senha.invalid && (senha.dirty || senha.touched)">
+            <div *ngIf="senha.errors?.['required']">Digite a senha.</div>
+            <div *ngIf="senha.errors?.['pattern']">A senha deve ser numérica e conter 4 caracteres.</div>
+          </small>
+        </mat-form-field>
+      </div>      
       <div class="form-group">
         <button mat-raised-button color="primary" type="submit" [disabled]="loading || !formFuncionario.form.valid">
           <ng-container *ngIf="loading; else normalButton">
@@ -61,9 +60,9 @@
             <mat-icon>save</mat-icon> Salvar
           </ng-template>
         </button>
-        <button mat-raised-button color="secondary" type="button" routerLink="/listar-funcionario">
+        <a mat-raised-button color="secondary" (click)="navigateBack()">
           <mat-icon>arrow_back</mat-icon> Voltar
-        </button>
+        </a>               
       </div>
     </form>
   </div>

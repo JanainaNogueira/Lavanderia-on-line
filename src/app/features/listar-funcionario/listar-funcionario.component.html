@@ -34,28 +34,27 @@
           color="primary"
           class="Adicionar"
         >
-        >
           <mat-icon>add</mat-icon>
         </button>
       </form>
     <div>
       <table>
         <tr>
+          <th>ID</th>
           <th>Nome</th>
           <th>Email</th>
           <th>Data de Nascimento</th>
-          <th>Senha</th>
           <th>Ações</th>
         </tr>
         <tbody>
           <tr *ngFor="let funcionario of funcionario">
+            <td>{{funcionario.id}}</td>
             <td>{{ funcionario.nome }}</td>
             <td>{{ funcionario.login }}</td>
             <td>{{ funcionario.nascimento }}</td>
-            <td>{{ funcionario.senha }}</td>
             <td>
               <button mat-raised-button 
-              color="primary" [routerLink]="['/editar-funcionario', funcionario.login]">
+              color="primary" [routerLink]="['/editar-funcionario', funcionario.id]">
                 Editar
               </button>
               <button 

@@ -95,18 +95,18 @@ public class FuncionarioREST {
             @PathVariable("id") int id,
             @RequestBody Funcionario funcionario) {
         Funcionario Func = funcionarioRepository.findById(id).orElse(null);
-        Login l = loginRepository.findBylogin(funcionario.getLogin()).orElse(null);
+        Login l = loginRepository.findBylogin(Func.getLogin()).orElse(null);
         if (Func != null && l != null) {
+            String hashSenha = HashFunc.generateSHA256(funcionario.getSenha() + salt);
             Func.setNome(funcionario.getNome());
             Func.setNascimento(funcionario.getNascimento());
             l.setLogin(funcionario.getLogin());
-            l.setSenha(funcionario.getSenha());
+            l.setSenha(hashSenha);
             loginRepository.save(l);
             Funcionario uFunc = funcionarioRepository.save(Func);
             return ResponseEntity.ok(uFunc);
         } else
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
     @DeleteMapping("/Funcionario/{id}")
