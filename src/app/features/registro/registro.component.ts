@@ -37,6 +37,7 @@ export class RegistroComponent {
   });
   estado: string = '';
   rua: string = '';
+  cepInvalido = true;
   constructor(
     private router: Router,
     private fb: FormBuilder,
@@ -78,7 +79,9 @@ export class RegistroComponent {
         numero: this.numero.value ?? ('' as string),
         telefone: this.telefone.value ?? ('' as string),
       };
-
+      if (this.cepInvalido) {
+        return alert('Por favor, preencha um cep válido');
+      }
       let c = this.clienteService.CreateCliente(
         novoCliente.nome,
         novoCliente.email,
@@ -92,6 +95,7 @@ export class RegistroComponent {
   async validateCEP() {
     this.estado = '';
     this.rua = '';
+    this.cepInvalido = true;
     let response = await fetch(
       `https://viacep.com.br/ws/${this.endereco.value}/json`
     );
@@ -101,6 +105,7 @@ export class RegistroComponent {
         if (!r.erro) {
           this.estado = r.uf;
           this.rua = r.logradouro;
+          this.cepInvalido = false;
         }
       })
       .catch((e) => {
