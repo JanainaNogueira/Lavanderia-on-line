@@ -57,12 +57,20 @@ export class ListarAdmComponent {
 
   recolherPedido(id: number | undefined, pedido: Pedido) {
     if (!id) return;
-    this.pedidoService.updatePedidoStatus(id, 'Recolhido', pedido);
+    this.pedidoService
+      .updatePedidoStatus(id, 'Recolhido', pedido)
+      .subscribe((p) => {
+        this.getPedidos();
+      });
     this.getPedidos();
   }
   confirmarLavagem(id: number | undefined, pedido: Pedido) {
     if (!id) return;
-    this.pedidoService.updatePedidoStatus(id, 'Aguardando Pagamento', pedido);
+    this.pedidoService
+      .updatePedidoStatus(id, 'Aguardando Pagamento', pedido)
+      .subscribe((p) => {
+        this.getPedidos();
+      });
     this.getPedidos();
   }
 
@@ -70,16 +78,20 @@ export class ListarAdmComponent {
     if (!id) {
       return;
     }
-    this.pedidoService.updatePedidoStatus(id, 'Finalizado', pedido);
-    this.getPedidos();
+    this.pedidoService
+      .updatePedidoStatus(id, 'Finalizado', pedido)
+      .subscribe((p) => {
+        this.getPedidos();
+      });
   }
 
   getPedidos() {
-    this.pedidoService
-      .fetchPedidos()
-      .subscribe((p) =>
-        p ? (this.pedidosOriginal = p) : alert('Erro carregar pedidos')
-      );
+    this.pedidoService.fetchPedidos().subscribe((p) => {
+      if (p) {
+        this.pedidosOriginal = p;
+        this.filtroStatus(this.statusAtual);
+      } else alert('Erro carregar pedidos');
+    });
   }
 
   filtroStatus(status: string) {
