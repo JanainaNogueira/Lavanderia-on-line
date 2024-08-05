@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatCommonModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
-import {MatInputModule} from '@angular/material/input';
+import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { MenuLateralComponent } from '../../components/menu-lateral/menu-lateral.component';
@@ -14,14 +14,23 @@ import { Pedido } from '../../shared/models/Pedido';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { PedidoDialogComponent } from '../../components/pedido-dialog/pedido-dialog.component';
 
-
 @Component({
   selector: 'app-busca-pedido',
   standalone: true,
-  imports: [CommonModule,MatCommonModule,MatButtonModule,MatInputModule,
-    MatIconModule,FormsModule, MenuLateralComponent, CancelDialog,PedidoDialogComponent,MatDialogModule],
+  imports: [
+    CommonModule,
+    MatCommonModule,
+    MatButtonModule,
+    MatInputModule,
+    MatIconModule,
+    FormsModule,
+    MenuLateralComponent,
+    CancelDialog,
+    PedidoDialogComponent,
+    MatDialogModule,
+  ],
   templateUrl: './busca-pedido.component.html',
-  styleUrl: './busca-pedido.component.css'
+  styleUrl: './busca-pedido.component.css',
 })
 export class BuscaPedidoComponent implements OnInit {
   pedidos: Pedido[] = [];
@@ -31,14 +40,16 @@ export class BuscaPedidoComponent implements OnInit {
   constructor(
     private pedidoService: PedidoService,
     private dialog: MatDialog
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.getPedidos();
   }
 
   getPedidos() {
-    this.pedidoService.fetchPedidos().subscribe((p) => p? this.pedidos = p : []);
+    this.pedidoService
+      .fetchPedidos()
+      .subscribe((p) => (p ? (this.pedidos = p) : []));
   }
 
   pesquisarPorNumero() {
@@ -48,18 +59,16 @@ export class BuscaPedidoComponent implements OnInit {
       if (this.filteredPedidos.length > 0) {
         this.openPedidoDialog(this.filteredPedidos[0]);
       } else {
-        console.log('Pedido não encontrado');
+        alert('Pedido não encontrado');
       }
     } else {
-      console.log('Número inválido');
+      alert('Forneça um numero válido');
     }
   }
 
-
   openPedidoDialog(pedido: Pedido) {
     this.dialog.open(PedidoDialogComponent, {
-      data: pedido
+      data: pedido,
     });
   }
 }
-
