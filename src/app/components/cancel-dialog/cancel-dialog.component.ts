@@ -10,6 +10,7 @@ import {
 } from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 import { PedidoService } from '../../services/pedido.service';
+import { Pedido } from '../../shared/models/Pedido';
 
 @Component({
   selector: 'app-cancelDialog',
@@ -47,7 +48,11 @@ export class CancelDialogW {
     private pedidoService: PedidoService) {
   }
   cancelarPedido(){
-    this.pedidoService.updatePedidoStatus(this.data.pedidoId,"Cancelado");
+    let find: Pedido | null = null
+    this.pedidoService.fetchPedidos().subscribe((p) => p ? (find = p.find((pedido) => pedido.id! === this.data.pedidoId) || null) : null);
+    if(find){
+      this.pedidoService.updatePedidoStatus(this.data.pedidoId,"Cancelado", find);
+    }
     this.dialogRef.close(true); 
   }
 

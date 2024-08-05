@@ -96,13 +96,38 @@ export class PedidoService {
     return this.pedidos.find((p) => p.id === numero) || null
   }
 
-  updatePedidoStatus(id: number | undefined, status: string): Pedido[]{
-    if(!id){
-      return []
+  updatePedidoStatus(id: number | undefined, status: string, pedido: Pedido){
+   
+    let clienteId = sessionStorage.getItem("clienteId");
+
+    if(clienteId){
+      const novoPedido={
+       ...pedido,
+        cliente: {id: clienteId},
+        status
+      }
+      return this.httpClient.put<Pedido>(
+        this.BASE_URL+`/${id}`,
+        JSON.stringify(novoPedido),
+        {observe:'response',headers:this.httpOptions.headers}
+        ).pipe(
+          map((resp:HttpResponse<Pedido>) =>
+          {
+            if(resp.status==201){
+              return resp.body;
+            }else{
+              return null;
+            }
+          }),
+          catchError((err,caught)=>{
+            console.error('Erro ocorreu  AQUI:', err);
+            return throwError(()=>err);
+          })
+        );
+    }else{
+      console.log('Não foi possivel encontrar o id da sessão.');
+      return of(null);
     }
-    let index = this.pedidos.findIndex(pedido => pedido.id === id)
-    this.pedidos[index] = {...this.pedidos[index], status}
-    return this.pedidos
   }
 
   getPedidosbyInterval(start: Date, end: Date){

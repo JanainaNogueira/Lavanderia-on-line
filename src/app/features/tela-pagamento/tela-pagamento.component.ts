@@ -29,7 +29,7 @@ export class TelaPagamentoComponent implements OnInit{
   }
 
   confirmarPagamento(){
-    this.pedidoService.updatePedidoStatus(this.numero, "Pago");
+    this.pedidoService.updatePedidoStatus(this.numero, "Pago", this.pedido!);
     alert("pedido pago")
     this.router.navigate(["/home"]);
   }

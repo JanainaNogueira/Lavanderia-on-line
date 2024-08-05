@@ -26,9 +26,9 @@ export class TelaFuncionarioComponent implements OnInit {
   refetch(){
     this.pedidos = this.pedidoService.getPedidosStatus("Em Aberto");
   }
-  recolherPedido(id: number | undefined){
+  recolherPedido(id: number | undefined, pedido: Pedido){
     if(id){
-      this.pedidoService.updatePedidoStatus(id, "Recolhido")
+      this.pedidoService.updatePedidoStatus(id, "Recolhido", pedido)
       this.refetch()
     }
   }
