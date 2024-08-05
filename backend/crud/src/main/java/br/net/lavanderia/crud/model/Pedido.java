@@ -25,6 +25,8 @@ public class Pedido {
     @NotBlank
     private String data;
 
+    private String dataPagamento;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "clienteId")
     private Cliente cliente;
@@ -108,6 +110,14 @@ public class Pedido {
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
+    }
+
+    public void setDataPagamento(String dataPagamento) {
+        this.dataPagamento = dataPagamento;
+    }
+
+    public String getDataPagamento() {
+        return this.dataPagamento;
     }
 
 }
