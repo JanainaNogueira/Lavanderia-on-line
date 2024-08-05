@@ -11,9 +11,9 @@ public class Pedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @NotBlank
+    @Positive
     private double valor;
-    @NotBlank
+    @Positive
     private int prazo;
 
     @OneToMany(mappedBy = "pedido")

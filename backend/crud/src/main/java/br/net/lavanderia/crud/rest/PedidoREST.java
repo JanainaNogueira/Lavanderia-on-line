@@ -46,7 +46,6 @@ public class PedidoREST {
 
   @PostMapping("/Pedidos")
   public ResponseEntity<Pedido> inserir(@RequestBody Pedido pedido) {
-    System.out.println("inserir AAAAAA pedido: " + pedido);
     Pedido pedidoExite = pedidoRepositoiry.findById(pedido.getId()).orElse(null);
     if (pedidoExite != null) {
       return ResponseEntity.status(HttpStatus.CONFLICT).build();
@@ -56,7 +55,6 @@ public class PedidoREST {
       itP.setPedido(pedidoReturn);
       itemPRepository.save(itP);
     }
-    System.out.println("inserir bbbbbbbbb pedido: " + pedido);
     return ResponseEntity.status(HttpStatus.CREATED).body(pedidoReturn);
   }
 

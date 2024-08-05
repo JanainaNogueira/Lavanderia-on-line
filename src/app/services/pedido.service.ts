@@ -22,19 +22,14 @@ export class PedidoService {
     let data = d.getDate()+'/'+(d.getMonth()+1)+'/'+d.getFullYear()
     let hora = String(d.getHours())+':'+String(d.getMinutes())
     if(clienteId){
-      const novoPedido:Pedido={
-        id:Math.floor(Math.random() * 100) + 1,
+      const novoPedido={
         data: data,
         hora: hora,
         prazo:prazo,
         status: status,
         valor:valor,
-
         roupas: roupas,
-
-
-
-        clienteId: Number(clienteId)
+        cliente: {id: clienteId}
       }
       return this.httpClient.post<Pedido>(
         this.BASE_URL,
