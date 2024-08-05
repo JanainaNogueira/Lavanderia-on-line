@@ -47,24 +47,24 @@
   refetch(){
     this.pedidos = this.pedidoService.getPedidosStatus("Em Aberto");
   }
-  recolherPedido(id: number | undefined){
+  recolherPedido(id: number | undefined, pedido: Pedido){
     if(!id)
       return
-    this.pedidoService.updatePedidoStatus(id, "Recolhido")
+    this.pedidoService.updatePedidoStatus(id, "Recolhido", pedido)
     this.getPedidos();
   }
-  confirmarLavagem(id: number | undefined){
+  confirmarLavagem(id: number | undefined, pedido: Pedido){
     if(!id)
       return
-    this.pedidoService.updatePedidoStatus(id, "Aguardando Pagamento")
+    this.pedidoService.updatePedidoStatus(id, "Aguardando Pagamento", pedido)
     this.getPedidos();
   }
 
-  finalizarPedido(id: number | undefined){
+  finalizarPedido(id: number | undefined, pedido: Pedido){
     if(!id){
       return
     }
-    this.pedidoService.updatePedidoStatus(id, "Finalizado")
+    this.pedidoService.updatePedidoStatus(id, "Finalizado", pedido)
     this.getPedidos();
   }
 
@@ -109,7 +109,8 @@
     } else {
       const pedidoId = parseInt(num, 10);
       if (!isNaN(pedidoId)) {
-        this.pedidos = this.pedidoService.getPedidosID(pedidoId);
+        let p = this.pedidoService.getPedidosID(pedidoId);
+        this.pedidos = p ? [p] : [];
         this.ordenarDataHora();
       }
     }

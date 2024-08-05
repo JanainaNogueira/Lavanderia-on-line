@@ -13,58 +13,76 @@ import { ClienteService } from '../../services/cliente/cliente.service';
 @Component({
   selector: 'app-registro',
   standalone: true,
-  imports: [RouterModule,ReactiveFormsModule,CommonModule, EmailDirective, NumericoDirective, NomeDirective, RequiredFieldDirective, length11Directive],
+  imports: [
+    RouterModule,
+    ReactiveFormsModule,
+    CommonModule,
+    EmailDirective,
+    NumericoDirective,
+    NomeDirective,
+    RequiredFieldDirective,
+    length11Directive,
+  ],
   templateUrl: './registro.component.html',
-  styleUrl: './registro.component.css'
+  styleUrl: './registro.component.css',
 })
 export class RegistroComponent {
-  FormularioRegistro=this.fb.group({
+  FormularioRegistro = this.fb.group({
     cpf: null,
     nome: null,
     email: null,
     endereco: null,
-    numero:'',
+    numero: '',
     telefone: null,
- })
-  estado: string = ""
-  rua: string = ""
-  constructor(private router: Router, private fb: FormBuilder,private clienteService: ClienteService){}
+  });
+  estado: string = '';
+  rua: string = '';
+  cepInvalido = true;
+  constructor(
+    private router: Router,
+    private fb: FormBuilder,
+    private clienteService: ClienteService
+  ) {}
 
-  get cpf () {
+  get cpf() {
     return this.FormularioRegistro.controls['cpf'];
   }
 
-  get nome () {
+  get nome() {
     return this.FormularioRegistro.controls['nome'];
   }
 
-  get email () {
+  get email() {
     return this.FormularioRegistro.controls['email'];
   }
 
-  get endereco () {
+  get endereco() {
     return this.FormularioRegistro.controls['endereco'];
   }
-  get numero () {
+  get numero() {
     return this.FormularioRegistro.controls['numero'];
   }
 
-  get telefone () {
+  get telefone() {
     return this.FormularioRegistro.controls['telefone'];
   }
 
-  criarCliente(){
+  criarCliente() {
     if (this.FormularioRegistro.valid) {
       const novoCliente = {
-        cpf: this.cpf.value ?? '' as string,
-        nome: this.nome.value ?? '' as string,
-        email: this.email.value ?? '' as string,
-        endereco: `${this.rua} ${this.numero.value as string ?? ''} ${this.estado}`.trim(),
-        numero: this.numero.value ?? '' as string,
-        telefone: this.telefone.value ?? '' as string,
+        cpf: this.cpf.value ?? ('' as string),
+        nome: this.nome.value ?? ('' as string),
+        email: this.email.value ?? ('' as string),
+        endereco: `${this.rua} ${(this.numero.value as string) ?? ''} ${
+          this.estado
+        }`.trim(),
+        numero: this.numero.value ?? ('' as string),
+        telefone: this.telefone.value ?? ('' as string),
       };
-
-      this.clienteService.CreateCliente(
+      if (this.cepInvalido) {
+        return alert('Por favor, preencha um cep válido');
+      }
+      let c = this.clienteService.CreateCliente(
         novoCliente.nome,
         novoCliente.email,
         novoCliente.cpf,
@@ -73,10 +91,26 @@ export class RegistroComponent {
       );
       this.router.navigate(['/login']);
     }
-
   }
-  async validateCEP(){
-    let response = await fetch(`https://viacep.com.br/ws/${this.endereco.value}/json`)
-    response.json().then((r) => {this.estado = r.uf; this.rua = r.logradouro} ).catch((e) => {this.estado = "" ;this.rua = ""})
+  async validateCEP() {
+    this.estado = '';
+    this.rua = '';
+    this.cepInvalido = true;
+    let response = await fetch(
+      `https://viacep.com.br/ws/${this.endereco.value}/json`
+    );
+    response
+      .json()
+      .then((r) => {
+        if (!r.erro) {
+          this.estado = r.uf;
+          this.rua = r.logradouro;
+          this.cepInvalido = false;
+        }
+      })
+      .catch((e) => {
+        this.estado = '';
+        this.rua = '';
+      });
   }
 }

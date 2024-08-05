@@ -8,6 +8,9 @@ import { EmailDirective } from '../../shared/directive/email.directive';
 import { NumericoDirective } from '../../shared/directive/numerico.directive';
 import { ClienteService } from '../../services/cliente/cliente.service';
 import { FuncionarioService } from '../../services/funcionario.service';
+import { Login } from '../../shared/models/login.model';
+import { Funcionario } from '../../shared/models/Funcionario';
+import { Cliente } from '../../shared/models/Cliente';
 
 @Component({
   selector: 'app-login',
@@ -30,13 +33,20 @@ export class LoginComponent {
   onSubmit() {
         sessionStorage.removeItem("clienteId")
         sessionStorage.removeItem("adminId")
-        if (this.loginService.validateLoginClient(this.email, this.senha)) {
-          this.router.navigate(['/home']);
-        } else  if (this.loginService.validateLoginFunc(this.email, this.senha)) {
-          this.router.navigate(['/admin']);
-        } else {
-          alert("Email ou senha invalidos");
-        }
+        this.loginService.login(new Login(this.email, this.senha)).subscribe(e => {
+          if(e == null){
+            alert("Email ou senha invalidos");
+          } else {
+            if('nascimento' in e){
+              sessionStorage.setItem("adminId", String(e.id!))
+              this.router.navigate(['admin'])
+            } else {
+              sessionStorage.setItem("clienteId", String(e.id!))
+              this.router.navigate(['home'])
+            }
+          }
+        })         
+       
   }
 
 

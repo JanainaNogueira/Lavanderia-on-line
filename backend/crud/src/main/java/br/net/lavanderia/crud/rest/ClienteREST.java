@@ -2,6 +2,8 @@ package br.net.lavanderia.crud.rest;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -9,8 +11,8 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.net.lavanderia.crud.model.Cliente;
+import br.net.lavanderia.crud.model.HashFunc;
 import br.net.lavanderia.crud.model.Login;
-
 import br.net.lavanderia.crud.respository.ClienteRepository;
 import br.net.lavanderia.crud.respository.LoginRepository;
 
@@ -28,6 +30,9 @@ public class ClienteREST {
     private ClienteRepository clienteRepository;
     @Autowired
     private LoginRepository loginRepository;
+
+    @Value("${passwordSalt}")
+    private String salt;
 
     @GetMapping("/Cliente")
     public List<Cliente> obterTodosClientes() {
@@ -61,22 +66,27 @@ public class ClienteREST {
 
     @PostMapping("/Cliente")
     public ResponseEntity<Cliente> inserir(@RequestBody Cliente cliente) {
+        System.out.println("cliente");
         Login l = loginRepository.findBylogin(cliente.getLogin()).orElse(null);
-        System.out.println(cliente);
         if (l == null) {
             Cliente c = new Cliente();
-            Login newLog = new Login(cliente.getLogin(), cliente.getSenha());
-            c.setNome(cliente.getNome());
+            String hashSenha = HashFunc.generateSHA256(cliente.getSenha() + salt);
+            Login newLog = new Login(cliente.getLogin(), hashSenha);
             c.setLoginandSenha(newLog);
             c.setCPF(cliente.getCPF());
             c.setEndereco(cliente.getEndereco());
             c.setTelefone(cliente.getTelefone());
-            c.setSenha(cliente.getSenha());
-            c.setEmail(newLog.getLogin());
+            c.setNome(cliente.getNome());
             c.setStatus("Ativo");
             loginRepository.save(newLog);
-            Cliente returnC = clienteRepository.save(c);
-            return ResponseEntity.status(HttpStatus.CREATED).body(returnC);
+            try {
+                Cliente returnC = clienteRepository.save(c);
+                return ResponseEntity.status(HttpStatus.CREATED).body(returnC);
+            } catch (DataAccessException e) {
+                loginRepository.delete(newLog);
+                return ResponseEntity.status(HttpStatus.CONFLICT).build();
+
+            }
         } else {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }

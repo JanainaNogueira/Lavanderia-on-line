@@ -25,6 +25,16 @@
         </mat-form-field>
       </div>
       <div class="form-group">
+        <mat-form-field appearance="fill">
+          <mat-label>Preço</mat-label>
+          <input matInput formControlName="preco" RequiredField invalidNumeric>
+          <small *ngIf="FormularioEditarRoupa.get('preco')?.invalid && FormularioEditarRoupa.get('preco')?.touched">
+            <div *ngIf="FormularioEditarRoupa.get('preco')?.errors?.['RequiredField']">Por favor, preencha o valor da roupa.</div>
+            <div *ngIf="FormularioEditarRoupa.get('preco')?.errors?.['invalidNumeric']">Preço deve ser numérico</div>
+          </small>
+        </mat-form-field>
+      </div>
+      <div class="form-group">
         <button mat-raised-button color="primary" type="submit">
           <mat-icon>save</mat-icon> Salvar
         </button>

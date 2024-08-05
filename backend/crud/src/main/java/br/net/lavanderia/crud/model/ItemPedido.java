@@ -1,6 +1,7 @@
 package br.net.lavanderia.crud.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 @Entity
 @Table(name = "itemPedido")
@@ -8,6 +9,7 @@ public class ItemPedido {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "roupaId")
     private Roupa roupa;
+    @Min(1)
     private int quantidade;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "pedidoId")

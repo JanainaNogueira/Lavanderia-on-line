@@ -29,25 +29,29 @@ export class ClienteService {
       this.httpOptions).pipe(
         map((resp: HttpResponse<Cliente>) => {
           if (resp.status==201) {
+            alert("Registrado com sucesso")
             return resp.body;
           }
           else {
+            alert("Erro ao cadastrar. Tente novamente")
             return null;
           }
         }),
         catchError((err, caught) => {
+          alert("Erro ao cadastrar. Tente novamente")
           return throwError(() => err);
         })
       );
   }
 
-  CreateCliente(nome: string, email: string, cpf: string, endereco: string, telefone: string): Observable<Cliente | null> | void {
+  CreateCliente(nome: string, email: string, cpf: string, endereco: string, telefone: string): void {
     const novoCliente: Cliente = {
       nome: nome,
       login: email,
       cpf: cpf,
       endereco: endereco,
       telefone: telefone,
+      status: "Ativo",
       senha: Math.floor(1000 + Math.random() * 9000).toString()
     };
     this.inserir(novoCliente).subscribe((clientReturn) => {
@@ -56,9 +60,6 @@ export class ClienteService {
         this.sendEmail(novoCliente);
       }
     })
-
-
-
   }
 
 
@@ -68,7 +69,9 @@ export class ClienteService {
     this.emailService.sendEmail({
       to_name: cliente.nome,
       from_name: 'Lavanderia Lol',
-      message:  `Sua senha é: ${cliente.senha}`,
+      message:  `Olá. Bem-vindo a Lavanderia Lol.
+      Seu Login é seu email. 
+      Sua senha é: ${cliente.senha}`,
       reply_to: cliente.login
     }).then((response) => {
       console.log(this.emailService.sendEmail)

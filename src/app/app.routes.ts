@@ -39,8 +39,8 @@ export const routes: Routes = [{
 {path: 'listar-funcionario',component:ListarFuncionarioComponent, canActivate:[AuthGuard]},
 {path: 'listar-roupa', component: ListarRoupasComponent, canActivate:[AuthGuard]},
 {path: 'inserir-funcionario',component:InserirFuncionarioComponent, canActivate:[AuthGuard]},
-{path: 'editar-funcionario/:email', component:EditarFuncionarioComponent, canActivate:[AuthGuard] },
-{path: 'editar-roupa/:tipo', component:EditarRoupasComponent, canActivate:[AuthGuard]},
+{path: 'editar-roupa/:id', component:EditarRoupasComponent, canActivate:[AuthGuard]},
+{path: 'editar-funcionario/:id', component:EditarFuncionarioComponent, canActivate:[AuthGuard] },
 {path:'inserir-roupa',component:InserirRoupaComponent, canActivate:[AuthGuard]},
 {path:'busca-pedido',component:BuscaPedidoComponent, canActivate:[AuthGuard]}
 ];

@@ -1,10 +1,12 @@
 package br.net.lavanderia.crud.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.*;
 
 import jakarta.persistence.OneToOne;
 
@@ -14,14 +16,15 @@ public class Login {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer IdLogin;
-
+    @NotBlank
     private String login;
+    @NotBlank
     private String senha;
     private String token;
 
-    @OneToOne(mappedBy = "login")
+    @OneToOne(mappedBy = "login", fetch = FetchType.LAZY)
     private Cliente cliente;
-    @OneToOne(mappedBy = "login")
+    @OneToOne(mappedBy = "login", fetch = FetchType.LAZY)
     private Funcionario funcionario;
 
     public Login() {

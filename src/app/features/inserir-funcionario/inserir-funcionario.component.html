@@ -3,55 +3,67 @@
   <div class="content">
     <div class="header">
       <h1 class="hello">Novo Funcionário</h1>
+      <div *ngIf="mensagem.length > 0">
+        <div class="alert alert-danger alert-dismissable fade show" role="alert">
+          <h4 class="alert-heading">{{ mensagem }}</h4>
+          <p>{{ mensagem_detalhes }}</p>
+          <button type="button" class="btn-close" (click)="mensagem = ''" aria-label="Close"></button>
+        </div>
+      </div>
     </div>
-    <form [formGroup]="FormularioRegistroFunc" (ngSubmit)="onSubmit()">
+    <form #formFuncionario="ngForm" (ngSubmit)="salvar()">
       <div class="form-group">
         <mat-form-field appearance="fill">
           <mat-label>Nome</mat-label>
-          <input matInput formControlName="nome" RequiredField NomeValido>
-          <small *ngIf="FormularioRegistroFunc.get('nome')?.invalid && (FormularioRegistroFunc.get('nome')?.dirty || FormularioRegistroFunc.get('nome')?.touched)">
-            <div *ngIf="FormularioRegistroFunc.get('nome')?.errors?.['RequiredField']">Por favor preencha o nome</div>
-            <div *ngIf="!FormularioRegistroFunc.get('nome')?.errors?.['RequiredField'] && FormularioRegistroFunc.get('nome')?.errors?.['NomeValido']">
-              Por favor preencha com nome e sobrenome
-            </div>
+          <input matInput name="nome" [(ngModel)]="funcionario.nome" #nome="ngModel" required>
+          <small *ngIf="nome.invalid && (nome.dirty || nome.touched)">
+            <div *ngIf="nome.errors?.['required']">Por favor preencha o nome</div>
           </small>
         </mat-form-field>
       </div>
       <div class="form-group">
         <mat-form-field appearance="fill">
           <mat-label>Data de Nascimento</mat-label>
-          <input matInput [matDatepicker]="picker" formControlName="nascimento">
+          <input matInput [matDatepicker]="picker" name="nascimento" [(ngModel)]="nascimentoDate" #nascimento="ngModel" required>
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
-          <small *ngIf="FormularioRegistroFunc.get('nascimento')?.invalid && FormularioRegistroFunc.get('nascimento')?.touched">
-            <div *ngIf="FormularioRegistroFunc.get('nascimento')?.errors?.['required']">Digite a data de nascimento.</div>
+          <small *ngIf="nascimento.invalid && nascimento.touched">
+            <div *ngIf="nascimento.errors?.['required']">Digite a data de nascimento.</div>
           </small>
         </mat-form-field>
       </div>
       <div class="form-group">
         <mat-form-field appearance="fill">
           <mat-label>Email</mat-label>
-          <input matInput formControlName="email" EmailValid RequiredField>
-          <small *ngIf="FormularioRegistroFunc.get('email')?.invalid && FormularioRegistroFunc.get('email')?.touched">
-            <div *ngIf="FormularioRegistroFunc.get('email')?.errors?.['RequiredField']">Digite o email da pessoa.</div>
-            <div *ngIf="!FormularioRegistroFunc.get('email')?.errors?.['RequiredField'] && FormularioRegistroFunc.get('email')?.errors?.['EmailValid']">Digite um email válido.</div>
+          <input matInput name="email" [(ngModel)]="funcionario.login" #email="ngModel" required email>
+          <small *ngIf="email.invalid && email.touched">
+            <div *ngIf="email.errors?.['required']">Digite o email da pessoa.</div>
+            <div *ngIf="email.errors?.['email']">Digite um email válido.</div>
           </small>
         </mat-form-field>
       </div>
       <div class="form-group">
         <mat-form-field appearance="fill">
           <mat-label>Senha</mat-label>
-          <input matInput type="password" formControlName="senha" RequiredField invalidNumeric length4>
-          <small *ngIf="FormularioRegistroFunc.get('senha')?.invalid && FormularioRegistroFunc.get('senha')?.touched">
-            <div *ngIf="FormularioRegistroFunc.get('senha')?.errors?.['RequiredField']">Digite a senha.</div>
-            <div *ngIf="!FormularioRegistroFunc.get('senha')?.errors?.['RequiredField'] && FormularioRegistroFunc.get('senha')?.errors?.['invalidNumeric']">A senha deve ser numérica.</div>
-            <div *ngIf="!FormularioRegistroFunc.get('senha')?.errors?.['RequiredField'] && !FormularioRegistroFunc.get('senha')?.errors?.['invalidNumeric'] && FormularioRegistroFunc.get('senha')?.errors?.['length4']">A senha deve conter 4 caracteres.</div>
+          <input matInput type="password" name="senha" [(ngModel)]="funcionario.senha" #senha="ngModel" required pattern="\d{4}">
+          <small *ngIf="senha.invalid && senha.touched">
+            <div *ngIf="senha.errors?.['required']">Digite a senha.</div>
+            <div *ngIf="senha.errors?.['pattern']">A senha deve ser numérica e conter 4 caracteres.</div>
           </small>
         </mat-form-field>
       </div>
       <div class="form-group">
-        <button mat-raised-button color="primary" type="submit" (click)="onSubmit()">
-          <mat-icon>save</mat-icon> Salvar
+        <button mat-raised-button 
+                color="primary" 
+                type="submit"
+                [disabled]="!formFuncionario.valid || botaoDesabilitado || loading">
+          <ng-container *ngIf="loading; else normalButton">
+            <div class="custom-spinner"></div>
+          </ng-container>
+          <ng-template #normalButton>
+            <mat-icon>save</mat-icon>
+          </ng-template>
+          Salvar
         </button>
         <a mat-raised-button color="secondary" routerLink="/listar-funcionario">
           <mat-icon>arrow_back</mat-icon> Voltar

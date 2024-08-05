@@ -18,6 +18,8 @@ import { MatDateRangePicker } from '@angular/material/datepicker';
 import { ClienteService } from '../../services/cliente/cliente.service';
 import * as jspdf from 'jspdf';
 import { Observable } from 'rxjs';
+import { forkJoin } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 
 @Component({
@@ -65,16 +67,50 @@ relatorioReceitas(){
   this.createPDF(pedidos, "Relatório financeiro", footerData)
   }
 }
-relatorioClientes(){
+
+relatorioClientes() {
   this.clienteService.getClientes().subscribe(clientes => {
-    this.createPDF(clientes ?? [], "Clientes");
+    if (clientes) {
+      const clientesFiltrados = clientes.map(cliente => {
+        const { senha, ...clienteSemSenha } = cliente;
+        return clienteSemSenha;
+      });
+      this.createPDF(clientesFiltrados, "Clientes");
+    }
   });
 }
-relatorioClientesFieis(){
-  this.clienteService.getClientes().subscribe(clientes => {
-    this.createPDF(clientes ?? [], "Clientes Fieis");
-  });
+
+relatorioClientesFieis() {
+  this.relatorioClientes();
+/*  this.clienteService.getClientes().subscribe(clientes => {
+    if (clientes) {
+      this.pedidoService.getPedidos().subscribe(pedidos => {
+        const clientesPedidos = clientes.map(cliente => {
+          const pedidosCliente = pedidos.filter(pedido => pedido.clienteId === cliente.id);
+          const receitaTotal = pedidosCliente.reduce((total, pedido) => total + pedido.valor, 0);
+          return {
+            nome: cliente.nome,
+            numeroPedidos: pedidosCliente.length,
+            receita: receitaTotal
+          };
+        });
+
+        const clientesOrdenados = clientesPedidos
+          .sort((a, b) => b.numeroPedidos - a.numeroPedidos || b.receita - a.receita)
+          .slice(0, 3); 
+
+        const dataParaPDF = clientesOrdenados.map(cliente => ({
+          Nome: cliente.nome,
+          'Número de Pedidos': cliente.numeroPedidos,
+          Receita: cliente.receita.toFixed(2)
+        }));
+
+        this.createPDF(dataParaPDF, "Clientes Fieis");
+      });
+    }
+  }); */
 }
+  
 
 
 filtroData() {
@@ -119,7 +155,7 @@ createPDF<T extends {}>(data: T[], nomeArquivo: string, footerData?: string[]){
     for( let i = 0; i < colunms.length; i++){
       let td = document.createElement("td")
       td.innerHTML = dataS[i]
-      td.setAttribute("style", "font-size: 14px")
+      td.setAttribute("style", "font-size: 10px")
       tr.appendChild(td)
     }
     tBody.appendChild(tr)
@@ -132,7 +168,7 @@ createPDF<T extends {}>(data: T[], nomeArquivo: string, footerData?: string[]){
     footerData.forEach((fd) => {
       let td = document.createElement("td")
       td.innerHTML = fd
-      td.setAttribute("style", "font-size: 14px")
+      td.setAttribute("style", "font-size: 10px")
       tf.appendChild(td)
     })
     table.appendChild(tf)

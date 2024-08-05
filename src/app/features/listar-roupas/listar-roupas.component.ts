@@ -10,6 +10,9 @@ import { Router, RouterModule } from '@angular/router';
 import { RoupasService } from '../../services/roupas.service';
 import {Roupa} from '../../shared/models/Pedido';
 import { DeleteDialog } from '../../components/delete-dialog/delete-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { AlertDialogComponent } from '../../components/alert-dialog/alert-dialog.component';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-listar-roupas',
@@ -22,10 +25,12 @@ import { DeleteDialog } from '../../components/delete-dialog/delete-dialog.compo
 export class ListarRoupasComponent {
   roupas: Roupa[] = [];
   nome: string;
-
+  mensagem: string = ""
+  mensagem_detalhes: string=""
   constructor(
     private RoupasService: RoupasService,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -33,8 +38,25 @@ export class ListarRoupasComponent {
     this.ordenarNome();
   }
 
-  getRoupas() {
-    this.roupas = this.RoupasService.getRoupas();
+  getRoupas():void {
+    this.RoupasService.getRoupas().pipe(
+      map(roupas => roupas?roupas.filter(roupa => roupa.descricao !== 'DELETADO'):[])
+    ).subscribe({
+      next:(data:Roupa[]|null)=>{
+        if(data==null){
+          this.roupas=data ??[];
+
+        }else{
+          this.roupas=data;
+          this.ordenarNome();
+        }
+      },
+      error:(err)=>{
+        this.mensagem="Erro ao buscar lista de roupas";
+        this.mensagem_detalhes = `${err.status} ${err.message}`;
+        this.openDialog();
+      }
+    });
   }
 
   ordenarNome() {
@@ -52,24 +74,39 @@ export class ListarRoupasComponent {
   }
 
   pesquisarPorNome() {
-      if (!this.nome || this.nome.trim() === '') {
-        this.getRoupas();
-      } else {
-        const pesquisaNome = this.nome.trim().toLowerCase();
-        this.roupas = this.RoupasService.getRoupas().filter(roupa =>
-          roupa.tipo.toLowerCase().includes(pesquisaNome)
-        );
-      }
-  }
-
-  openDialog(num:string){
-
-  }
-  excluirRoupa(roupa:Roupa){
-    const confirmacao = confirm(`Tem certeza que deseja excluir a roupa ${roupa.tipo}?`);
-    if (confirmacao) {
-      this.roupas = this.roupas.filter(r => r !== roupa);
-      this.ordenarNome();
+    if (!this.nome || this.nome.trim() === '') {
+      this.getRoupas();
+    } else {
+      const pesquisaNome = this.nome.trim().toLowerCase();
+      this.roupas = this.roupas.filter(roupa =>
+        roupa.tipo.toLowerCase().includes(pesquisaNome)
+      );
     }
   }
+
+  openDialog(){
+    this.dialog.open(AlertDialogComponent, {
+      data: {
+        mensagem: this.mensagem,
+        mensagem_detalhes: this.mensagem_detalhes
+      },
+      width: '250px'
+    });
+  }
+  excluirRoupa($event:any,roupa:Roupa):void{
+    $event.preventDefault();
+    this.mensagem="";
+    this.mensagem_detalhes="";
+    if(confirm(`Deseja realmente remover a roupa ${roupa.tipo}?`)){
+      this.RoupasService.excluirRoupa(roupa.id!).subscribe({
+        complete:()=> {
+          this.getRoupas();},
+        error:(err)=>{
+          this.mensagem=`Erro ao remover a roupa ${roupa.tipo}`;
+          this.mensagem_detalhes=`[${err.status}] ${err.message}`;
+          this.openDialog();
+        }
+    });
+  }
+}
 }
