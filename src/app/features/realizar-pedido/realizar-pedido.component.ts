@@ -94,11 +94,29 @@ export class RealizarPedidoComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.pedidoService.addItem(this.valorTotal, this.prazoDeEntrega, this.listaPedido,'Em Aberto');
-        this.LimparLista();
-      }else{
-        this.pedidoService.addItem(this.valorTotal, this.prazoDeEntrega, this.listaPedido,'Rejeitado');
-        this.LimparLista();
+        this.pedidoService.addItem(this.valorTotal, this.prazoDeEntrega, this.listaPedido, 'Em Aberto').subscribe({
+          next: (pedido) => {
+            if (pedido) {
+              console.log('Pedido enviado com sucesso:', pedido);
+              this.LimparLista();
+            }
+          },
+          error: (error) => {
+            console.error('Erro ao enviar o pedido aqui:', error);
+          }
+        });
+      } else {
+        this.pedidoService.addItem(this.valorTotal, this.prazoDeEntrega, this.listaPedido, 'Rejeitado').subscribe({
+          next: (pedido) => {
+            if (pedido) {
+              console.log('Pedido rejeitado e enviado com sucesso:', pedido);
+              this.LimparLista();
+            }
+          },
+          error: (error) => {
+            console.error('Erro ao enviar o pedido:', error);
+          }
+        });
       }
     });
   }

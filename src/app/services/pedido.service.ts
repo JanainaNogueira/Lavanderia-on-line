@@ -1,32 +1,62 @@
 import { Injectable } from '@angular/core';
 import { Pedido, Roupa } from '../shared/models/Pedido';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { catchError, map, Observable, of, throwError } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 export class PedidoService {
-
-  constructor() { }
+  BASE_URL='http://localhost:8080/Pedidos'
+  httpOptions = {
+    observe: "response" as "response",
+    headers: new HttpHeaders({
+    'Content-Type': 'application/json'
+    })
+  };
+  constructor(private httpClient:HttpClient) { }
   pedidos:Pedido[]=[];
 
   addItem(valor:number,prazo:number,roupas:{ roupa: Roupa;quantidade: number }[],status:string){
     let d = new Date();
     let clienteId = sessionStorage.getItem("clienteId");
-    let data = d.getDate()+'/'+d.getMonth()+'/'+d.getFullYear()
+    let data = d.getDate()+'/'+(d.getMonth()+1)+'/'+d.getFullYear()
     let hora = String(d.getHours())+':'+String(d.getMinutes())
     if(clienteId){
       const novoPedido:Pedido={
         id:Math.floor(Math.random() * 100) + 1,
-        valor:valor,
-        prazo:prazo,
-        roupas: roupas,
         data: data,
         hora: hora,
+        prazo:prazo,
         status: status,
+        valor:valor,
+
+        roupas: roupas,
+
+
+
         clienteId: Number(clienteId)
       }
-      this.pedidos.push(novoPedido)
-    } else{
-      alert("Erro ao cadastrar pedido. Atualize a página e tente novamente");
+      return this.httpClient.post<Pedido>(
+        this.BASE_URL,
+        JSON.stringify(novoPedido),
+        {observe:'response',headers:this.httpOptions.headers}
+        ).pipe(
+          map((resp:HttpResponse<Pedido>) =>
+          {
+            if(resp.status==201){
+              return resp.body;
+            }else{
+              return null;
+            }
+          }),
+          catchError((err,caught)=>{
+            console.error('Erro ocorreu  AQUI:', err);
+            return throwError(()=>err);
+          })
+        );
+    }else{
+      console.log('Não foi possivel encontrar o id da sessão.');
+      return of(null);
     }
   }
 

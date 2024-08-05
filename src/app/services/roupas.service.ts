@@ -29,7 +29,6 @@ export class RoupasService {
       this.httpOptions).pipe(
         map((resp:HttpResponse<Roupa>)=>
         {
-          console.log('Resposta recebida:', resp);
           if(resp.status==201){
             return resp.body;
           }else{
