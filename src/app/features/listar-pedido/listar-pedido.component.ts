@@ -30,6 +30,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
   styleUrls: ['./listar-pedido.component.css']
 })
 export class ListarPedidoComponent implements OnInit {
+  originalPedidos: Pedido[] = [] 
   pedidos: Pedido[] = [];
   num: any;
 
@@ -41,6 +42,12 @@ export class ListarPedidoComponent implements OnInit {
 
   ngOnInit() {
     this.refetch();
+    let j:Pedido[] = []
+    this.pedidoService.fetchPedidos().subscribe((p) => {p ? j = p : null
+      this.originalPedidos = j;
+      this.pedidos = j
+    })
+    
   }
 
   refetch(){
@@ -49,19 +56,20 @@ export class ListarPedidoComponent implements OnInit {
   }
 
   getPedidos() {
-    this.pedidos = this.pedidoService.getPedidos();
+    this.pedidoService.fetchPedidos().subscribe((p) => p ? this.originalPedidos = p : null)
   }
 
   filtroStatus(status: string) {
     if (status === 'Todos') {
-      this.getPedidos();
+      this.pedidos = this.originalPedidos
     } else if (status === 'Rejeitado/Cancelado') {
-      this.pedidos = this.pedidoService.getPedidosStatus('Rejeitado')
-        .concat(this.pedidoService.getPedidosStatus('Cancelado'));
+      this.pedidos = this.originalPedidos.filter((p) => p.status === 'Rejeitado')
+        .concat(this.originalPedidos.filter((p) => p.status === 'Cancelado'));
     } else {
-      this.pedidos = this.pedidoService.getPedidosStatus(status);
+      this.pedidos = this.originalPedidos.filter((p) => p.status === status)
     }
     this.ordenarDataHora();
+    console.log(this.pedidos)
   }
 
   ordenarDataHora() {
@@ -81,11 +89,11 @@ export class ListarPedidoComponent implements OnInit {
   pesquisarPorNumero(num: any) {
     if (num === '' || num === null || num === undefined) {
       this.getPedidos();
+      this.pedidos = this.originalPedidos;
     } else {
       const pedidoId = parseInt(num, 10);
       if (!isNaN(pedidoId)) {
-        let p = this.pedidoService.getPedidosID(pedidoId)
-        this.pedidos = p ? [p] : [];
+        this.pedidos = this.originalPedidos.filter((p) => p.id! === pedidoId)
         this.ordenarDataHora();
       }
     }

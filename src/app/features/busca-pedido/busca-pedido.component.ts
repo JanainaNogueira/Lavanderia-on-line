@@ -38,14 +38,13 @@ export class BuscaPedidoComponent implements OnInit {
   }
 
   getPedidos() {
-    this.pedidos = this.pedidoService.getPedidos();
+    this.pedidoService.fetchPedidos().subscribe((p) => p? this.pedidos = p : []);
   }
 
   pesquisarPorNumero() {
     const pedidoId = parseInt(this.num, 10);
     if (!isNaN(pedidoId)) {
-      let p =  this.pedidoService.getPedidosID(pedidoId);
-      this.filteredPedidos = p ? [p] : [];
+      this.filteredPedidos = this.pedidos.filter((p) => p.id! == pedidoId);
       if (this.filteredPedidos.length > 0) {
         this.openPedidoDialog(this.filteredPedidos[0]);
       } else {

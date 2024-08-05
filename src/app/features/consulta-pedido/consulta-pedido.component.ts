@@ -19,16 +19,18 @@ import { FormsModule } from '@angular/forms';
 })
 export class ConsultaPedidoComponent {
   pedidoSelecionado: Pedido | null = null;
-
+  pedidos: Pedido[] = []
   constructor(private route: ActivatedRoute, private pedidoService: PedidoService, private router: Router) {
-    let numero = Number(this.route.snapshot.queryParamMap.get('numero')) || 0
-    this.pedidoSelecionado = this.pedidoService.getPedidosID(numero) || null
+    this.pedidoService.fetchPedidos().subscribe((pedidos) =>  {this.pedidos =  pedidos ? pedidos : [];
+      let numero = Number(this.route.snapshot.queryParamMap.get('numero')) || 0
+      this.procurar(numero)
+    } );
   }
 
+  
 
   procurar(idPedido: number): void {
-    let pedido = this.pedidoService.getPedidosID(idPedido) || null
-    this.pedidoSelecionado = pedido;
+    this.pedidoSelecionado = this.pedidos.find((p) => p.id! === idPedido) || null;
     }
 
 
