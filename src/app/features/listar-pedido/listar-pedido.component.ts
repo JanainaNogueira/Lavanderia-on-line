@@ -84,7 +84,8 @@ export class ListarPedidoComponent implements OnInit {
     } else {
       const pedidoId = parseInt(num, 10);
       if (!isNaN(pedidoId)) {
-        this.pedidos = this.pedidoService.getPedidosID(pedidoId);
+        let p = this.pedidoService.getPedidosID(pedidoId)
+        this.pedidos = p ? [p] : [];
         this.ordenarDataHora();
       }
     }

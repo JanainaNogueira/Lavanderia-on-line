@@ -22,12 +22,12 @@ export class ConsultaPedidoComponent {
 
   constructor(private route: ActivatedRoute, private pedidoService: PedidoService, private router: Router) {
     let numero = Number(this.route.snapshot.queryParamMap.get('numero')) || 0
-    this.pedidoSelecionado = this.pedidoService.getPedidosID(numero)[0] || null
+    this.pedidoSelecionado = this.pedidoService.getPedidosID(numero) || null
   }
 
 
   procurar(idPedido: number): void {
-    let pedido = this.pedidoService.getPedidosID(idPedido)[0] || null
+    let pedido = this.pedidoService.getPedidosID(idPedido) || null
     this.pedidoSelecionado = pedido;
     }
 

@@ -55,40 +55,54 @@ export class PedidoService {
     }
   }
 
-  getPedidos(): Pedido[] {
-    let clientId = sessionStorage.getItem("clienteId")
-    let adminId = sessionStorage.getItem("adminId")
-    if(clientId){
-      return this.pedidos.filter(p => p.clienteId == Number(clientId));
-    } else if(adminId){
-      return this.pedidos
-    } else {
-      return []
+  fetchPedidos(): Observable<Pedido[]| null>{
+    let getURL = this.BASE_URL
+    let clientId = sessionStorage.getItem("clienteId");
+    if (clientId) {
+     getURL += `/Cliente/${clientId}`
     }
+    return this.httpClient.get<Pedido[]>(
+     getURL,
+      this.httpOptions).pipe(
+        map((resp:HttpResponse<Pedido[]>)=>{
+          if(resp.status===200){
+            return resp.body;
+          }else{
+            return [];
+          }
+        }),
+        catchError((err, caught)=>{
+          if(err.status ==404){
+            return of([]);
+          }else{
+            return throwError(()=>err);
+          }
+        })
+      );
+  }
+
+  getPedidos(): Pedido[] {
+    this.fetchPedidos().subscribe({
+      next: (data: Pedido[] | null) => { if (data == null) {
+        this.pedidos = [];
+      }
+      else {
+        this.pedidos = data;
+      }
+    },
+      error: (err) => {
+        
+      }
+      });
+    return this.pedidos;
   }
 
   getPedidosStatus(status: string): Pedido[] {
-    let clientId = sessionStorage.getItem("clienteId");
-    let adminId = sessionStorage.getItem("adminId");
-    if (clientId) {
-      return this.pedidos.filter(p => p.clienteId == Number(clientId) && p.status === status);
-    } else if (adminId) {
-      return this.pedidos.filter(p => p.status === status);
-    } else {
-      return [];
-    }
+    return this.getPedidos().filter((p) => p.status === status)
   }
 
-  getPedidosID(numero: number): Pedido[] {
-    let clientId = sessionStorage.getItem("clienteId");
-    let adminId = sessionStorage.getItem("adminId");
-    if (clientId) {
-      return this.pedidos.filter(p => p.clienteId == Number(clientId) && p.id === numero);
-    } else if (adminId) {
-      return this.pedidos.filter(p => p.id === numero);
-    } else {
-      return [];
-    }
+  getPedidosID(numero: number): Pedido | null {
+    return this.getPedidos().find((p) => p.id === numero) || null
   }
 
   updatePedidoStatus(id: number | undefined, status: string): Pedido[]{
@@ -101,7 +115,7 @@ export class PedidoService {
   }
 
   getPedidosbyInterval(start: Date, end: Date){
-    return this.pedidos.filter(p => this.processDateStringtoDate(p.data) >= start && this.processDateStringtoDate(p.data) <= end)
+    return this.getPedidos().filter(p => this.processDateStringtoDate(p.data) >= start && this.processDateStringtoDate(p.data) <= end)
   }
 
   processDateStringtoDate(date:string){

@@ -18,14 +18,14 @@ import { CommonModule } from '@angular/common';
 })
 export class TelaPagamentoComponent implements OnInit{
   numero: number
-  pedido: Pedido
+  pedido: Pedido | null
   isCliente: boolean = false;
   constructor(private route: ActivatedRoute, private pedidoService: PedidoService, private router: Router){
   }
 
   ngOnInit(): void {
       this.numero = Number(this.route.snapshot.paramMap.get('numero')) || 0
-      this.pedido = this.pedidoService.getPedidosID(this.numero)[0] || null
+      this.pedido = this.pedidoService.getPedidosID(this.numero)
   }
 
   confirmarPagamento(){

@@ -44,7 +44,8 @@ export class BuscaPedidoComponent implements OnInit {
   pesquisarPorNumero() {
     const pedidoId = parseInt(this.num, 10);
     if (!isNaN(pedidoId)) {
-      this.filteredPedidos = this.pedidoService.getPedidosID(pedidoId);
+      let p =  this.pedidoService.getPedidosID(pedidoId);
+      this.filteredPedidos = p ? [p] : [];
       if (this.filteredPedidos.length > 0) {
         this.openPedidoDialog(this.filteredPedidos[0]);
       } else {
