@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Roupa} from '../shared/models/Pedido'
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { catchError, map, Observable, of, throwError } from 'rxjs';
 
 @Injectable({
@@ -32,11 +32,14 @@ export class RoupasService {
           if(resp.status==201){
             return resp.body;
           }else{
-            return null;
+            throw new Error(`Resposta inesperada: ${resp.status}`);
           }
         }),
-        catchError((err,caught)=>{
-          return throwError(()=>err);
+        catchError((err: HttpErrorResponse)=>{
+          const errorMessage = err.error instanceof ErrorEvent?
+            `Erro do cliente: ${err.error.message}`:
+            `Erro do servidor: ${err.error}`;
+          return throwError(()=> new Error(errorMessage));
         })
       );
   }

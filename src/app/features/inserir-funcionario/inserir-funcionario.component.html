@@ -15,20 +15,22 @@
       <div class="form-group">
         <mat-form-field appearance="fill">
           <mat-label>Nome</mat-label>
-          <input matInput name="nome" [(ngModel)]="funcionario.nome" #nome="ngModel" required>
+          <input matInput name="nome" [(ngModel)]="funcionario.nome" #nome="ngModel" required NomeValido>
           <small *ngIf="nome.invalid && (nome.dirty || nome.touched)">
             <div *ngIf="nome.errors?.['required']">Por favor preencha o nome</div>
+            <div *ngIf="nome.errors?.['NomeValido'] && !nome.errors?.['required']">Nome deve ser do tipo caracter</div>
           </small>
         </mat-form-field>
       </div>
       <div class="form-group">
         <mat-form-field appearance="fill">
           <mat-label>Data de Nascimento</mat-label>
-          <input matInput [matDatepicker]="picker" name="nascimento" [(ngModel)]="nascimentoDate" #nascimento="ngModel" required>
+          <input matInput [matDatepicker]="picker" name="nascimento" [(ngModel)]="nascimentoDate" #nascimento="ngModel" required idadeMinima>
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
           <small *ngIf="nascimento.invalid && nascimento.touched">
             <div *ngIf="nascimento.errors?.['required']">Digite a data de nascimento.</div>
+            <div *ngIf="nascimento.errors?.['idadeMinima']">Idade deve ser maior de 16</div>
           </small>
         </mat-form-field>
       </div>
@@ -53,8 +55,8 @@
         </mat-form-field>
       </div>
       <div class="form-group">
-        <button mat-raised-button 
-                color="primary" 
+        <button mat-raised-button
+                color="primary"
                 type="submit"
                 [disabled]="!formFuncionario.valid || botaoDesabilitado || loading">
           <ng-container *ngIf="loading; else normalButton">

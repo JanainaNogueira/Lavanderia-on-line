@@ -15,12 +15,13 @@ import { NumericoDirective } from '../../shared/directive/numerico.directive';
 import { RequiredFieldDirective } from '../../shared/directive/required.directive';
 import { AlertDialogComponent } from '../../components/alert-dialog/alert-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { NomeDirective } from '../../shared/directive/nome.directive';
 
 @Component({
   selector: 'app-editar-roupas',
   standalone: true,
   imports: [CommonModule, MatCommonModule,MatButtonModule,MatInputModule,
-    MatIconModule,FormsModule, MenuAdminComponent,
+    MatIconModule,FormsModule,NomeDirective, MenuAdminComponent,
     DeleteDialog,RouterModule,ReactiveFormsModule,MatDatepickerModule,MatNativeDateModule, NumericoDirective, RequiredFieldDirective],
   templateUrl: './editar-roupas.component.html',
   styleUrls: ['./editar-roupas.component.css']
