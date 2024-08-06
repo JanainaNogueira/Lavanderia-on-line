@@ -36,6 +36,7 @@ export class RegistroComponent {
     telefone: null,
   });
   estado: string = '';
+  cidade:string='';
   rua: string = '';
   cepInvalido = true;
   constructor(
@@ -73,9 +74,7 @@ export class RegistroComponent {
         cpf: this.cpf.value ?? ('' as string),
         nome: this.nome.value ?? ('' as string),
         email: this.email.value ?? ('' as string),
-        endereco: `${this.rua} ${(this.numero.value as string) ?? ''} ${
-          this.estado
-        }`.trim(),
+        endereco: `${this.rua} ${this.numero.value ?? ''} ${this.cidade} ${this.estado}`.trim(),
         numero: this.numero.value ?? ('' as string),
         telefone: this.telefone.value ?? ('' as string),
       };
@@ -95,6 +94,7 @@ export class RegistroComponent {
   async validateCEP() {
     this.estado = '';
     this.rua = '';
+    this.cidade = '';
     this.cepInvalido = true;
     let response = await fetch(
       `https://viacep.com.br/ws/${this.endereco.value}/json`
@@ -105,6 +105,7 @@ export class RegistroComponent {
         if (!r.erro) {
           this.estado = r.uf;
           this.rua = r.logradouro;
+          this.cidade = r.localidade;
           this.cepInvalido = false;
         }
       })
