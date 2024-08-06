@@ -8,9 +8,10 @@
       <div class="form-group">
         <mat-form-field appearance="fill">
           <mat-label>Tipo</mat-label>
-          <input matInput formControlName="tipo" RequiredField>
+          <input matInput formControlName="tipo" RequiredField NomeValido>
           <small *ngIf="FormularioEditarRoupa.get('tipo')?.invalid && FormularioEditarRoupa.get('tipo')?.touched">
             <div *ngIf="FormularioEditarRoupa.get('tipo')?.errors?.['RequiredField']">Por favor, preencha o tipo de roupa.</div>
+            <div *ngIf="!FormularioEditarRoupa.get('tipo')?.errors?.['RequiredField'] && FormularioEditarRoupa.get('tipo')?.errors?.['NomeValido']">Tipo deve ser caracter</div>
           </small>
         </mat-form-field>
       </div>

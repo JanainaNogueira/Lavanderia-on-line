@@ -15,7 +15,6 @@ public class Roupa {
     private String descricao;
     @Positive
     private Double precoRoupa;
-    @Column(unique = true)
     @NotBlank
     private String tipo;
     @PositiveOrZero

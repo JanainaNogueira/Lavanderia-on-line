@@ -1,3 +1,4 @@
+import { NomeDirective } from './../../shared/directive/nome.directive';
 import { Component } from '@angular/core';
 import { MenuAdminComponent } from '../../components/menu-admin/menu-admin.component';
 import { CommonModule } from '@angular/common';
@@ -20,7 +21,7 @@ import { AlertDialogComponent } from '../../components/alert-dialog/alert-dialog
   standalone: true,
   imports: [CommonModule, MatCommonModule,MatButtonModule,MatInputModule,
     MatIconModule,FormsModule, MenuAdminComponent,
-    DeleteDialog,RouterModule,ReactiveFormsModule,MatDatepickerModule,MatNativeDateModule, NumericoDirective, RequiredFieldDirective],
+    DeleteDialog,RouterModule,NomeDirective,ReactiveFormsModule,MatDatepickerModule,MatNativeDateModule, NumericoDirective, RequiredFieldDirective],
   templateUrl: './inserir-roupa.component.html',
   styleUrls: ['./inserir-roupa.component.css']
 })
@@ -63,13 +64,9 @@ export class InserirRoupaComponent {
             this.router.navigate(['./listar-roupa'])
           },
           error:(err)=>{
-            this.mensagem = `Erro ao inserir roupa ${tipo}`;
-            if (err.status == 409) {
-              this.mensagem_detalhes = `Roupa já existente`;
-            } else {
-              this.mensagem_detalhes = `[${err.status}] ${err.message}`;
-              this.openDialog();
-            }
+            this.mensagem = `Erro ao inserir roupa: ${tipo}`;
+            this.mensagem_detalhes = err.message;
+            this.openDialog();
           }
         })
 

@@ -41,15 +41,21 @@ public class RoupaREST {
   }
 
   @PostMapping("/Roupas")
-  public ResponseEntity<Roupa> inserir(@RequestBody Roupa novaRoupa) {
+  public ResponseEntity<?> inserir(@RequestBody Roupa novaRoupa) {
     try {
       if (novaRoupa.getTipo() == null || novaRoupa.getTipo().isEmpty()) {
-        return ResponseEntity.badRequest().body(null);
+        return ResponseEntity.badRequest().body("Tipo não deve ser vazio");
       }
       if (novaRoupa.getTempo() <= 0 || novaRoupa.getPrecoRoupa() <= 0) {
-        return ResponseEntity.badRequest().body(null);
+        return ResponseEntity.badRequest().body("Tempo e preço devem ser menores que zero");
       }
-
+      List<Roupa> roupasExist = roupaRepository.findByTipo(novaRoupa.getTipo());
+      for(Roupa roupa : roupasExist){
+        if(roupa.getDescricao().equalsIgnoreCase("ATIVO")){
+          System.out.println("aqui");
+          return ResponseEntity.status(HttpStatus.CONFLICT).body("Esta roupa já existe");
+        }
+      }
       Roupa result = roupaRepository.save(novaRoupa);
 
       return new ResponseEntity<>(result, HttpStatus.CREATED);

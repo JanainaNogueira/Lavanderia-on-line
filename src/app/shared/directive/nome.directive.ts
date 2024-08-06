@@ -17,7 +17,7 @@ export class NomeDirective implements Validator {
 
   validate(c: FormControl): ValidationErrors | null {
     let nome: string = c.value;
-    const nameRegex = new RegExp('^[A-Za-zÀ-ÿ]+\\s[A-Za-zÀ-ÿ\\s]*$', 'g');
+    const nameRegex = new RegExp('^[A-Za-zÀ-ÿ]+(\\s[A-Za-zÀ-ÿ]+)*$', 'g');
     const valid = nameRegex.test(nome);
     if (nome == null || nome.trim() === "" || !valid) {
       return { 'NomeValido': true, 'requiredValue': 'Nome' };
