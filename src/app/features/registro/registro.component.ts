@@ -9,6 +9,8 @@ import { NomeDirective } from '../../shared/directive/nome.directive';
 import { RequiredFieldDirective } from '../../shared/directive/required.directive';
 import { length11Directive } from '../../shared/directive/length11.directive';
 import { ClienteService } from '../../services/cliente/cliente.service';
+import { NgxMaskDirective } from 'ngx-mask';
+
 
 @Component({
   selector: 'app-registro',
@@ -22,6 +24,7 @@ import { ClienteService } from '../../services/cliente/cliente.service';
     NomeDirective,
     RequiredFieldDirective,
     length11Directive,
+    NgxMaskDirective
   ],
   templateUrl: './registro.component.html',
   styleUrl: './registro.component.css',
