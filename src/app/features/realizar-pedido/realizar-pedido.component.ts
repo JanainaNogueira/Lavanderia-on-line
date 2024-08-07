@@ -11,6 +11,7 @@ import { MenuLateralComponent } from '../../components/menu-lateral/menu-lateral
 import { OrcamentoDialogComponent } from '../../components/orcamento-dialog/orcamento-dialog.component';
 import { map } from 'rxjs';
 
+
 @Component({
   selector: 'app-realizar-pedido',
   standalone: true,
@@ -98,6 +99,8 @@ export class RealizarPedidoComponent {
           next: (pedido) => {
             if (pedido) {
               console.log('Pedido enviado com sucesso:', pedido);
+              alert (`Pedido enviado com sucesso! Número do pedido: ${pedido.id}`);
+
               this.LimparLista();
             }
           },
