@@ -12,7 +12,6 @@
       <table>
         <tr>
           <th>Item</th>
-          <th>Tecido</th>
           <th>Quantidade</th>
           <th>Valor unitário</th>
           <th>Subtotal</th>
@@ -21,8 +20,8 @@
           <tr *ngFor="let item of pedido.roupas">
             <td>{{ item.roupa.tipo }}</td>
             <td>{{ item.quantidade }}</td>
-            <td>R$ 10,00</td>
-            <td>R$ {{ 10 * item.quantidade }}</td>
+            <td>{{item.roupa.precoRoupa}}</td>
+            <td>R$ {{ item.roupa.precoRoupa * item.quantidade }}</td>
           </tr>
         </tbody>
         <tfoot>

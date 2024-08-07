@@ -63,7 +63,7 @@ export class TelaPagamentoComponent implements OnInit {
 
   getTotalValor(): number {
     return this.pedido
-      ? this.pedido.roupas.reduce((acc, item) => acc + 10 * item.quantidade, 0)
+      ? this.pedido.roupas.reduce((acc, item) => acc + (item.roupa.precoRoupa * item.quantidade), 0)
       : 0;
   }
 
