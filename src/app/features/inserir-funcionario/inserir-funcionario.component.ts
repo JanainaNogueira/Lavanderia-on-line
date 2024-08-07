@@ -123,8 +123,8 @@ export class InserirFuncionarioComponent implements OnInit {
               this.mensagem_detalhes = `Usuário já existente`;
             } else {
               this.mensagem_detalhes = `[${err.status}] ${err.message}`;
-              this.openDialog();
             }
+            this.openDialog();
           }
         });
       }

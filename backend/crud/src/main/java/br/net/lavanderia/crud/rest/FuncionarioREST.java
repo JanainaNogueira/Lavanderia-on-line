@@ -96,6 +96,9 @@ public class FuncionarioREST {
             @RequestBody Funcionario funcionario) {
         Funcionario Func = funcionarioRepository.findById(id).orElse(null);
         Login l = loginRepository.findBylogin(Func.getLogin()).orElse(null);
+        if (l != null && !l.getLogin().equals(Func.getLogin())) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
         if (Func != null && l != null) {
             String hashSenha = HashFunc.generateSHA256(funcionario.getSenha() + salt);
             Func.setNome(funcionario.getNome());
