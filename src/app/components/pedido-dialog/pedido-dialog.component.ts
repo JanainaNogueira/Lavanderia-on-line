@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, ViewEncapsulation } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Pedido } from '../../shared/models/Pedido';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
@@ -9,7 +9,8 @@ import { CommonModule, NgFor, NgIf } from '@angular/common';
   standalone: true,
   imports: [NgIf,NgFor,CommonModule],
   templateUrl: './pedido-dialog.component.html',
-  styleUrl: './pedido-dialog.component.css'
+  styleUrl: './pedido-dialog.component.css',
+  encapsulation:ViewEncapsulation.None
 })
 export class PedidoDialogComponent {
   constructor(@Inject(MAT_DIALOG_DATA) public data: Pedido,
