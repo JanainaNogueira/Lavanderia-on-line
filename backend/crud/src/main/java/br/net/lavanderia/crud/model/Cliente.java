@@ -13,8 +13,8 @@ public class Cliente {
     private int id;
     @NotBlank
     private String nome;
-    @Column(unique = true)
     @NotBlank
+    @Column(unique = true)
     private String cpf;
     @NotBlank
     private String endereco;
