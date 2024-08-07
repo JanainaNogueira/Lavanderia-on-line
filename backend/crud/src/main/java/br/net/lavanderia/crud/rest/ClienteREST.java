@@ -68,6 +68,7 @@ public class ClienteREST {
     public ResponseEntity<Cliente> inserir(@RequestBody Cliente cliente) {
         System.out.println("cliente");
         Login l = loginRepository.findBylogin(cliente.getLogin()).orElse(null);
+
         if (l == null) {
             Cliente c = new Cliente();
             String hashSenha = HashFunc.generateSHA256(cliente.getSenha() + salt);
