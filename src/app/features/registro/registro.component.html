@@ -38,8 +38,8 @@
                     <label for="estado">Estado</label><br><input type="text" [disabled]="true" id="estado" name="estado" class="campoFormSmall" [value]="estado"> <br>
                 </div>
                 <div class="addressForm">
-                  <label for="cidade">Cidade</label><br><input type="text" [disabled]="true" id="cidade" name="cidade" class="campoFormSmall" [value]="cidade"> <br>
-              </div>
+                    <label for="cidade">Cidade</label><br><input type="text" [disabled]="true" id="cidade" name="cidade" class="campoFormSmall" [value]="cidade"><br>
+                </div>
                 <div class="addressForm">
                     <label for="rua">Rua</label><br><input type="text" [disabled]="true" id="rua" name="rua" class="campoFormSmall" [value]="rua"><br>
                 </div>
@@ -51,7 +51,7 @@
                 <div *ngIf="numero.errors?.['RequiredField']" class="erro">Por favor preencha o Numero</div>
                 <div *ngIf="!nome.errors?.['RequiredField'] && numero.errors?.['invalidNumeric']" class="erro">Por favor preencha CEP Valido</div>
             </small>
-            <label for="Telefone">Telefone</label><br><input type="text" id="telefone" name="telefone" length11 invalidNumeric  RequiredField class="campoForm" placeholder="(xx)xxxx-xxxx" formControlName="telefone"> <br>
+            <label for="Telefone">Telefone</label><br><input type="text" id="telefone" name="telefone" length11 invalidNumeric  RequiredField class="campoForm" placeholder="(xx)xxxxx-xxxx" formControlName="telefone"> <br>
             <small *ngIf="telefone.invalid && (telefone.dirty || telefone.touched)">
                 <div *ngIf="telefone.errors?.['RequiredField']" class="erro">Por favor preencha o número de telefone</div>
                 <div *ngIf="!nome.errors?.['RequiredField'] && telefone.errors?.['invalidNumeric']" class="erro">Por favor preencha apenas com números</div>
