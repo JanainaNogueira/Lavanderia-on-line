@@ -27,6 +27,7 @@ export class RegistroComponent {
     telefone: null,
  })
   estado: string = ""
+  localidade: string = ""
   rua: string = ""
   constructor(private router: Router, private fb: FormBuilder,private clienteService: ClienteService){}
 
@@ -59,7 +60,7 @@ export class RegistroComponent {
         cpf: this.cpf.value ?? '' as string,
         nome: this.nome.value ?? '' as string,
         email: this.email.value ?? '' as string,
-        endereco: `${this.rua} ${this.numero.value as string ?? ''} ${this.estado}`.trim(),
+        endereco: `${this.rua} ${this.numero.value as string ?? ''} ${this.localidade} ${this.estado}`.trim(),
         numero: this.numero.value ?? '' as string,
         telefone: this.telefone.value ?? '' as string,
       };
@@ -77,6 +78,6 @@ export class RegistroComponent {
   }
   async validateCEP(){
     let response = await fetch(`https://viacep.com.br/ws/${this.endereco.value}/json`)
-    response.json().then((r) => {this.estado = r.uf; this.rua = r.logradouro} ).catch((e) => {this.estado = "" ;this.rua = ""})
+    response.json().then((r) => {this.estado = r.uf; this.localidade = r.localidade; this.rua = r.logradouro} ).catch((e) => {this.estado = "" ; this.localidade = "";this.rua = ""})
   }
 }
