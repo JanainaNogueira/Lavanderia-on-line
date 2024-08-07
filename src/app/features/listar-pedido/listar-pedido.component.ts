@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, DecimalPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatCommonModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
@@ -24,7 +24,8 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
     FormsModule,
     MenuLateralComponent,
     CancelDialogW,
-    MatDialogModule
+    MatDialogModule,
+    DecimalPipe
   ],
   templateUrl: './listar-pedido.component.html',
   styleUrls: ['./listar-pedido.component.css']
