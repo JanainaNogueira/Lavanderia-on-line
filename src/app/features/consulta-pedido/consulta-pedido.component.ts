@@ -22,14 +22,13 @@ export class ConsultaPedidoComponent {
   pedidoSelecionado: Pedido | null = null;
   pedidos: Pedido[] = []
   isCliente: boolean = false;
+  pedido: Pedido | null;
   constructor(private route: ActivatedRoute, private pedidoService: PedidoService, private router: Router) {
     this.pedidoService.fetchPedidos().subscribe((pedidos) =>  {this.pedidos =  pedidos ? pedidos : [];
       let numero = Number(this.route.snapshot.queryParamMap.get('numero')) || 0
       this.procurar(numero)
     } );
   }
-
-  
 
   procurar(idPedido: number): void {
     this.pedidoSelecionado = this.pedidos.find((p) => p.id! === idPedido) || null;
@@ -40,6 +39,12 @@ export class ConsultaPedidoComponent {
       console.log(clienteId);
       this.isCliente = clienteId !== null;
       return this.isCliente;
+    }
+
+    getTotalValor(): number {
+      return this.pedidoSelecionado 
+        ? this.pedidoSelecionado.roupas.reduce((acc, item) => acc + (item.roupa.precoRoupa * item.quantidade), 0)
+        : 0;
     }
   
 
