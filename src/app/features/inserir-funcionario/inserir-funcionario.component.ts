@@ -17,6 +17,7 @@ import { NomeDirective } from '../../shared/directive/nome.directive';
 import { NumericoDirective } from '../../shared/directive/numerico.directive';
 import { RequiredFieldDirective } from '../../shared/directive/required.directive';
 import { MenuAdminComponent } from '../../components/menu-admin/menu-admin.component';
+import { DataDirective } from '../../shared/directive/data.directive';
 
 @Component({
   selector: 'app-inserir-funcionario',
@@ -38,9 +39,10 @@ import { MenuAdminComponent } from '../../components/menu-admin/menu-admin.compo
     RequiredFieldDirective,
     length4Directive,
     MenuAdminComponent,
-    MatDialogModule
+    MatDialogModule,
+    DataDirective
   ],
-  templateUrl: './inserir-funcionario.component.html', 
+  templateUrl: './inserir-funcionario.component.html',
   styleUrls: ['./inserir-funcionario.component.css']
 })
 export class InserirFuncionarioComponent implements OnInit {
@@ -63,7 +65,7 @@ export class InserirFuncionarioComponent implements OnInit {
     private dialog: MatDialog,
     private route: ActivatedRoute
   ) {}
-  
+
   openDialog(): void {
     this.dialog.open(AlertDialogComponent, {
       data: {
@@ -121,8 +123,8 @@ export class InserirFuncionarioComponent implements OnInit {
               this.mensagem_detalhes = `Usuário já existente`;
             } else {
               this.mensagem_detalhes = `[${err.status}] ${err.message}`;
-              this.openDialog();
             }
+            this.openDialog();
           }
         });
       }
@@ -138,5 +140,5 @@ export class InserirFuncionarioComponent implements OnInit {
     const year = data.getFullYear();
     return `${day}/${month}/${year}`;
   }
-  
+
 }

@@ -15,7 +15,6 @@ public class Roupa {
     private String descricao;
     @Positive
     private Double precoRoupa;
-    @Column(unique = true)
     @NotBlank
     private String tipo;
     @PositiveOrZero
@@ -26,12 +25,12 @@ public class Roupa {
     public Roupa() {
     }
 
-    public Roupa(String tipo, int tempo, String descricao, Double precoRoupa,int IdRoupa) {
+    public Roupa(String tipo, int tempo, String descricao, Double precoRoupa, int IdRoupa) {
         this.tipo = tipo;
         this.tempo = tempo;
         this.descricao = descricao;
         this.precoRoupa = precoRoupa;
-        this.IdRoupa=IdRoupa;
+        this.IdRoupa = IdRoupa;
     }
 
     public String getTipo() {

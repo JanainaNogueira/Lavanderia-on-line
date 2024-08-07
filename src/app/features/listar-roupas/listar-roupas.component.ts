@@ -13,12 +13,13 @@ import { DeleteDialog } from '../../components/delete-dialog/delete-dialog.compo
 import { MatDialog } from '@angular/material/dialog';
 import { AlertDialogComponent } from '../../components/alert-dialog/alert-dialog.component';
 import { map } from 'rxjs';
+import {NomeDirective} from '../../shared/directive/nome.directive'
 
 @Component({
   selector: 'app-listar-roupas',
   standalone: true,
   imports: [CommonModule,MatCommonModule,MatButtonModule,MatInputModule,
-    MatIconModule,FormsModule, MenuAdminComponent,DeleteDialog,RouterModule, DeleteDialog ],
+    MatIconModule,FormsModule,NomeDirective, MenuAdminComponent,DeleteDialog,RouterModule, DeleteDialog ],
   templateUrl: './listar-roupas.component.html',
   styleUrl: './listar-roupas.component.css'
 })

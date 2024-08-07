@@ -117,7 +117,11 @@ export class EditarFuncionarioComponent implements OnInit {
           error: (err) => {
             this.loading = false;
             this.mensagem = `Erro atualizando usuário ${this.funcionario.nome}`;
-            this.mensagem_detalhes = `[${err.status}] ${err.message}`;
+            if (err.status == 409) {
+              this.mensagem_detalhes = `Email já utilizado`;
+            } else {
+              this.mensagem_detalhes = `[${err.status}] ${err.message}`;
+            }
             this.openDialog();
           }
         });
