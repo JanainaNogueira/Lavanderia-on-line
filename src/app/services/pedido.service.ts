@@ -25,7 +25,10 @@ export class PedidoService {
     let d = new Date();
     let clienteId = sessionStorage.getItem('clienteId');
     let data = d.getDate() + '/' + (d.getMonth() + 1) + '/' + d.getFullYear();
-    let hora = String(d.getHours()) + ':' + String(d.getMinutes());
+    let hora =
+      String(d.getHours()).padStart(2, '0') +
+      ':' +
+      String(d.getMinutes()).padStart(2, '0');
     if (clienteId) {
       const novoPedido = {
         data: data,
