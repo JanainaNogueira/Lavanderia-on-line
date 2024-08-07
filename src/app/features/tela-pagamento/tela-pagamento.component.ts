@@ -6,11 +6,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { Pedido } from '../../shared/models/Pedido';
 import { PedidoService } from '../../services/pedido.service';
 import { CommonModule } from '@angular/common';
+import { MenuLateralComponent } from "../../components/menu-lateral/menu-lateral.component";
 
 @Component({
   selector: 'app-tela-pagamento',
   standalone: true,
-  imports: [MenuAdminComponent, MatButtonModule, MatCommonModule, CommonModule],
+  imports: [MenuLateralComponent, MatButtonModule, MatCommonModule, CommonModule, MenuLateralComponent],
   templateUrl: './tela-pagamento.component.html',
   styleUrl: './tela-pagamento.component.css',
 })

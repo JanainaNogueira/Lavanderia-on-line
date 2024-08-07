@@ -218,8 +218,9 @@ export class ListarAdmComponent {
     this.filtroData();
   }
 
-  visualizarPedido(num: number | undefined) {
-    if (!num) return;
-    this.router.navigateByUrl(`/payment/${num}`);
+  visualizarPedido(id: number | undefined) {
+    if(!id)
+      return
+    this.router.navigate(['/consulta-pedido'], { queryParams: { numero: id } });
   }
 }
