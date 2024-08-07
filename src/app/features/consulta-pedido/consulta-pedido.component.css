@@ -17,6 +17,13 @@ img{
 
   }
 
+  tfoot td{
+    font-weight: bolder;
+    font-size: clamp(15px, 5vh, 20px);
+    text-align: right;
+    padding: 50px;
+  }
+
 table{
     text-align: center;
     border-collapse: collapse;

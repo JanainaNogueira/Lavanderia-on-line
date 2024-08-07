@@ -18,7 +18,7 @@
             <small *ngIf="nome.invalid && (nome.dirty || nome.touched)">
                 <div *ngIf="nome.errors?.['RequiredField']" class="erro">Por favor preencha o nome</div>
                 <div *ngIf="!nome.errors?.['RequiredField'] && nome.errors?.['NomeValido']" class="erro">
-                    Por favor preencha com nome e sobrenome
+                    Preencha apenas com caracteres alfabeticos
                   </div>
             </small>
             <label for="email">Email</label><br><input type="email" id="email" name="email" class="campoForm" placeholder="Digite seu email" RequiredField EmailValid formControlName="email"> <br>
@@ -53,9 +53,9 @@
             </small>
             <label for="Telefone">Telefone</label><br><input type="text" id="telefone" name="telefone" length11 invalidNumeric  RequiredField class="campoForm" placeholder="(xx)xxxxx-xxxx" formControlName="telefone"> <br>
             <small *ngIf="telefone.invalid && (telefone.dirty || telefone.touched)">
-                <div *ngIf="telefone.errors?.['RequiredField']" class="erro">Por favor preencha o número de telefone (com DDD)</div>
+                <div *ngIf="telefone.errors?.['RequiredField']" class="erro">Por favor preencha o número de telefone</div>
                 <div *ngIf="!nome.errors?.['RequiredField'] && telefone.errors?.['invalidNumeric']" class="erro">Por favor preencha apenas com números</div>
-                <div *ngIf="!nome.errors?.['RequiredField'] && !telefone.errors?.['invalidNumeric'] && telefone.errors?.['length11']" class="erro">Por favor preencha um telefone completo (com DDD)</div>
+                <div *ngIf="!nome.errors?.['RequiredField'] && !telefone.errors?.['invalidNumeric'] && telefone.errors?.['length11']" class="erro">O número de telefone deve conter o DDD</div>
             </small>
             <button class="botao" (click)="criarCliente()">Continue</button>
           </form>

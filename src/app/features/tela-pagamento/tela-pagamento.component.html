@@ -1,51 +1,52 @@
-<app-menu-admin />
+<app-menu-lateral/>
 <div class="layout">
   <div class="content">
     <div class="header">
       <h1 class="hello">Pedido {{ numero }}</h1>
-      <h2 class="amountOpen">Status: {{ pedido.status }}</h2>
+      <div *ngIf="pedido != null">
+        <h2 class="amountOpen">Status: {{ pedido.status }}</h2>
+      </div>
     </div>
-
-    <h2>Detalhes do Pedido</h2>
-    <table>
-      <tr>
-        <th>Item</th>
-        <th>Tecido</th>
-        <th>Quantidade</th>
-        <th>Valor unitário</th>
-        <th>Subtotal</th>
-      </tr>
-      <tbody>
-        <tr *ngFor="let item of pedido.roupas">
-          <td>{{ item.roupa.tipo }}</td>
-          <td>{{ item.quantidade }}</td>
-          <td>R$ 10,00</td>
-          <td>R$ {{ 10 * item.quantidade }}</td>
+    <div *ngIf="pedido != null">
+      <h2>Detalhes do Pedido</h2>
+      <table>
+        <tr>
+          <th>Item</th>
+          <th>Quantidade</th>
+          <th>Valor unitário</th>
+          <th>Subtotal</th>
         </tr>
-      </tbody>
-      <tfoot>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td>
-          <button
-          *ngIf="isCliente"
-            mat-raised-button
-            color="primary"
-            (click)="confirmarPagamento()"
-          >
-            Confirmar Pagamento
-          </button>
-        </td>
-      </tfoot>
-      <tfoot>
-        <td></td>
-        <td>Numero Total de Items</td>
-        <td>{{getTotalItens()}}</td>
-        <td>Valor Total:</td>
-        <td>R$ {{getTotalValor()}}</td>
-      </tfoot>
-    </table>
+        <tbody>
+          <tr *ngFor="let item of pedido.roupas">
+            <td>{{ item.roupa.tipo }}</td>
+            <td>{{ item.quantidade }}</td>
+            <td>{{item.roupa.precoRoupa}}</td>
+            <td>R$ {{ item.roupa.precoRoupa * item.quantidade }}</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>
+            <button 
+              mat-raised-button
+              color="primary"
+              (click)="confirmarPagamento()"
+            >
+              Confirmar Pagamento
+            </button>
+          </td>
+        </tfoot>
+        <tfoot>
+          <td></td>
+          <td>Numero Total de Items</td>
+          <td>{{ getTotalItens() }}</td>
+          <td>Valor Total:</td>
+          <td>R$ {{ getTotalValor() }}</td>
+        </tfoot>
+      </table>
+    </div>
   </div>
 </div>

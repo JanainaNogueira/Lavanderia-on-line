@@ -114,4 +114,8 @@ public class Cliente {
         this.login = login;
     }
 
+    public List<Pedido> getPedidos() {
+        return this.pedidos;
+    }
+
 }

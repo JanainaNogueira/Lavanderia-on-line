@@ -13,12 +13,11 @@ public class Roupa {
     private Integer IdRoupa;
     @NotBlank
     private String descricao;
-    @NotBlank
+    @Positive
     private Double precoRoupa;
-    @Column(unique = true)
     @NotBlank
     private String tipo;
-    @NotBlank
+    @PositiveOrZero
     private int tempo;
     @OneToMany(mappedBy = "roupa")
     private List<ItemPedido> pedidos;
@@ -26,11 +25,12 @@ public class Roupa {
     public Roupa() {
     }
 
-    public Roupa(String tipo, int tempo, String descricao, Double precoRoupa) {
+    public Roupa(String tipo, int tempo, String descricao, Double precoRoupa, int IdRoupa) {
         this.tipo = tipo;
         this.tempo = tempo;
         this.descricao = descricao;
         this.precoRoupa = precoRoupa;
+        this.IdRoupa = IdRoupa;
     }
 
     public String getTipo() {

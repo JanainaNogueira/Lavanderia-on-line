@@ -3,6 +3,7 @@ package br.net.lavanderia.crud.rest;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -29,9 +30,9 @@ public class RoupaREST {
     return ResponseEntity.ok(roupaRepository.findAll());
   }
 
-  @GetMapping("/Roupas/{tipo}")
-  public ResponseEntity<Roupa> getRoupaTipo(@PathVariable("tipo") String tipo) {
-    Roupa roupa = roupaRepository.findByTipo(tipo);
+  @GetMapping("/Roupas/{id}")
+  public ResponseEntity<Roupa> getRoupaId(@PathVariable("id") Integer id) {
+    Roupa roupa = roupaRepository.findById(id).orElse(null);
     if (roupa == null) {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     } else {
@@ -40,20 +41,34 @@ public class RoupaREST {
   }
 
   @PostMapping("/Roupas")
-  public ResponseEntity<Roupa> inserir(@RequestBody Roupa roupa) {
-    Roupa roupaExiste = roupaRepository.findByTipo(roupa.getTipo());
-    if (roupaExiste != null) {
-      return ResponseEntity.status(HttpStatus.CONFLICT).build();
+  public ResponseEntity<?> inserir(@RequestBody Roupa novaRoupa) {
+    try {
+      if (novaRoupa.getTipo() == null || novaRoupa.getTipo().isEmpty()) {
+        return ResponseEntity.badRequest().body("Tipo não deve ser vazio");
+      }
+      if (novaRoupa.getTempo() <= 0 || novaRoupa.getPrecoRoupa() <= 0) {
+        return ResponseEntity.badRequest().body("Tempo e preço devem ser menores que zero");
+      }
+      List<Roupa> roupasExist = roupaRepository.findByTipo(novaRoupa.getTipo());
+      for(Roupa roupa : roupasExist){
+        if(roupa.getDescricao().equalsIgnoreCase("ATIVO")){
+          System.out.println("aqui");
+          return ResponseEntity.status(HttpStatus.CONFLICT).body("Esta roupa já existe");
+        }
+      }
+      Roupa result = roupaRepository.save(novaRoupa);
+
+      return new ResponseEntity<>(result, HttpStatus.CREATED);
+    } catch (DataAccessException e) {
+      return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
     }
-    Roupa Result = roupaRepository.save(roupa);
-    return ResponseEntity.status(HttpStatus.CREATED).body(Result);
   }
 
-  @PutMapping("Roupas/{tipo}")
+  @PutMapping("Roupas/{id}")
   public ResponseEntity<Roupa> alterar(
-      @PathVariable("tipo") String tipo,
+      @PathVariable("id") Integer id,
       @RequestBody Roupa roupaAtualizada) {
-    Roupa roupaExist = roupaRepository.findByTipo(tipo);
+    Roupa roupaExist = roupaRepository.findById(id).orElse(null);
     if (roupaExist != null) {
       roupaExist.setTipo(roupaAtualizada.getTipo());
       roupaExist.setTempo(roupaAtualizada.getTempo());
@@ -66,10 +81,10 @@ public class RoupaREST {
     }
   }
 
-  @DeleteMapping("/Roupas/{tipo}")
+  @DeleteMapping("/Roupas/{id}")
   public ResponseEntity<Roupa> remover(
-      @PathVariable("tipo") String tipo) {
-    Roupa roupa = roupaRepository.findByTipo(tipo);
+      @PathVariable("id") Integer id) {
+    Roupa roupa = roupaRepository.findById(id).orElse(null);
     if (roupa != null) {
       roupa.setDescricao("DELETADO");
       roupaRepository.save(roupa);

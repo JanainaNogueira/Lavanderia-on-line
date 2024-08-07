@@ -43,6 +43,7 @@
   tfoot td:nth-child(odd){
     font-weight: bolder;
     font-size: clamp(15px, 5vh, 20px);
+    text-align: right;
   }
   .campoForm {
     background-color: var(--branco);

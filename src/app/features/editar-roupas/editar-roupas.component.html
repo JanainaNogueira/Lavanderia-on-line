@@ -8,9 +8,10 @@
       <div class="form-group">
         <mat-form-field appearance="fill">
           <mat-label>Tipo</mat-label>
-          <input matInput formControlName="tipo" RequiredField>
+          <input matInput formControlName="tipo" RequiredField NomeValido>
           <small *ngIf="FormularioEditarRoupa.get('tipo')?.invalid && FormularioEditarRoupa.get('tipo')?.touched">
             <div *ngIf="FormularioEditarRoupa.get('tipo')?.errors?.['RequiredField']">Por favor, preencha o tipo de roupa.</div>
+            <div *ngIf="!FormularioEditarRoupa.get('tipo')?.errors?.['RequiredField'] && FormularioEditarRoupa.get('tipo')?.errors?.['NomeValido']">Tipo deve ser caracter</div>
           </small>
         </mat-form-field>
       </div>
@@ -21,6 +22,16 @@
           <small *ngIf="FormularioEditarRoupa.get('tempo')?.invalid && FormularioEditarRoupa.get('tempo')?.touched">
             <div *ngIf="FormularioEditarRoupa.get('tempo')?.errors?.['RequiredField']">Por favor, preencha o tempo de lavagem.</div>
             <div *ngIf="FormularioEditarRoupa.get('tempo')?.errors?.['invalidNumeric']">Tempo deve ser numérico</div>
+          </small>
+        </mat-form-field>
+      </div>
+      <div class="form-group">
+        <mat-form-field appearance="fill">
+          <mat-label>Preço</mat-label>
+          <input matInput formControlName="preco" RequiredField invalidNumeric>
+          <small *ngIf="FormularioEditarRoupa.get('preco')?.invalid && FormularioEditarRoupa.get('preco')?.touched">
+            <div *ngIf="FormularioEditarRoupa.get('preco')?.errors?.['RequiredField']">Por favor, preencha o valor da roupa.</div>
+            <div *ngIf="FormularioEditarRoupa.get('preco')?.errors?.['invalidNumeric']">Preço deve ser numérico</div>
           </small>
         </mat-form-field>
       </div>

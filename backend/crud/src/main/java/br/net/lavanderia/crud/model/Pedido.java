@@ -11,9 +11,9 @@ public class Pedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @NotBlank
+    @Positive
     private double valor;
-    @NotBlank
+    @Positive
     private int prazo;
 
     @OneToMany(mappedBy = "pedido")
@@ -24,6 +24,8 @@ public class Pedido {
     private String status;
     @NotBlank
     private String data;
+
+    private String dataPagamento;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "clienteId")
@@ -108,6 +110,14 @@ public class Pedido {
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
+    }
+
+    public void setDataPagamento(String dataPagamento) {
+        this.dataPagamento = dataPagamento;
+    }
+
+    public String getDataPagamento() {
+        return this.dataPagamento;
     }
 
 }

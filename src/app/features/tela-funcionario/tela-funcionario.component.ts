@@ -11,27 +11,36 @@ import { Pedido } from '../../shared/models/Pedido';
 @Component({
   selector: 'app-tela-funcionario',
   standalone: true,
-  imports: [MenuAdminComponent, CommonModule, MatButtonModule, MatCommonModule, CancelDialog],
+  imports: [
+    MenuAdminComponent,
+    CommonModule,
+    MatButtonModule,
+    MatCommonModule,
+    CancelDialog,
+  ],
   templateUrl: './tela-funcionario.component.html',
-  styleUrl: './tela-funcionario.component.css'
+  styleUrl: './tela-funcionario.component.css',
 })
 export class TelaFuncionarioComponent implements OnInit {
-  pedidos: Pedido[] = []
-  redirectPayment(num: number){
+  pedidos: Pedido[] = [];
+  redirectPayment(num: number) {
     this.router.navigateByUrl(`/payment/${num}`);
   }
   ngOnInit(): void {
-    this.refetch()
+    this.refetch();
   }
-  refetch(){
-    this.pedidos = this.pedidoService.getPedidosStatus("Em Aberto");
+  refetch() {
+    this.pedidoService
+      .fetchPedidos()
+      .subscribe((ped) =>
+        ped ? (this.pedidos = ped.filter((p) => p.status == 'Em Aberto')) : null
+      );
   }
-  recolherPedido(id: number | undefined){
-    if(id){
-      this.pedidoService.updatePedidoStatus(id, "Recolhido")
-      this.refetch()
-    }
+  recolherPedido(id: number | undefined, pedido: Pedido) {
+    this.pedidoService
+      .updatePedidoStatus(id, 'Recolhido', pedido)
+      .subscribe((r) => this.refetch());
   }
 
-  constructor(private router: Router, private pedidoService: PedidoService) { }
+  constructor(private router: Router, private pedidoService: PedidoService) {}
 }

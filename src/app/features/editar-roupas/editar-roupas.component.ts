@@ -13,57 +13,98 @@ import { Roupa } from '../../shared/models/Pedido';
 import { RoupasService } from '../../services/roupas.service';
 import { NumericoDirective } from '../../shared/directive/numerico.directive';
 import { RequiredFieldDirective } from '../../shared/directive/required.directive';
+import { AlertDialogComponent } from '../../components/alert-dialog/alert-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { NomeDirective } from '../../shared/directive/nome.directive';
 
 @Component({
   selector: 'app-editar-roupas',
   standalone: true,
   imports: [CommonModule, MatCommonModule,MatButtonModule,MatInputModule,
-    MatIconModule,FormsModule, MenuAdminComponent,
+    MatIconModule,FormsModule,NomeDirective, MenuAdminComponent,
     DeleteDialog,RouterModule,ReactiveFormsModule,MatDatepickerModule,MatNativeDateModule, NumericoDirective, RequiredFieldDirective],
   templateUrl: './editar-roupas.component.html',
   styleUrls: ['./editar-roupas.component.css']
 })
 export class EditarRoupasComponent implements OnInit {
   FormularioEditarRoupa: FormGroup;
-  roupa: Roupa | undefined;
+  roupa: Roupa = {tipo:"",tempo:0,precoRoupa:0,descricao:"",id:0};
+  idRoupa:string;
+  mensagem: string = "";
+  mensagem_detalhes: string = "";
+  tempoAntigo: number = 0;
+  precoAntigo: number = 0;
 
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private roupasService: RoupasService
+    private roupasService: RoupasService,
+    private dialog: MatDialog,
   ) { }
+  openDialog(): void {
+    this.dialog.open(AlertDialogComponent, {
+      data: {
+        mensagem: this.mensagem,
+        mensagem_detalhes: this.mensagem_detalhes
+      },
+      width: '250px'
+    });
+  }
 
   ngOnInit(): void {
     this.createForm();
-    const tipo = this.route.snapshot.paramMap.get('tipo');
-    if (tipo) {
-      this.roupa = this.roupasService.getRoupaByTipo(tipo);
-      if (!this.roupa) {
-        this.router.navigate(['/listar-roupa']);
-      } else {
-        this.FormularioEditarRoupa.patchValue({
-          tipo: this.roupa.tipo,
-          tempo: this.roupa.tempo,
-        });
-      }
+    this.idRoupa= this.route.snapshot.params['id'];
+    if (this.idRoupa) {
+      this.roupasService.getRoupaById(+this.idRoupa).subscribe({
+        next:(roupa)=>{
+          if(roupa==null){
+            this.mensagem=`Erro ao buscar roupa ${this.idRoupa}`;
+            this.mensagem_detalhes=`Roupa não encontrada ${this.idRoupa}`;
+          }else{
+            this.roupa = roupa;
+            this.tempoAntigo = roupa.tempo;
+            this.precoAntigo = roupa.precoRoupa;
+            this.FormularioEditarRoupa.patchValue({
+              tipo:roupa.tipo,
+              tempo:roupa.tempo,
+              preco:roupa.precoRoupa
+            });
+          }
+        },
+        error:(err)=>{
+          this.mensagem = `Erro ao buscar roupa: ${this.idRoupa}`;
+          this.mensagem_detalhes=`[${err.status}] ${err.message}`;
+          this.openDialog();
+        }
+      })
     } else {
-      this.router.navigate(['/listar-roupa']);
+      this.roupa={tipo:"",tempo:0,precoRoupa:0,descricao:"",id:0};
   }
 }
   createForm() {
     this.FormularioEditarRoupa = this.formBuilder.group({
-      tipo: null,
-      tempo: null
+      tipo: [null,Validators.required],
+      tempo: [null,Validators.required],
+      preco:[null,Validators.required]
     });
   }
 
-  onSubmit() {
-    if (this.FormularioEditarRoupa.valid && this.roupa) {
-      this.roupa.tipo = this.FormularioEditarRoupa.value.tipo;
-      this.roupa.tempo = this.FormularioEditarRoupa.value.tempo;
-      this.roupasService.editarRoupa(this.roupa);
-      this.router.navigate(['/listar-roupa']);
+  onSubmit():void {
+    if (this.FormularioEditarRoupa.valid) {
+      this.roupa.precoRoupa=this.FormularioEditarRoupa.get('preco')?.value;
+      this.roupa.tempo = this.FormularioEditarRoupa.get('tempo')?.value;
+      this.roupa.tipo = this.FormularioEditarRoupa.get('tipo')?.value;
+      this.roupasService.editarRoupa(this.roupa).subscribe({
+        next:()=>{
+          this.router.navigate(["/listar-roupa"]);
+        },
+        error:(err)=>{
+          this.mensagem=`Erro ao atualizar roupa ${this.roupa.tipo}`
+          this.mensagem_detalhes=`[${err.status}] ${err.message}`;
+          this.openDialog();
+        }
+      });
     }
   }
 }
