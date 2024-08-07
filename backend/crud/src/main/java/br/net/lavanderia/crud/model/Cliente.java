@@ -13,6 +13,7 @@ public class Cliente {
     private int id;
     @NotBlank
     private String nome;
+    @Column(unique = true)
     @NotBlank
     private String cpf;
     @NotBlank
