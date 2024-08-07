@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, DecimalPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatCommonModule, MatNativeDateModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
@@ -14,6 +14,7 @@ import { Pedido } from '../../shared/models/Pedido';
 import { MatDateRangeInput } from '@angular/material/datepicker';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDateRangePicker } from '@angular/material/datepicker';
+import { of, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-listar-adm',
@@ -31,6 +32,7 @@ import { MatDateRangePicker } from '@angular/material/datepicker';
     MatNativeDateModule,
     MatDateRangePicker,
     MatDatepickerModule,
+    DecimalPipe
   ],
   templateUrl: './listar-adm.component.html',
   styleUrl: './listar-adm.component.css',
@@ -134,17 +136,18 @@ export class ListarAdmComponent {
   }
 
   pesquisarPorNumero(num: any) {
-    if (!num) {
-      this.pedidos = [...this.pedidosOriginal];
+    if (num === '' || num === null || num === undefined) {
+      this.getPedidos();
+      this.pedidos = this.pedidosOriginal;
     } else {
       const pedidoId = parseInt(num, 10);
       if (!isNaN(pedidoId)) {
-        let p = this.pedidoService.getPedidosID(pedidoId);
-        this.pedidos = p ? [p] : [];
+        this.pedidos = this.pedidosOriginal.filter((p) => p.id! === pedidoId)
         this.ordenarDataHora();
       }
     }
   }
+  
 
   redirectPayment(num: string) {
     this.router.navigateByUrl(`/payment/${num}`);

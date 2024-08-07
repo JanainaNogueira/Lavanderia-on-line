@@ -91,7 +91,7 @@
             <td>{{ pedido.status }}</td>
             <td>{{ pedido.data }}</td>
             <td>{{ pedido.hora }}</td>
-            <td>{{ pedido.valor }}</td>
+            <td>R${{ pedido.valor| number:'1.2-2'  }}</td>
             <td class="buttons">
               <button
                 class="actionButton"
