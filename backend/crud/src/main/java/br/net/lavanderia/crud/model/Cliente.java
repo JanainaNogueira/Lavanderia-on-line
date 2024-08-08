@@ -14,6 +14,7 @@ public class Cliente {
     @NotBlank
     private String nome;
     @NotBlank
+    @Column(unique = true)
     private String cpf;
     @NotBlank
     private String endereco;

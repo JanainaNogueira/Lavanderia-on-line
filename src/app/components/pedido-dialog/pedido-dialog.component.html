@@ -1,23 +1,30 @@
 <h1 mat-dialog-title>Detalhes do Pedido</h1>
 <div mat-dialog-content>
-  <p><strong>ID:</strong> {{data.id}}</p>
-  <p><strong>Data:</strong> {{data.data}}</p>
-  <p><strong>Hora:</strong> {{data.hora}}</p>
-  <p><strong>Prazo:</strong> {{data.prazo}} dias</p>
-  <p><strong>Status:</strong> {{data.status}}</p>
-  <div *ngIf="data.roupas && data.roupas.length > 0">
-  <P><strong>Roupas no Pedido:</strong></P>
-    <ul>
-      <li *ngFor="let item of data.roupas">
-        <strong>Tipo:</strong> {{item.roupa.tipo}},
-        <strong>Quantidade:</strong> {{item.quantidade}},
-        <strong>Tempo:</strong> {{item.roupa.tempo}} minutos
+  <div class="dialog-content-section">
+    <p><strong>ID:</strong> {{ data.id }}</p>
+    <p><strong>Data:</strong> {{ data.data }}</p>
+    <p><strong>Hora:</strong> {{ data.hora }}</p>
+    <p><strong>Prazo:</strong> {{ data.prazo }} dias</p>
+    <p><strong>Status:</strong> {{ data.status }}</p>
+  </div>
+
+  <div
+    class="dialog-content-section"
+    *ngIf="data.roupas && data.roupas.length > 0"
+  >
+    <p><strong>Roupas no Pedido:</strong></p>
+    <ul *ngFor="let item of data.roupas">
+      <li>
+        <strong>Tipo:</strong> {{ item.roupa.tipo }},
+        <strong>Quantidade:</strong> {{ item.quantidade }},
+        <strong>Tempo:</strong> {{ item.roupa.tempo }} Dias
       </li>
     </ul>
   </div>
-  <p><strong>Preço Total:</strong> {{data.valor | currency:'BRL'}}</p>
+  <div class="dialog-content-section">
+    <p><strong>Preço Total:</strong> {{ data.valor | currency : "BRL" }}</p>
+  </div>
 </div>
 <div mat-dialog-actions>
-<button mat-button (click)="closeDialog()">Fechar</button>
+  <button mat-button (click)="closeDialog()">Fechar</button>
 </div>
-
