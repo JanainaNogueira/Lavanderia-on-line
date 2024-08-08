@@ -31,12 +31,14 @@ url para o cadastro de funcionario : http://localhost:8080/Funcionario
 `````
  {
     "id": 1,
-    "login": "menfislab@gmail.com",
-    "nome": "324242",
+    "login": "admin.lol@email.com",
+    "nome": "admin",
     "nascimento": "08/08/2024",
     "senha": "0000"
 },
 `````
+Ao se cadastrar uma senha é enviada para o seu email informado no cadastro para que seja possível logar no sistema.
+
 ## Mais ajuda
 
 Para obter mais ajuda sobre o Angular CLI, use `ng help` ou confira a página [Visão geral e referência de comando do Angular CLI](https://angular.io/cli).
