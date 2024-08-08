@@ -1,27 +1,43 @@
 # LavanderiaOnLine
+Sistema de gestão de uma lavanderia que coleta as roupas diretamente na casa do cliente atraves do pedido realizado na plataforma.
+O sistema possui armazenamento de daos de clientes, funcionarios, gerenciamento de pedidos e registro de pagamento do mesmo, além de ser possível gerar relatorios do periodo desejado. 
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.2.3.
+# Requisitos 
+* Este projeto foi gerado com [Angular CLI](https://github.com/angular/angular-cli) versão v17.2.3.
+* Versão do Node v20.10.0
+* Versão do java  v21.0.4
 
-## Development server
+# iniciando o projeto
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Ao baixar o repositorio rode
+`````
+npm intall
+``````
+## Servidor de desenvolvimento
+Para iniciar o servidor angular digite no terminal e navegue ate o endereço `http://localhost:4200/`.
+`````
+ng serve
+`````
+ A aplicação ira atualizar automaticamente a todas as alterações no projeto.
 
-## Code scaffolding
+## Rodando o Back-End
+Com a extensão instalado nas dependencias do vsCode, inicie o servidor. Você vera algo como isso na aba da extensão.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+![alt text](image-1.png)
 
-## Build
+## Avisos
+Ao iniciar o programa nenhum dado estara cadastrado, utilize o postman ou outro program de sua escolha para adicionar o seguinte funcionário mestre.
+url para o cadastro de funcionario : http://localhost:8080/Funcionario
+`````
+ {
+    "id": 1,
+    "login": "menfislab@gmail.com",
+    "nome": "324242",
+    "nascimento": "08/08/2024",
+    "senha": "0000"
+},
+`````
+## Mais ajuda
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Para obter mais ajuda sobre o Angular CLI, use `ng help` ou confira a página [Visão geral e referência de comando do Angular CLI](https://angular.io/cli).
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.

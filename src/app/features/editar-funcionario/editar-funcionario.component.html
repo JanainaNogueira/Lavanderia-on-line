@@ -15,7 +15,7 @@
       <div class="form-group">
         <mat-form-field appearance="fill">
           <mat-label>Nome</mat-label>
-          <input matInput type="text" placeholder="Digite seu nome" [(ngModel)]="funcionario.nome" name="nome" required>
+          <input matInput type="text" placeholder="Digite seu nome" [(ngModel)]="funcionario.nome" name="nome" required NomeValido>
           <mat-error *ngIf="formFuncionario.submitted && !funcionario.nome">
             Por favor preencha o nome
           </mat-error>
@@ -50,7 +50,7 @@
             <div *ngIf="senha.errors?.['pattern']">A senha deve ser numérica e conter 4 caracteres.</div>
           </small>
         </mat-form-field>
-      </div>      
+      </div>
       <div class="form-group">
         <button mat-raised-button color="primary" type="submit" [disabled]="loading || !formFuncionario.form.valid">
           <ng-container *ngIf="loading; else normalButton">
@@ -62,7 +62,7 @@
         </button>
         <a mat-raised-button color="secondary" (click)="navigateBack()">
           <mat-icon>arrow_back</mat-icon> Voltar
-        </a>               
+        </a>
       </div>
     </form>
   </div>
